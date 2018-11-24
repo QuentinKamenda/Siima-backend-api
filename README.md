@@ -1,6 +1,4 @@
 # Siima Backend API
-<br> Siima
-
 
 ### How to write a commit message:
 
