@@ -1,0 +1,11 @@
+{
+  "common": {
+    "API_ROUTE": "/siima"
+  },
+  "production": {
+    "PORT": 32145
+  },
+  "development": {
+    "PORT": 23196
+  }
+}
