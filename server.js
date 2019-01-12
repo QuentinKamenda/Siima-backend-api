@@ -8,8 +8,10 @@ import express from "express";
 import { json } from "body-parser";
 
 // TODO: Add routing groups here
-import user_routes from "./routes/user";
-import event_routes from "./routes/event";
+import users_routes from "./routes/users";
+import animators_routes from "./routes/animators";
+import hosts_routes from "./routes/hosts";
+import events_routes from "./routes/events";
 
 const PORT = process.env.PORT;
 const API_URL = process.env.API_ROUTE;
@@ -36,8 +38,10 @@ app.use((error, req, res, next) => {
 });
 
 // TODO: Add routing groups here
-app.use(API_URL + "/users", user_routes);
-app.use(API_URL + "/events", event_routes);
+app.use(API_URL + "/users", users_routes);
+app.use(API_URL + "/hosts", hosts_routes);
+app.use(API_URL + "/animators", animators_routes);
+app.use(API_URL + "/events", events_routes);
 
 app.all("*", (req, res) => {
     res.status(404).send();
