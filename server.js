@@ -1,24 +1,24 @@
-"user strict";
+"use strict";
 
 console.log("Starting API server");
 
-import "./config/config";
+require("./config/config");
 
-import express from "express";
-import { json } from "body-parser";
+const express = require("express");
+//import { json } from "body-parser";
 
 // TODO: Add routing groups here
-import users_routes from "./routes/users";
-import animators_routes from "./routes/animators";
-import hosts_routes from "./routes/hosts";
-import events_routes from "./routes/events";
+const users_routes = require("./routes/users");
+const animators_routes = require("./routes/animators");
+const hosts_routes = require("./routes/hosts");
+const events_routes = require("./routes/events");
 
 const PORT = process.env.PORT;
 const API_URL = process.env.API_ROUTE;
 
 
 const app = express();
-import cors from "cors";
+const cors = require("cors");
 
 app.disable("x-powered-by");
 app.use(json());
