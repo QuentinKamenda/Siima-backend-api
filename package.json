@@ -4,7 +4,7 @@
   "private": true,
   "description": "Backend API for the website of Siima",
   "engines": {
-    "node": "8.11.1"
+    "node": "10.15.0"
   },
   "main": "server.js",
   "scripts": {
