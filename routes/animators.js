@@ -4,11 +4,11 @@ const express = require("express");
 const router = express.Router();
 
 /// The API files
+/*
 const createAnimator = require("../api/animators/create_animator");
 const deleteAnimator = require("../api/animators/delete_animator");
 const getAnimator = require("../api/animators/get_animator");
 
-/*
 const setAnimatorName = require("../api/animators/set_animator_name");
 const setAnimatorLocation = require("../api/animators/set_animator_location");
 const setAnimatorDescription = require("../api/animators/set_animator_description");
@@ -47,7 +47,7 @@ const removeAllAnimatorLink = require("../api/animators/remove_all_animator_link
 const removeAllAnimatorContact = require("../api/animators/remove_all_animator_contact");
 const removeAllAnimatorMedium = require("../api/animators/remove_all_animator_medium");
 const removeAllAnimatorComment = require("../api/animators/remove_all_animator_comment");
-*/
+
 // The current hierarchy is at /animators
 
 // The routing
@@ -60,5 +60,6 @@ router.delete("/:animatorId", (req, res) => {
 router.get("/:animatorId", (req, res) => {
     getAnimator.call(req, res);
 });
+*/
 
 module.exports = router;

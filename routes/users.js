@@ -4,9 +4,9 @@ const express = require("express");
 const router = express.Router();
 
 // The API files
+/*
 const createUser = require("../api/users/create_user");
 const deleteUser = require("../api/users/delete_user");
-
 const getUser = require("../api/users/get_user");
 
 const getUserName = require("../api/users/get_user_name");
@@ -59,5 +59,5 @@ router.get("/:userId/birthdate", (req, res) => {
 router.get("/:userId/photo", (req, res) => {
     getUserProfilePicture.call(req, res);
 });
-
+*/
 module.exports = router;

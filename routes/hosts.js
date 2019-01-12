@@ -4,11 +4,11 @@ const express = require("express");
 const router = express.Router();
 
 /// The API files
+/*
 const createHost = require("../api/hosts/create_host");
 const deleteHost = require("../api/hosts/delete_host");
 const getHost = require("../api/hosts/get_host");
 
-/*
 const setHostName = require("../api/hosts/set_host_name");
 const setHostLocation = require("../api/hosts/set_host_location");
 const setHostDescription = require("../api/hosts/set_host_description");
@@ -47,7 +47,6 @@ const removeAllHostLink = require("../api/hosts/remove_all_host_link");
 const removeAllHostContact = require("../api/hosts/remove_all_host_contact");
 const removeAllHostMedium = require("../api/hosts/remove_all_host_medium");
 const removeAllHostComment = require("../api/hosts/remove_all_host_comment");
-*/
 
 // The current hierarchy is at /hosts
 
@@ -61,5 +60,6 @@ router.delete("/:hostId", (req, res) => {
 router.get("/:hostId", (req, res) => {
     getHost.call(req, res);
 });
+*/
 
 module.exports = router;
