@@ -5,7 +5,7 @@ console.log("Starting API server");
 require("./config/config");
 
 const express = require("express");
-//import { json } from "body-parser";
+const json = require("body-parser");
 
 // TODO: Add routing groups here
 const users_routes = require("./routes/users");
