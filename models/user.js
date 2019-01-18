@@ -12,12 +12,18 @@ const UserSchema = new Schema({
   Preference:[PreferenceSchema],
   activated: { type : Boolean, required : true},
   accessToken: { type: String } ,
-  activateToken: { type: String }
+  activateToken: { type: String },
+  setting:[SettingSchema];
 });
 
 const PreferenceSchema = new Schema({
     name: String,
     weight: Number
+});
+
+const SettingSchema = new Schema({
+    name: String,
+    bool: Boolean,
 });
 
 const User = mongoose.model('user', UserSchema);
