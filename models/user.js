@@ -9,7 +9,10 @@ const UserSchema = new Schema({
   name: { type: String, required: true, unique: true},
   host: [{ type : ObjectId, ref: 'host' }],
   animator: [{ type : ObjectId, ref: 'animator' }],
-  Preference:[PreferenceSchema]
+  Preference:[PreferenceSchema],
+  activated: { type : Boolean, required : true},
+  accessToken: { type: String } ,
+  activateToken: { type: String }
 });
 
 const PreferenceSchema = new Schema({
