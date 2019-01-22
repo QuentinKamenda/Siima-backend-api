@@ -26,19 +26,10 @@ const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/siima_db');
 mongoose.connection.once('open', function(){
-    console.log('Connection has been made to ');
-    done();
+    console.log('Connection has been made to siima_db');
 }).on('error', function(error){
     console.log('Connection error: mongoDB', error);
 });
-
-
-
-
-
-
-
-
 
 app.disable("x-powered-by");
 app.use(json());
