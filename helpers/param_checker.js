@@ -44,7 +44,8 @@ module.exports.checkParameters = function (req, apiType) {
                             let response = {
                                 isInternal: false,
                                 message: "invalid username: invalid format (only a-z, A-Z and 0-9 allowed)"
-                            }
+                            };
+                            throw response;
                         }
                     }
                     // Verifies the password
@@ -66,7 +67,8 @@ module.exports.checkParameters = function (req, apiType) {
                             let response = {
                                 isInternal: false,
                                 message: "invalid password: invalid format (should contains from 8 to 20 characters with at least: 1 lowercase letter, 1 uppercase letter, 1 number and 1 special character @#$%-_&)"
-                            }
+                            };
+                            throw response;
                         }
                     }
                     // Verifies the mail address
@@ -88,7 +90,8 @@ module.exports.checkParameters = function (req, apiType) {
                             let response = {
                                 isInternal: false,
                                 message: "invalid mail address: invalid format"
-                            }
+                            };
+                            throw response;
                         }
                     }
                 }
@@ -141,7 +144,7 @@ function verifyUsernameFormat(username){
  * @return {boolean}          true if the format is correct ; false if incorrect
  */
 function verifyPasswordFormat(password){
-    var passwordRegex = /((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#_\-$&%]).{6,20})/;
+    var passwordRegex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#_\-$&%]).{6,20}/;
     var validPassword = password.match(passwordRegex);
     return (validPassword == password)
 }
@@ -157,6 +160,4 @@ function verifyMailFormat(mail){
     var mailRegex = /^[a-zA-Z0-9_+&*-]+(?:\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,7}$/;
     var validMail = mail.match(mailRegex);
     return (validMail == mail)
-}
-
 }
