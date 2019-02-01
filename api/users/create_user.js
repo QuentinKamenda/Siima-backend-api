@@ -9,7 +9,7 @@ module.exports.call = function (req, res) {
 
     paramCheck.checkParameters(req, functionName)
       .then(() => {
-          console.log("Parameters checked successfully.");
+          console.log(functionName + " - Parameters checked successfully.");
           let userInformation = {
             username: req.body.username,
             mail: req.body.mail
