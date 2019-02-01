@@ -20,8 +20,8 @@ const setUserMail = require("../api/users/set_user_mail");
 const setUserPassword = require("../api/users/set_user_password");
 const setUserBirthdate = require("../api/users/set_user_birthdate");
 const setUserProfilePicture = require("../api/users/set_user_profile_picture");
-
 */
+
 // The routing
 router.post("/", (req, res) => {
     createUser.call(req, res);
