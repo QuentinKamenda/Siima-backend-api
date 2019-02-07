@@ -94,6 +94,29 @@ module.exports.checkParameters = function (req, apiType) {
                             throw response;
                         }
                     }
+                    // Verifies the mail address
+                    if (checkItem === "userId_param"){
+                        if (req.params.userId === undefined || req.params.userId === "") {
+                            let response = {
+                                isInternal: false,
+                                message: "missing userId"
+                            };
+                            throw response;
+                        }/*
+                        else if ((typeof req.params.userId) !== "integer"){
+                            let response = {
+                                isInternal: false,
+                                message: "invalid userId: not an integer"
+                            };
+                            throw response;
+                        }else if (!verifyMailFormat(req.body.mail)){
+                            let response = {
+                                isInternal: false,
+                                message: "invalid mail address: invalid format"
+                            };
+                            throw response;
+                        }*/
+                    }
                 }
             }
         }catch(err) {
@@ -115,6 +138,9 @@ module.exports.checkParameters = function (req, apiType) {
 function decideChecklistItems(apiType) {
     if (apiType === "create-user"){
         return ["username", "password", "mail"];
+    }
+    if (apiType === "get-user"){
+        return ["userId_param"];
     }
     // TODO: Add Checklist for each API
 }

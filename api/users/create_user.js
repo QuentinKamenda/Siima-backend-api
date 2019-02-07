@@ -2,6 +2,7 @@
 const paramCheck = require("../../helpers/param_checker");
 const errorHandler = require("../../helpers/error_handler");
 
+const User = require("../../models/user");
 
 module.exports.call = function (req, res) {
 
@@ -10,11 +11,14 @@ module.exports.call = function (req, res) {
     paramCheck.checkParameters(req, functionName)
       .then(() => {
           console.log(functionName + " - Parameters checked successfully.");
-          let userInformation = {
+          let userInformation = new User({
             username: req.body.username,
             mail: req.body.mail
-          };
+          });
           return userInformation;
+      })
+      .then(userInfo => {
+          userInfo.save().then(() => {return userInfo});
       })
       .then(userInfo => {
           let response = {
