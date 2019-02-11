@@ -17,10 +17,12 @@ module.exports.call = function (req, res) {
           return userId;
       })
       .then(userId => {
-        console.log(userId);
           User.findOne(userId).then(result => {
             if (result === null) {
-              result = {error: "No user found"};
+              result = {
+                status: "fail",
+                message: "No user found with this id"
+              };
             }
             return result;
           })

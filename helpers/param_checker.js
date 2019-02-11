@@ -94,7 +94,7 @@ module.exports.checkParameters = function (req, apiType) {
                             throw response;
                         }
                     }
-                    // Verifies the mail address
+                    // Verifies the user id
                     if (checkItem === "userId_param"){
                         if (req.params.userId === undefined || req.params.userId === "") {
                             let response = {
@@ -102,20 +102,14 @@ module.exports.checkParameters = function (req, apiType) {
                                 message: "missing userId"
                             };
                             throw response;
-                        }/*
-                        else if ((typeof req.params.userId) !== "integer"){
+                        }
+                        else if (!verifyObjectIdFormat(req.params.userId)){
                             let response = {
                                 isInternal: false,
-                                message: "invalid userId: not an integer"
+                                message: "invalid user id: invalid format"
                             };
                             throw response;
-                        }else if (!verifyMailFormat(req.body.mail)){
-                            let response = {
-                                isInternal: false,
-                                message: "invalid mail address: invalid format"
-                            };
-                            throw response;
-                        }*/
+                        }
                     }
                 }
             }
@@ -186,4 +180,20 @@ function verifyMailFormat(mail){
     var mailRegex = /^[a-zA-Z0-9_+&*-]+(?:\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,7}$/;
     var validMail = mail.match(mailRegex);
     return (validMail == mail)
+}
+
+
+/**
+ * verifyObjectIdFormat - Verifies the format of the input of type "objectId" (MongoDB format of 24 bytes
+    a 4-byte value representing the seconds since the Unix epoch,
+    a 5-byte random value, and
+    a 3-byte counter, starting with a random value.)
+ *
+ * @param  {string} userId the userId to verify
+ * @return {boolean}        true if the format is correct ; false if incorrect
+ */
+function verifyObjectIdFormat(userId){
+    var objectIdRegex = new RegExp("^[0-9a-fA-F]{24}$");
+    var validObjectId = userId.match(objectIdRegex);
+    return (validObjectId == userId)
 }
