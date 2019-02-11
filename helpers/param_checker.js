@@ -136,6 +136,18 @@ function decideChecklistItems(apiType) {
     if (apiType === "get-user"){
         return ["userId_param"];
     }
+    if (apiType === "set-user-mail"){
+        return ["userId_param", "mail"];
+    }
+    if (apiType === "set-user-name"){
+        return ["userId_param", "username"];
+    }
+    if (apiType === "get-user-mail"){
+        return ["userId_param"];
+    }
+    if (apiType === "get-user-name"){
+        return ["userId_param"];
+    }
     // TODO: Add Checklist for each API
 }
 
