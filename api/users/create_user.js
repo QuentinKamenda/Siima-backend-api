@@ -18,15 +18,14 @@ module.exports.call = function (req, res) {
           return userInformation;
       })
       .then(userInfo => {
-          userInfo.save().then(() => {return userInfo});
-      })
-      .then(userInfo => {
-          let response = {
-            status: "success",
-            message: "user created",
-            userInformation: userInfo
-          };
-          res.json(response);
+          userInfo.save().then(userInfo => {
+              let response = {
+                status: "success",
+                message: "user created",
+                userInformation: userInfo
+              };
+              res.json(response);
+          })
       })
       .catch(error => {
           console.log(`Error caught in ` + functionName + ` - ${error.message}`);
