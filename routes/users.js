@@ -30,7 +30,7 @@ router.post("/", (req, res) => {
 router.delete("/:userId", (req, res) => {
     deleteUser.call(req, res);
 });
-router.put("/:userId/name", (req, res) => {
+router.put("/:userId/username", (req, res) => {
     setUserName.call(req, res);
 });
 router.put("/:userId/mail", (req, res) => {
@@ -50,7 +50,7 @@ router.put("/:userId/photo", (req, res) => {
 router.get("/:userId", (req, res) => {
     getUser.call(req, res);
 });
-router.get("/:userId/name", (req, res) => {
+router.get("/:userId/username", (req, res) => {
     getUserName.call(req, res);
 });
 router.get("/:userId/mail", (req, res) => {

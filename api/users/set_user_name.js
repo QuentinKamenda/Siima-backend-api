@@ -22,13 +22,22 @@ module.exports.call = function (req, res) {
               result = {
                 status: "fail",
                 message: "No user found with this id"
-              };
+              }
+              res.json(result)
             }
-            return result;
-          })
-          .then(userInfo => {
-              //TODO: Set a new username to this user
-              res.json(userInfo);
+            else {
+              let previous = result;
+              User.findOneAndUpdate( {_id: req.params.userId} , { username: req.body.username }).then(
+                result = {
+                  status: "success",
+                  message: "User updated",
+                  _id: req.params.userId,
+                  previous_user: previous,
+                  new_username: req.body.username
+                }
+              )
+              res.json(result)
+            }
           })
         })
       .catch(error => {
