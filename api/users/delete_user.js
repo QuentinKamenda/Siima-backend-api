@@ -25,10 +25,12 @@ module.exports.call = function (req, res) {
               };
             }
             else {
+              let removed = result;
               result.remove();
               result = {
                 status: "success",
-                message: "User deleted"
+                message: "User deleted",
+                removed: removed
               };
             }
             res.json(result);
