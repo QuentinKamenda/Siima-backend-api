@@ -13,13 +13,13 @@ const getUserMail = require("../api/users/get_user_mail");
 
 const setUserName = require("../api/users/set_user_name");
 const setUserMail = require("../api/users/set_user_mail");
+const setUserBirthdate = require("../api/users/set_user_birthdate");
 /*
 const getUserPassword = require("../api/users/get_user_password");
 const getUserBirthdate = require("../api/users/get_user_birthdate");
 const getUserProfilePicture = require("../api/users/get_user_profile_picture");
 
 const setUserPassword = require("../api/users/set_user_password");
-const setUserBirthdate = require("../api/users/set_user_birthdate");
 const setUserProfilePicture = require("../api/users/set_user_profile_picture");
 */
 
@@ -36,10 +36,10 @@ router.put("/:userId/username", (req, res) => {
 router.put("/:userId/mail", (req, res) => {
     setUserMail.call(req, res);
 });
-/*
 router.put("/:userId/birthdate", (req, res) => {
     setUserBirthdate.call(req, res);
 });
+/*
 router.put("/:userId/password", (req, res) => {
     setUserPassword.call(req, res);
 });

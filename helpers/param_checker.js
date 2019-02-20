@@ -94,6 +94,29 @@ module.exports.checkParameters = function (req, apiType) {
                             throw response;
                         }
                     }
+                    // Verifies the gender
+                    if (checkItem === "birthdate"){
+                        if (req.body.birthdate === undefined || req.body.birthdate === "") {
+                            let response = {
+                                isInternal: false,
+                                message: "missing birthdate"
+                            };
+                            throw response;
+
+                        }else if ((typeof req.body.birthdate) !== "string"){
+                            let response = {
+                                isInternal: false,
+                                message: "invalid birthdate format: not a string"
+                            };
+                            throw response;
+                        }else if (!verifyDateFormat(req.body.birthdate)){
+                            let response = {
+                                isInternal: false,
+                                message: "invalid birthdate: invalid format (should be de Date type object)"
+                            };
+                            throw response;
+                        }
+                    }
                     // Verifies the user id
                     if (checkItem === "userId_param"){
                         if (req.params.userId === undefined || req.params.userId === "") {
@@ -144,6 +167,9 @@ function decideChecklistItems(apiType) {
     }
     if (apiType === "set-user-name"){
         return ["userId_param", "username"];
+    }
+    if (apiType === "set-user-birthdate"){
+        return ["userId_param", "birthdate"];
     }
     if (apiType === "get-user-mail"){
         return ["userId_param"];
@@ -197,6 +223,19 @@ function verifyMailFormat(mail){
     return (validMail == mail)
 }
 
+
+/**
+ * verifyDateFormat - Verifies the format of the input of type "date" (DD/MM/YYYY)
+ *
+ * @param  {string} date the date to verify
+ * @return {boolean}      true if the format is correct ; false if incorrect
+ */
+function verifyDateFormat(date){
+    // TODO: find Regex Date
+    var dateRegex = /^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/;
+    var validDate = date.match(dateRegex)[0];
+    return (validDate == date)
+}
 
 /**
  * verifyObjectIdFormat - Verifies the format of the input of type "objectId" (MongoDB format of 24 bytes
