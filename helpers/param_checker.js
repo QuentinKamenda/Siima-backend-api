@@ -136,6 +136,9 @@ function decideChecklistItems(apiType) {
     if (apiType === "get-user"){
         return ["userId_param"];
     }
+    if (apiType === "delete-user"){
+        return ["userId_param"];
+    }
     if (apiType === "set-user-mail"){
         return ["userId_param", "mail"];
     }

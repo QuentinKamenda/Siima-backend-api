@@ -5,7 +5,7 @@ const router = express.Router();
 
 // The API files
 const createUser = require("../api/users/create_user");
-//const deleteUser = require("../api/users/delete_user");
+const deleteUser = require("../api/users/delete_user");
 const getUser = require("../api/users/get_user");
 
 const getUserName = require("../api/users/get_user_name");
@@ -27,11 +27,9 @@ const setUserProfilePicture = require("../api/users/set_user_profile_picture");
 router.post("/", (req, res) => {
     createUser.call(req, res);
 });
-/*
 router.delete("/:userId", (req, res) => {
     deleteUser.call(req, res);
 });
-*/
 router.put("/:userId/name", (req, res) => {
     setUserName.call(req, res);
 });
