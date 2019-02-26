@@ -177,6 +177,9 @@ function decideChecklistItems(apiType) {
     if (apiType === "get-user-name"){
         return ["userId_param"];
     }
+    if (apiType === "get-user-birthdate"){
+        return ["userId_param"];
+    }
     if (apiType === "add-user-friend"){
         return ["userId_param"];
     }

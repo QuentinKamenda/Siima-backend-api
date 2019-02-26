@@ -10,6 +10,7 @@ const getUser = require("../api/users/get_user");
 
 const getUserName = require("../api/users/get_user_name");
 const getUserMail = require("../api/users/get_user_mail");
+const getUserBirthdate = require("../api/users/get_user_birthdate");
 
 const setUserName = require("../api/users/set_user_name");
 const setUserMail = require("../api/users/set_user_mail");
@@ -18,10 +19,8 @@ const setUserBirthdate = require("../api/users/set_user_birthdate");
 const addUserFriend = require("../api/users/add_user_friend");
 /*
 const getUserPassword = require("../api/users/get_user_password");
-const getUserBirthdate = require("../api/users/get_user_birthdate");
 const getUserProfilePicture = require("../api/users/get_user_profile_picture");
 
-const setUserPassword = require("../api/users/set_user_password");
 const setUserProfilePicture = require("../api/users/set_user_profile_picture");
 */
 
@@ -62,13 +61,10 @@ router.get("/:userId/username", (req, res) => {
 router.get("/:userId/mail", (req, res) => {
     getUserMail.call(req, res);
 });
-/*
-router.get("/:userId/password", (req, res) => {
-    getUserPassword.call(req, res);
-});
 router.get("/:userId/birthdate", (req, res) => {
     getUserBirthdate.call(req, res);
 });
+/*
 router.get("/:userId/photo", (req, res) => {
     getUserProfilePicture.call(req, res);
 });
