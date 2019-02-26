@@ -22,6 +22,17 @@ const API_URL = process.env.API_ROUTE;
 const app = express();
 const cors = require("cors");
 
+const mongoose = require('mongoose');
+
+// ES6 Promises
+mongoose.Promise = global.Promise;
+mongoose.connect('mongodb://localhost/siima_db');
+mongoose.connection.once('open', function(){
+    console.log('Connection has been made to siima_db');
+}).on('error', function(error){
+    console.log('Connection error: mongoDB', error);
+});
+
 app.disable("x-powered-by");
 app.use(json());
 app.use(cors());

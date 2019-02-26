@@ -8,15 +8,17 @@
   },
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "author": "Quentin KAMENDA",
   "license": "UNLICENSED",
   "dependencies": {
-    "body-parser": "~1.18.2",
-    "cors": "^2.8.4",
-    "express": "~4.16.3",
-    "http-shutdown": "~1.2.0",
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "http-shutdown": "^1.2.0",
+    "mongodb": "^3.1.10",
+    "mongoose": "^5.4.3",
     "request": "~2.85.0",
     "request-promise": "~4.2.2"
   },
