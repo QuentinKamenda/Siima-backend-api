@@ -29,11 +29,11 @@ router.post("/", (req, res) => {
     createUser.call(req, res);
 });
 
-router.post("/validate", (req,res) => {
+router.post("/:userId/validate", (req,res) => {
     validateUser.call(req, res);
 });
 
-router.post("/signin", (req,res) => {
+router.post("/:userId/signin", (req,res) => {
     signinUser.call(req, res);
 });
 
