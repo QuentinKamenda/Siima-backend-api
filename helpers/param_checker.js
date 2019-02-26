@@ -183,6 +183,9 @@ function decideChecklistItems(apiType) {
     if (apiType === "add-user-friend"){
         return ["userId_param"];
     }
+    if (apiType === "remove-user-friend"){
+        return ["userId_param"];
+    }
     // TODO: Add Checklist for each API
 }
 

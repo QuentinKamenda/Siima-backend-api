@@ -17,6 +17,7 @@ const setUserMail = require("../api/users/set_user_mail");
 const setUserBirthdate = require("../api/users/set_user_birthdate");
 
 const addUserFriend = require("../api/users/add_user_friend");
+const removeUserFriend = require("../api/users/remove_user_friend");
 /*
 const getUserPassword = require("../api/users/get_user_password");
 const getUserProfilePicture = require("../api/users/get_user_profile_picture");
@@ -43,6 +44,9 @@ router.put("/:userId/birthdate", (req, res) => {
 
 router.post("/:userId/friends", (req, res) => {
     addUserFriend.call(req, res);
+});
+router.delete("/:userId/friends", (req, res) => {
+    removeUserFriend.call(req, res);
 });
 /*
 router.put("/:userId/password", (req, res) => {

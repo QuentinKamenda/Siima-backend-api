@@ -8,7 +8,7 @@ const UserSchema = new Schema({
   host: [{ type : mongoose.Schema.Types.ObjectId, ref: 'host' }],
   animator: [{ type : mongoose.Schema.Types.ObjectId, ref: 'animator' }],
   birthdate: {type: String, default: "01/01/1900", required: false},
-  friends: [ String ]
+  friends: [ {mail: String} ]
 });
 
 
