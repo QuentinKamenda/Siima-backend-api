@@ -15,3 +15,5 @@ let envConfig = config[env];
 for (let property in envConfig) {
     process.env[property] = envConfig[property];
 }
+
+module.exports = config;

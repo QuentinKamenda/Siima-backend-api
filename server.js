@@ -2,7 +2,9 @@
 
 console.log("Starting API server");
 
-require("./config/config");
+const config = require("./config/config");
+var firebase = require("firebase");
+
 
 const express = require("express");
 const json = require("body-parser");
@@ -23,6 +25,11 @@ const cors = require("cors");
 app.disable("x-powered-by");
 app.use(json());
 app.use(cors());
+
+let firebaseConfig = config.firebase;
+firebase.initializeApp(firebaseConfig);
+const helper1 = require("./helpers/firebase");
+helper1.initfire();
 
 //Detect JSON format errouser
 app.use((error, req, res, next) => {

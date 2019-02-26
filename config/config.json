@@ -7,5 +7,26 @@
   },
   "development": {
     "PORT": 23196
+  },
+  "firebase":{
+      "apiKey": "AIzaSyBn_jSjZeWHGbYcqoHmqIlNqYd-ZHXycbY",
+      "authDomain": "siima-9f9cd.firebaseapp.com",
+      "databaseURL": "https://siima-9f9cd.firebaseio.com",
+      "projectId": "siima-9f9cd",
+      "storageBucket": "siima-9f9cd.appspot.com",
+      "messagingSenderId": "836006051182"
+  },
+  "actionCodeSettings" : {
+    "url": "https://127.0.0.1:23196/siima/users/validate",
+    "handleCodeInApp": true,
+    "iOS": {
+      "bundleId": "com.siima.ios"
+    },
+    "android": {
+      "packageName": "com.siima.android",
+      "installApp": true,
+      "minimumVersion": "12"
+    },
+    "dynamicLinkDomain": "siima.page.link"
   }
 }
