@@ -94,6 +94,116 @@ module.exports.checkParameters = function (req, apiType) {
                             throw response;
                         }
                     }
+                    // Verifies the gender
+                    if (checkItem === "birthdate"){
+                        if (req.body.birthdate === undefined || req.body.birthdate === "") {
+                            let response = {
+                                isInternal: false,
+                                message: "missing birthdate"
+                            };
+                            throw response;
+
+                        }else if ((typeof req.body.birthdate) !== "string"){
+                            let response = {
+                                isInternal: false,
+                                message: "invalid birthdate format: not a string"
+                            };
+                            throw response;
+                        }else if (!verifyDateFormat(req.body.birthdate)){
+                            let response = {
+                                isInternal: false,
+                                message: "invalid birthdate: invalid format (should be de Date type object)"
+                            };
+                            throw response;
+                        }
+                    }
+                    // Verifies the user id
+                    if (checkItem === "userId_param"){
+                        if (req.params.userId === undefined || req.params.userId === "") {
+                            let response = {
+                                isInternal: false,
+                                message: "missing userId"
+                            };
+                            throw response;
+                        }
+                        else if (!verifyObjectIdFormat(req.params.userId)){
+                            let response = {
+                                isInternal: false,
+                                message: "invalid user id: invalid format"
+                            };
+                            throw response;
+                        }
+                    }
+                    // Verifies the name
+                    if (checkItem === "name"){
+                        if (req.body.name === undefined || req.body.name === "") {
+                            let response = {
+                                isInternal: false,
+                                message: "missing name"
+                            };
+                            throw response;
+                        }else if ((typeof req.body.name) !== "string"){
+                            let response = {
+                                isInternal: false,
+                                message: "invalid name: not a string"
+                            };
+                            throw response;
+                        }else if (!verifyStringFormat(req.body.name)){
+                            let response = {
+                                isInternal: false,
+                                message: "invalid name: invalid format (forbidden characters)"
+                            };
+                            throw response;
+                        }
+                    }
+                    // Verifies the creator
+                    if (checkItem === "creator"){
+                        if (req.body.creator === undefined || req.body.creator === "") {
+                            let response = {
+                                isInternal: false,
+                                message: "missing creator"
+                            };
+                            throw response;
+                        }else if ((typeof req.body.creator) !== "string"){
+                            let response = {
+                                isInternal: false,
+                                message: "invalid creator: not a string"
+                            };
+                            throw response;
+                        }
+                    }
+                    // Verifies the description
+                    if (checkItem === "description"){
+                        if (req.body.description === undefined || req.body.description === "") {
+                            let response = {
+                                isInternal: false,
+                                message: "missing description"
+                            };
+                            throw response;
+                        }else if ((typeof req.body.description) !== "string"){
+                            let response = {
+                                isInternal: false,
+                                message: "invalid description: not a string"
+                            };
+                            throw response;
+                        }
+                    }// Verifies the phone number
+                    if (checkItem === "phone"){
+                        if (req.body.phone === undefined || req.body.phone === "") {
+                            let response = {
+                                isInternal: false,
+                                message: "missing phone number"
+                            };
+                            throw response;
+                        }else if ((typeof req.body.phone) !== "string"){
+                            let response = {
+                                isInternal: false,
+                                message: "invalid phone number: not a string"
+                            };
+                            throw response;
+                        }
+                        //TODO: Verify the format (care of the international/simplified format !!)
+                    }
                 }
             }
         }catch(err) {
@@ -115,6 +225,39 @@ module.exports.checkParameters = function (req, apiType) {
 function decideChecklistItems(apiType) {
     if (apiType === "create-user"){
         return ["username", "password", "mail"];
+    }
+    if (apiType === "get-user"){
+        return ["userId_param"];
+    }
+    if (apiType === "delete-user"){
+        return ["userId_param"];
+    }
+    if (apiType === "set-user-mail"){
+        return ["userId_param", "mail"];
+    }
+    if (apiType === "set-user-name"){
+        return ["userId_param", "username"];
+    }
+    if (apiType === "set-user-birthdate"){
+        return ["userId_param", "birthdate"];
+    }
+    if (apiType === "get-user-mail"){
+        return ["userId_param"];
+    }
+    if (apiType === "get-user-name"){
+        return ["userId_param"];
+    }
+    if (apiType === "get-user-birthdate"){
+        return ["userId_param"];
+    }
+    if (apiType === "add-user-friend"){
+        return ["userId_param"];
+    }
+    if (apiType === "remove-user-friend"){
+        return ["userId_param"];
+    }
+    if (apiType === "create-animator"){
+        return ["name","description","mail","phone","creator"];
     }
     // TODO: Add Checklist for each API
 }
@@ -160,4 +303,32 @@ function verifyMailFormat(mail){
     var mailRegex = /^[a-zA-Z0-9_+&*-]+(?:\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,7}$/;
     var validMail = mail.match(mailRegex);
     return (validMail == mail)
+}
+
+/**
+ * verifyDateFormat - Verifies the format of the input of type "date" (DD/MM/YYYY)
+ *
+ * @param  {string} date the date to verify
+ * @return {boolean}      true if the format is correct ; false if incorrect
+ */
+function verifyDateFormat(date){
+    // TODO: find Regex Date
+    var dateRegex = /^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/;
+    var validDate = date.match(dateRegex)[0];
+    return (validDate == date)
+}
+
+/**
+ * verifyObjectIdFormat - Verifies the format of the input of type "objectId" (MongoDB format of 24 bytes
+    a 4-byte value representing the seconds since the Unix epoch,
+    a 5-byte random value, and
+    a 3-byte counter, starting with a random value.)
+ *
+ * @param  {string} userId the userId to verify
+ * @return {boolean}        true if the format is correct ; false if incorrect
+ */
+function verifyObjectIdFormat(userId){
+    var objectIdRegex = new RegExp("^[0-9a-fA-F]{24}$");
+    var validObjectId = userId.match(objectIdRegex);
+    return (validObjectId == userId)
 }

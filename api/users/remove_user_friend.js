@@ -6,7 +6,7 @@ const User = require("../../models/user");
 
 module.exports.call = function (req, res) {
 
-    let functionName = "set-user-mail";
+    let functionName = "remove-user-friend";
 
     paramCheck.checkParameters(req, functionName)
       .then(() => {
@@ -27,16 +27,16 @@ module.exports.call = function (req, res) {
             }
             else {
               let previous = result;
-              User.findOneAndUpdate( {_id: req.params.userId} , { mail: req.body.mail }).then(
-                result = {
-                  status: "success",
-                  message: "User updated",
-                  _id: req.params.userId,
-                  previous_user: previous,
-                  new_mail: req.body.mail
-                }
-              )
-              res.json(result)
+              result.friends.pull(req.body.friend);
+              result.save();
+              response = {
+                status: "success",
+                message: "User updated",
+                _id: req.params.userId,
+                previous_user: previous,
+                friend_removed: req.body.friend
+              }
+              res.json(response)
             }
           })
         })
