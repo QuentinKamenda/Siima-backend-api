@@ -3,15 +3,22 @@ const Schema = mongoose.Schema;
 
 const eventSchema = new Schema(
   name: { type: String, required: true},
-  participant: [{ type : mongoose.Schema.Types.ObjectId, ref: 'User' }],
-  animator: [{ type : mongoose.Schema.Types.ObjectId, ref: 'Animator' }],
+  tags: [{type: String, required: false}],
+  participant: [{ type : Schema.Types.ObjectId, ref: 'User' }],
+  animator: [{ type : Schema.Types.ObjectId, ref: 'Animator' }],
   host:[{type : Schema.Types.ObjectId, ref: 'Host'}],
-  admin: [{ type : mongoose.Schema.Types.ObjectId, ref: 'User' }],
+  admin: [{ type : Schema.Types.ObjectId, ref: 'User' }],
   description: { type: String},
-  date: {type: Date, default: Date.now , required: true },
+  media:{type: Schema.Types.ObjectId , ref : 'Media'},
+  date: evenDate,
+  price: Number,
+  links: [ {type:Schema.Types.ObjectId, ref:'Link'}],
+  facilities: [type: String],
+  remainingPlaces: Number,
   lieu: {type : String , required: true}
+
 },{timestamps : true});
 
-const Event = mongoose.model('Event', UserSchema);
+const event = mongoose.model('Event', eventSchema);
 
-module.exports = User;
+module.exports = event;

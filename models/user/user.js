@@ -5,9 +5,11 @@ const userSchema = new Schema({
   username: { type: String, required: true},
   email: { type: String, required: true},
   birthday :Date,
-  friends:[{type: Schema.type.ObjectId, ref: 'Friend'}]
+  friends:[{type: Schema.Types.ObjectId, ref: 'Friend'}],
+  hosts:[{type: Schema.Types.ObjectId, ref: 'Host'}],
+  animators:[{type: Schema.types.ObjectId, ref: 'Animator'}]
 },{timestamps : true});
 
-const user = mongoose.model('User', hostSchema);
+const user = mongoose.model('User', userSchema);
 
 module.exports = user;
