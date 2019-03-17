@@ -5,7 +5,6 @@ console.log("Starting API server");
 const config = require("./config/config");
 var firebase = require("firebase");
 
-
 const express = require("express");
 const json = require("body-parser");
 
@@ -17,7 +16,6 @@ const events_routes = require("./routes/events");
 
 const PORT = process.env.PORT;
 const API_URL = process.env.API_ROUTE;
-
 
 const app = express();
 const cors = require("cors");

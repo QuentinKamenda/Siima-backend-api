@@ -6,7 +6,7 @@ const User = require("../../models/user");
 
 module.exports.call = function (req, res) {
 
-    let functionName = "set-user-mail";
+    let functionName = "add-user-friend";
 
     paramCheck.checkParameters(req, functionName)
       .then(() => {
@@ -27,16 +27,27 @@ module.exports.call = function (req, res) {
             }
             else {
               let previous = result;
-              User.findOneAndUpdate( {_id: req.params.userId} , { mail: req.body.mail }).then(
-                result = {
-                  status: "success",
-                  message: "User updated",
-                  _id: req.params.userId,
-                  previous_user: previous,
-                  new_mail: req.body.mail
-                }
-              )
-              res.json(result)
+              User.findOne({mail: req.body.friend}).then(friendToAdd => {
+                  if (friendToAdd === null) {
+                      result = {
+                        status: "fail",
+                        message: "No user registered with this mail address"
+                      }
+                      res.json(result)
+                  }
+                  else {
+                    result.friends.push(req.body.friend);
+                    result.save();
+                    response = {
+                      status: "success",
+                      message: "User updated",
+                      _id: req.params.userId,
+                      previous_user: previous,
+                      friend_added: req.body.friend
+                    }
+                    res.json(response)
+                  }
+              })
             }
           })
         })
