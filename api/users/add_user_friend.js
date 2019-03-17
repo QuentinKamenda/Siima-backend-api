@@ -43,7 +43,7 @@ module.exports.call = function (req, res) {
                       message: "User updated",
                       _id: req.params.userId,
                       previous_user: previous,
-                      new_mail: req.body.friend
+                      friend_added: req.body.friend
                     }
                     res.json(response)
                   }

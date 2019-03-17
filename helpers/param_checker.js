@@ -134,6 +134,76 @@ module.exports.checkParameters = function (req, apiType) {
                             throw response;
                         }
                     }
+                    // Verifies the name
+                    if (checkItem === "name"){
+                        if (req.body.name === undefined || req.body.name === "") {
+                            let response = {
+                                isInternal: false,
+                                message: "missing name"
+                            };
+                            throw response;
+                        }else if ((typeof req.body.name) !== "string"){
+                            let response = {
+                                isInternal: false,
+                                message: "invalid name: not a string"
+                            };
+                            throw response;
+                        }else if (!verifyStringFormat(req.body.name)){
+                            let response = {
+                                isInternal: false,
+                                message: "invalid name: invalid format (forbidden characters)"
+                            };
+                            throw response;
+                        }
+                    }
+                    // Verifies the creator
+                    if (checkItem === "creator"){
+                        if (req.body.creator === undefined || req.body.creator === "") {
+                            let response = {
+                                isInternal: false,
+                                message: "missing creator"
+                            };
+                            throw response;
+                        }else if ((typeof req.body.creator) !== "string"){
+                            let response = {
+                                isInternal: false,
+                                message: "invalid creator: not a string"
+                            };
+                            throw response;
+                        }
+                    }
+                    // Verifies the description
+                    if (checkItem === "description"){
+                        if (req.body.description === undefined || req.body.description === "") {
+                            let response = {
+                                isInternal: false,
+                                message: "missing description"
+                            };
+                            throw response;
+                        }else if ((typeof req.body.description) !== "string"){
+                            let response = {
+                                isInternal: false,
+                                message: "invalid description: not a string"
+                            };
+                            throw response;
+                        }
+                    }// Verifies the phone number
+                    if (checkItem === "phone"){
+                        if (req.body.phone === undefined || req.body.phone === "") {
+                            let response = {
+                                isInternal: false,
+                                message: "missing phone number"
+                            };
+                            throw response;
+                        }else if ((typeof req.body.phone) !== "string"){
+                            let response = {
+                                isInternal: false,
+                                message: "invalid phone number: not a string"
+                            };
+                            throw response;
+                        }
+                        //TODO: Verify the format (care of the international/simplified format !!)
+                    }
                 }
             }
         }catch(err) {
@@ -186,6 +256,9 @@ function decideChecklistItems(apiType) {
     if (apiType === "remove-user-friend"){
         return ["userId_param"];
     }
+    if (apiType === "create-animator"){
+        return ["name","description","mail","phone","creator"];
+    }
     // TODO: Add Checklist for each API
 }
 
@@ -231,7 +304,6 @@ function verifyMailFormat(mail){
     var validMail = mail.match(mailRegex);
     return (validMail == mail)
 }
-
 
 /**
  * verifyDateFormat - Verifies the format of the input of type "date" (DD/MM/YYYY)
