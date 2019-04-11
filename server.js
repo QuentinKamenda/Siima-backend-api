@@ -20,15 +20,12 @@ const API_URL = process.env.API_ROUTE;
 const app = express();
 const cors = require("cors");
 
-const mongoose = require('mongoose');
+const nameOfDataBase = "siima_db";
 
-// ES6 Promises
-mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/siima_db');
-mongoose.connection.once('open', function(){
-    console.log('Connection has been made to siima_db');
-}).on('error', function(error){
-    console.log('Connection error: mongoDB', error);
+const MongoDB = require("./helpers/mongoDB");
+MongoDB.initMongoDBConnection(nameOfDataBase).then((conn)=>{
+  const gfs = require("./helpers/gfs");
+  gfs.initConnection(conn,nameOfDataBase);
 });
 
 app.disable("x-powered-by");

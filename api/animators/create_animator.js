@@ -2,7 +2,7 @@
 const paramCheck = require("../../helpers/param_checker");
 const errorHandler = require("../../helpers/error_handler");
 
-const Animator = require("../../models/animator");
+const Animator = require("../../models/animator/animator");
 
 module.exports.call = function (req, res) {
 

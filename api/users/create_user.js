@@ -2,7 +2,7 @@
 const paramCheck = require("../../helpers/param_checker");
 const errorHandler = require("../../helpers/error_handler");
 
-const User = require("../../models/user");
+const User = require("../../models/user/user");
 module.exports.call = function (req, res) {
 
     let functionName = "create-user";
