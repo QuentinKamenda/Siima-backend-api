@@ -296,6 +296,12 @@ function decideChecklistItems(apiType) {
     if (apiType === "create-host"){
         return ["name","creator"];
     }
+    if (apiType === "get-animator"){
+        return ["animatorId_param"];
+    }
+    if (apiType === "get-host"){
+        return ["hostId_param"];
+    }
     if (apiType === "delete-animator"){
         return ["animatorId_param"];
     }
