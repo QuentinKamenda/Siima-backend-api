@@ -134,6 +134,40 @@ module.exports.checkParameters = function (req, apiType) {
                             throw response;
                         }
                     }
+                    // Verifies the animator id
+                    if (checkItem === "animatorId_param"){
+                        if (req.params.animatorId === undefined || req.params.animatorId === "") {
+                            let response = {
+                                isInternal: false,
+                                message: "missing animatorId"
+                            };
+                            throw response;
+                        }
+                        else if (!verifyObjectIdFormat(req.params.animatorId)){
+                            let response = {
+                                isInternal: false,
+                                message: "invalid animator id: invalid format"
+                            };
+                            throw response;
+                        }
+                    }
+                    // Verifies the host id
+                    if (checkItem === "hostId_param"){
+                        if (req.params.hostId === undefined || req.params.hostId === "") {
+                            let response = {
+                                isInternal: false,
+                                message: "missing hostId"
+                            };
+                            throw response;
+                        }
+                        else if (!verifyObjectIdFormat(req.params.hostId)){
+                            let response = {
+                                isInternal: false,
+                                message: "invalid host id: invalid format"
+                            };
+                            throw response;
+                        }
+                    }
                     // Verifies the name
                     if (checkItem === "name"){
                         if (req.body.name === undefined || req.body.name === "") {
@@ -261,6 +295,12 @@ function decideChecklistItems(apiType) {
     }
     if (apiType === "create-host"){
         return ["name","creator"];
+    }
+    if (apiType === "delete-animator"){
+        return ["animatorId_param"];
+    }
+    if (apiType === "delete-host"){
+        return ["hostId_param"];
     }
     // TODO: Add Checklist for each API
 }

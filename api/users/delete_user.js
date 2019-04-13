@@ -8,6 +8,8 @@ module.exports.call = function (req, res) {
 
     let functionName = "delete-user";
 
+    // TODO: Verify rights
+
     paramCheck.checkParameters(req, functionName)
       .then(() => {
           console.log(functionName + " - Parameters checked successfully.");

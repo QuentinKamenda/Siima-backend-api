@@ -2,11 +2,11 @@
 const paramCheck = require("../../helpers/param_checker");
 const errorHandler = require("../../helpers/error_handler");
 
-const Animator = require("../../models/animator/animator");
+const Host = require("../../models/host/host");
 
 module.exports.call = function (req, res) {
 
-    let functionName = "delete-animator";
+    let functionName = "delete-host";
 
     // TODO: Verify rights
 
@@ -14,16 +14,16 @@ module.exports.call = function (req, res) {
       .then(() => {
           console.log(functionName + " - Parameters checked successfully.");
           let userId ={
-            _id: req.params.animatorId
+            _id: req.params.hostId
           };
-          return animatorId;
+          return hostId;
       })
-      .then(animatorId => {
-          Animator.findOne(animatorId).then(result => {
+      .then(hostId => {
+          Host.findOne(hostId).then(result => {
             if (result === null) {
               result = {
                 status: "fail",
-                message: "No animator found with this id"
+                message: "No host found with this id"
               };
             }
             else {
@@ -31,7 +31,7 @@ module.exports.call = function (req, res) {
               result.remove();
               result = {
                 status: "success",
-                message: "Animator deleted",
+                message: "Host deleted",
                 removed: removed
               };
             }
