@@ -28,7 +28,7 @@ module.exports.call = function (req, res) {
           })
           .then(userInfo => {
               let response = {
-                mail : userInfo.mail
+                email : userInfo.email
               }
               res.json(response);
           })
