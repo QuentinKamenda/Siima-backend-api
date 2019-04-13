@@ -257,7 +257,10 @@ function decideChecklistItems(apiType) {
         return ["userId_param"];
     }
     if (apiType === "create-animator"){
-        return ["name","description","mail","phone","creator"];
+        return ["name","creator"];
+    }
+    if (apiType === "create-host"){
+        return ["name","creator"];
     }
     // TODO: Add Checklist for each API
 }

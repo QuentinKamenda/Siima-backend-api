@@ -13,12 +13,12 @@ module.exports.call = function (req, res) {
           console.log(functionName + " - Parameters checked successfully.");
           let animatorInformation = new Animator({
             name: req.body.name,
-            description: req.body.description,
-            mail: req.body.mail,
-            phone: req.body.phone,
+            // Default admin is the Creator
             admins: [req.body.creator],
-            moderators: [req.body.creator],
-            editors: [req.body.creator],
+            // Default Moderator is the Creator
+            //moderators: [req.body.creator],
+            // Default Editor id the Creator
+            //editors: [req.body.creator],
           });
           return animatorInformation;
       })
