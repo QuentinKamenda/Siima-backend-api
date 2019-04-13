@@ -5,11 +5,10 @@ const router = express.Router();
 
 /// The API files
 const createAnimator = require("../api/animators/create_animator");
-
-/*
 const deleteAnimator = require("../api/animators/delete_animator");
 const getAnimator = require("../api/animators/get_animator");
 
+/*
 const setAnimatorName = require("../api/animators/set_animator_name");
 const setAnimatorLocation = require("../api/animators/set_animator_location");
 const setAnimatorDescription = require("../api/animators/set_animator_description");
@@ -56,13 +55,12 @@ const removeAllAnimatorComment = require("../api/animators/remove_all_animator_c
 router.post("/", (req, res) => {
     createAnimator.call(req, res);
 });
-/*
 router.delete("/:animatorId", (req, res) => {
     deleteAnimator.call(req, res);
 });
 router.get("/:animatorId", (req, res) => {
     getAnimator.call(req, res);
 });
-*/
+
 
 module.exports = router;

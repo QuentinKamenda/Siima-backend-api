@@ -7,7 +7,7 @@ const router = express.Router();
 const createUser = require("../api/users/create_user");
 const validateUser = require("../api/users/validate_user");
 const signinUser = require("../api/users/signin_user");
-/*
+
 const deleteUser = require("../api/users/delete_user");
 const getUser = require("../api/users/get_user");
 
@@ -40,7 +40,7 @@ router.post("/signin", (req,res) => {
     signinUser.call(req, res);
 });
 
-/*
+
 router.delete("/:userId", (req, res) => {
     deleteUser.call(req, res);
 });
