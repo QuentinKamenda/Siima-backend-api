@@ -13,13 +13,13 @@ module.exports.call = function (req, res) {
     paramCheck.checkParameters(req, functionName)
       .then(() => {
           console.log(functionName + " - Parameters checked successfully.");
-          let userId ={
+          let animatorId ={
             _id: req.params.animatorId
           };
           return animatorId;
       })
       .then(animatorId => {
-          Animator.findOne(animatorId).then(result => {
+          Animator.findOne({_id: animatorId}).then(result => {
             if (result === null) {
               result = {
                 status: "fail",

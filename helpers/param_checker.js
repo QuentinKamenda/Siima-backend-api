@@ -381,3 +381,13 @@ function verifyObjectIdFormat(userId){
     var validObjectId = userId.match(objectIdRegex);
     return (validObjectId == userId)
 }
+
+/**
+ * verifyStringFormat - Verifies the format of the input of type "String" (to constomize later)
+ *
+ * @param  {string} str     the string to verify
+ * @return {boolean}        true if the format is correct ; false if incorrect
+ */
+function verifyStringFormat(str){
+    return (true)
+}
