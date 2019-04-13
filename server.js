@@ -21,10 +21,10 @@ const app = express();
 const cors = require("cors");
 
 const nameOfDataBase = "siima_db";
-
+const gfs = require("./helpers/gfs");
 const MongoDB = require("./helpers/mongoDB");
+
 MongoDB.initMongoDBConnection(nameOfDataBase).then((conn)=>{
-  const gfs = require("./helpers/gfs");
   gfs.initConnection(conn,nameOfDataBase);
 });
 

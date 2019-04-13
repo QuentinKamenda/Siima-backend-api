@@ -1,12 +1,12 @@
 const mongoose = require('mongoose');
 
 module.exports.initMongoDBConnection = function (nameOfDataBase) {
-  mongoose.Promise = global.Promise; // replace depreciated promise
-  const conn = mongoose.createConnection('mongodb://localhost/'+nameOfDataBase);
-  conn.once('open', function(){
-      console.log('Connection has been made to '+ nameOfDataBase);
+  mongoose.Promise = global.Promise;
+  mongoose.connect('mongodb://localhost/siima_db');
+  mongoose.connection.once('open', function(){
+      console.log('Connection has been made to siima_db');
   }).on('error', function(error){
-      console.log('error while connecting to the dataBase', error);
+      console.log('Connection error: mongoDB', error);
   });
-  return conn;
+  return mongoose.connection;
 }
