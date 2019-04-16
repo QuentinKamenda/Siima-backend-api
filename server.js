@@ -25,7 +25,7 @@ const gfs = require("./helpers/gfs");
 const MongoDB = require("./helpers/mongoDB");
 
 MongoDB.initMongoDBConnection(nameOfDataBase).then((conn)=>{
-  gfs.initConnection(conn,nameOfDataBase);
+  gfs.initConnection(conn);
 });
 
 app.disable("x-powered-by");

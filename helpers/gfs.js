@@ -8,30 +8,8 @@ let gfs;
 let storage;
 let upload;
 
-module.exports.initConnection = function (conn,nameOfDataBase) {
-
+module.exports.initConnection = function (conn) {
   // Init stream
   gfs = Grid(conn.db, mongoose.mongo);
   gfs.collection('uploads');
-
-  // Create storage engine
-  storage = new GridFsStorage({
-    url: 'mongodb://localhost/'+nameOfDataBase,
-    file: (req, file) => {
-      return new Promise((resolve, reject) => {
-        crypto.randomBytes(16, (err, buf) => {
-          if (err) {
-            return reject(err);
-          }
-          const filename = buf.toString('hex') + path.extname(file.originalname);
-          const fileInfo = {
-            filename: filename,
-            bucketName: 'uploads'
-          };
-          resolve(fileInfo);
-        });
-      });
-    }
-  });
-  upload = multer({ storage });
 }
