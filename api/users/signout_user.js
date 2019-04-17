@@ -2,13 +2,13 @@ const helper_firebase = require("../../helpers/firebase");
 
  module.exports.call = function (req, res) {
 
-    let functionName = 'validate-user';
+    let functionName = 'signout-user';
 
-    let errorMessage = helper_firebase.sendLinkEmail()
+    let errorMessage = helper_firebase.signout()
      .then(() => {
        let response = {
          status: "success",
-         message: "user email link sent",
+         message: "user signed out",
        };
        res.json(response);
      })
@@ -16,6 +16,5 @@ const helper_firebase = require("../../helpers/firebase");
        console.log(`Error caught in ` + functionName + ` - ${errorMessage}`);
        errorHandler.handleError(req, res, error);
      });
-
 
  };
