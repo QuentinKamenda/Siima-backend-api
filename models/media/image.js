@@ -6,7 +6,6 @@ var imageSchema = mongoose.Schema({
         type: String,
         required: true
     }
-
 });
 
 var Image = module.exports = mongoose.model('Image', imageSchema);

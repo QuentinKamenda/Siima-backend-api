@@ -25,21 +25,6 @@ module.exports.getUpload = function(mongoURI){
     }
   });
 
-  var newImage=new Image({
-    name:filename
-  })
-
-    newImage.save().then(newImage => {
-      let response = {
-        status: "success",
-        message: "image saved created",
-        info: newImage
-      };
-      res.json(response);
-  }).catch(error => {
-      console.log(`Error caught in set_user_photo` +` - ${error.message}`);
-  })
-
   const upload = multer({ storage });
   return upload;
 };
