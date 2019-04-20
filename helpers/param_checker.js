@@ -308,6 +308,30 @@ function decideChecklistItems(apiType) {
     if (apiType === "delete-host"){
         return ["hostId_param"];
     }
+    if (apiType === "get-animator-name"){
+        return ["name"];
+    }
+    if (apiType === "get-host-name"){
+        return ["name"];
+    }
+    if (apiType === "get-animator-mail"){
+        return ["mail"];
+    }
+    if (apiType === "get-host-mail"){
+        return ["mail"];
+    }
+    if (apiType === "get-animator-description"){
+        return ["description"];
+    }
+    if (apiType === "get-host-description"){
+        return ["description"];
+    }
+    if (apiType === "get-animator-location"){
+        return ["description"];
+    }
+    if (apiType === "get-host-location"){
+        return ["description"];
+    }
     // TODO: Add Checklist for each API
 }
 

@@ -15,10 +15,14 @@ const setHostLocation = require("../api/hosts/set_host_location");
 const setHostDescription = require("../api/hosts/set_host_description");
 const setHostProfilePicture = require("../api/hosts/set_host_profile_picture");
 const setHostBackgroundPicture = require("../api/hosts/set_host_background_picture");
+*/
 
 const getHostName = require("../api/hosts/get_host_name");
+const getHostMail = require("../api/hosts/get_host_mail");
 const getHostLocation = require("../api/hosts/get_host_location");
 const getHostDescription = require("../api/hosts/get_host_description");
+
+/*
 const getHostProfilePicture = require("../api/hosts/get_host_profile_picture");
 const getHostBackgroundPicture = require("../api/hosts/get_host_background_picture");
 
@@ -63,5 +67,17 @@ router.get("/:hostId", (req, res) => {
     getHost.call(req, res);
 });
 
+router.get("/:hostId/name", (req, res) => {
+    getHostName.call(req, res);
+});
+router.get("/:hostId/mail"/, (req, res) => {
+    getHostMail.call(req, res);
+});
+router.get("/:hostId/location", (req, res) => {
+    getHostLocation.call(req, res);
+});
+router.get("/:hostId/description", (req, res) => {
+    getHostDescription.call(req, res);
+});
 
 module.exports = router;

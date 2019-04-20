@@ -14,7 +14,7 @@ const hostSchema = new Schema({
   links: [ {type:Schema.Types.ObjectId, ref:'Link'}],      //true  Site web
   media: [{type:Schema.Types.ObjectId, ref :'Media'}],      //true
   startDate: {type: Date, default: Date.now , required: true },
-  address: String,
+  location: String,
   event:[{type:Schema.Types.ObjectId, ref : 'Event'}]
 },{timestamps : true});
 
