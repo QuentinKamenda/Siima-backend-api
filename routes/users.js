@@ -45,8 +45,12 @@ router.post("/signin", (req,res) => {
     signinUser.call(req, res);
 });
 
-router.put("/:userId/upload",multerStorage.getUpload(URLMongoDB).single('name'),(req,res) => {
-  setUserPhoto.call(req,res);
+
+router.put("/:userId/upload",(req,res) => {
+  let upload = multerStorage.getUpload(URLMongoDB).single('name');
+  upload(req,res, (err) => {
+    setUserPhoto.call(req,res);
+  });
 });
 
 /*
