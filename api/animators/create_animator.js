@@ -35,7 +35,7 @@ module.exports.call = function (req, res) {
                       res.json(result)
                   }
                   else {
-                    result.animators.push(req.body.creator);
+                    result.animators.push(animatorInfo._id);
                     result.save();
                     let response = {
                       status: "success",

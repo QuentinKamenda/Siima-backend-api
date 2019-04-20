@@ -3,6 +3,7 @@ const paramCheck = require("../../helpers/param_checker");
 const errorHandler = require("../../helpers/error_handler");
 
 const Animator = require("../../models/animator/animator");
+const User = require("../../models/user/user");
 
 module.exports.call = function (req, res) {
 
@@ -28,6 +29,10 @@ module.exports.call = function (req, res) {
             }
             else {
               let removed = result;
+              for (var i = 0; i < result.admins.length; i++){
+                  console.log("Removing " + result._id + " from " + result.admins[i]);
+                  User.findOneAndUpdate( {_id: result.admins[i]} , { $pull : {animators: result._id}}).then()
+              }
               result.remove();
               result = {
                 status: "success",
