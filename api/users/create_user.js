@@ -40,4 +40,5 @@ module.exports.call = function (req, res) {
           console.log(`Error caught in ` + functionName + ` - ${error.message}`);
           errorHandler.handleError(req, res, error);
       })
+    });
 };
