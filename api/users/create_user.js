@@ -15,7 +15,7 @@ module.exports.call = function (req, res) {
           console.log(functionName + " - Parameters checked successfully.");
           let userInformation = new User({
             username: req.body.username,
-            mail: req.body.mail
+            email: req.body.email
           });
           return userInformation;
       })
@@ -40,5 +40,4 @@ module.exports.call = function (req, res) {
           console.log(`Error caught in ` + functionName + ` - ${error.message}`);
           errorHandler.handleError(req, res, error);
       })
-    });
 };
