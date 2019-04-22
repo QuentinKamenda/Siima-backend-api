@@ -256,6 +256,12 @@ function decideChecklistItems(apiType) {
     if (apiType === "remove-user-friend"){
         return ["userId_param"];
     }
+    if (apiType === "set-user-profile-picture"){
+        return ["userId_param"];
+    }
+    if (apiType === "get-user-profile-picture"){
+        return ["userId_param"];
+    }
     if (apiType === "create-animator"){
         return ["name","description","mail","phone","creator"];
     }

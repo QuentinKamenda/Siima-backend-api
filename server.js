@@ -19,12 +19,10 @@ const API_URL = process.env.API_ROUTE;
 
 const app = express();
 const cors = require("cors");
-
-const nameOfDataBase = "siima_db";
 const gfs = require("./helpers/gfs");
 const MongoDB = require("./helpers/mongoDB");
 
-MongoDB.initMongoDBConnection(nameOfDataBase).then((conn)=>{
+MongoDB.initMongoDBConnection().then((conn)=>{
   gfs.initConnection(conn);
 });
 
