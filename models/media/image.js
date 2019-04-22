@@ -2,7 +2,8 @@ var mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const imageSchema = new Schema({
-  photo: String,
+  name: { type: String, required: true},
+  id: {type: Schema.Types.ObjectId, ref: 'uploads'},
   comment: String
 },{timestamps : true});
 

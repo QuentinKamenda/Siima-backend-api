@@ -9,13 +9,13 @@ module.exports.call = function (req,res ) {
   let functionName = "set_user_photo";
 
   let userId ={_id: req.params.userId};
-  console.log(req.file.id);
   let newImage = new Img({
-    photo : req.file.id
+    name : req.file.filename,
+    id : req.file.id
   });
 
   newImage.save().then((picture)=>{
-    User.findOneAndUpdate( {_id: req.params.userId} , { profile_picture: picture.id })
+    User.findOneAndUpdate( {_id: req.params.userId} , { profile_picture: picture._id })
     .then(()=>{
       let result = {
         status: "success",

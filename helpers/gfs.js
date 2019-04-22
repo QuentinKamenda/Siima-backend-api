@@ -7,5 +7,5 @@ const mongoose = require('mongoose');
 module.exports.initConnection = function (conn) {
   // Init stream
   const gfs = Grid(conn.db, mongoose.mongo);
-  gfs.collection('uploads');
+  gfs.collection('uploads'); //set collection name to put file into
 }
