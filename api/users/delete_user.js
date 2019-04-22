@@ -1,43 +1,23 @@
-// Import Helper methods
-const paramCheck = require("../../helpers/param_checker");
+const helper_firebase = require("../../helpers/firebase");
 const errorHandler = require("../../helpers/error_handler");
 
-const User = require("../../models/user/user");
+ module.exports.call = function (req, res) {
 
-module.exports.call = function (req, res) {
+   let functionName = 'delete-user';
 
-    let functionName = "delete-user";
-
-    paramCheck.checkParameters(req, functionName)
-      .then(() => {
-          console.log(functionName + " - Parameters checked successfully.");
-          let userId ={
-            _id: req.params.userId
-          };
-          return userId;
-      })
-      .then(userId => {
-          User.findOne(userId).then(result => {
-            if (result === null) {
-              result = {
-                status: "fail",
-                message: "No user found with this id"
-              };
-            }
-            else {
-              let removed = result;
-              result.remove();
-              result = {
-                status: "success",
-                message: "User deleted",
-                removed: removed
-              };
-            }
-            res.json(result);
-          })
-        })
+    let errorMessage = helper_firebase.deleteUser()
+    .then(() => {
+      let response = {
+        status: "success",
+        message: "user deleted",
+      };
+      res.json(response);
+    })
       .catch(error => {
-          console.log(`Error caught in ` + functionName + ` - ${error.message}`);
-          errorHandler.handleError(req, res, error);
-      })
-};
+      console.log(`Error caught in ` + functionName + ` - ${errorMessage}`)
+      errorHandler.handleError(req, res, error);
+    });
+
+
+
+ };

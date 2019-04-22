@@ -3,13 +3,13 @@ const errorHandler = require("../../helpers/error_handler");
 
  module.exports.call = function (req, res) {
 
-    let functionName = 'delete-user';
+    let functionName = 'signout-user';
 
-    let errorMessage = helper_firebase.updatepwd(req.body.pwd)
+    let errorMessage = helper_firebase.signout()
      .then(() => {
        let response = {
          status: "success",
-         message: "password set",
+         message: "user signed out",
        };
        res.json(response);
      })
@@ -18,4 +18,4 @@ const errorHandler = require("../../helpers/error_handler");
        errorHandler.handleError(req, res, error);
      });
 
- }
+ };

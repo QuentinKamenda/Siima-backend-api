@@ -32,8 +32,8 @@ app.use(cors());
 
 let firebaseConfig = config.firebase;
 firebase.initializeApp(firebaseConfig);
-const helper1 = require("./helpers/firebase");
-helper1.initfire();
+const helperFirebase = require("./helpers/firebase");
+helperFirebase.initfire();
 
 //Detect JSON format errouser
 app.use((error, req, res, next) => {
