@@ -4,11 +4,14 @@ const URLMongoDB = 'mongodb://localhost/siima_db';
 
 const express = require("express");
 const router = express.Router();
+
 const multerStorage = require("../helpers/multerStorage");
 // The API files
 const createUser = require("../api/users/create_user");
 const validateUser = require("../api/users/validate_user");
 const signinUser = require("../api/users/signin_user");
+const setUserPhoto = require("../api/users/set_user_profile_picture");
+const getUserPhoto = require("../api/users/get_user_profile_picture");
 const setUserPhoto = require("../api/users/set_user_photo");
 const signoutUser = require("../api/users/signout_user");
 const deleteUser = require("../api/users/delete_user");
@@ -48,8 +51,16 @@ router.post("/:userId/signin", (req,res) => {
     signinUser.call(req, res);
 });
 
-router.post("/upload",multerStorage.getUpload(URLMongoDB).single('name'),(req,res, next) => {
-  setUserPhoto.call(req, res , next);
+
+router.put("/:userId/upload",(req,res) => {
+  let upload = multerStorage.getUpload(URLMongoDB).single('name');
+  upload(req,res, (err) => {
+    setUserPhoto.call(req,res);
+  });
+});
+
+router.get("/:userId/profilePicture", (req, res) => {
+    getUserPhoto.call(req, res);
 });
 
 router.post("/:userId/signout", (req, res) => {

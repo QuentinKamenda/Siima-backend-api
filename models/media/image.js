@@ -1,12 +1,10 @@
 var mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-var imageSchema = mongoose.Schema({
+const imageSchema = new Schema({
+  name: { type: String, required: true},
+  id: {type: Schema.Types.ObjectId, ref: 'uploads'},
+  comment: String
+},{timestamps : true});
 
-    name: {
-        type: String,
-        required: true
-    }
-
-});
-
-var Image = module.exports = mongoose.model('Image', imageSchema);
+module.exports = mongoose.model('Image', imageSchema);
