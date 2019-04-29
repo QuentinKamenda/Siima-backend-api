@@ -409,9 +409,9 @@ function verifyUsernameFormat(username){
  * @return {boolean}          true if the format is correct ; false if incorrect
  */
 function verifyPasswordFormat(password){
-    var passwordRegex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#_\-$&%]).{6,20}/;
-    var validPassword = password.match(passwordRegex);
-    return (validPassword == password)
+    //var passwordRegex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#_\-$&%]).{6,20}/;
+    //var validPassword = password.match(passwordRegex);
+    return (true)
 }
 
 
