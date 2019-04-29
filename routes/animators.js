@@ -8,10 +8,12 @@ const createAnimator = require("../api/animators/create_animator");
 const deleteAnimator = require("../api/animators/delete_animator");
 const getAnimator = require("../api/animators/get_animator");
 
-/*
 const setAnimatorName = require("../api/animators/set_animator_name");
+const setAnimatorMail = require("../api/animators/set_animator_mail");
 const setAnimatorLocation = require("../api/animators/set_animator_location");
 const setAnimatorDescription = require("../api/animators/set_animator_description");
+
+/*
 const setAnimatorProfilePicture = require("../api/animators/set_animator_profile_picture");
 const setAnimatorBackgroundPicture = require("../api/animators/set_animator_background_picture");
 */
@@ -63,6 +65,19 @@ router.delete("/:animatorId", (req, res) => {
 });
 router.get("/:animatorId", (req, res) => {
     getAnimator.call(req, res);
+});
+
+router.post("/:animatorId/name", (req, res) => {
+    setAnimatorName.call(req, res);
+});
+router.post("/:animatorId/mail", (req, res) => {
+    setAnimatorMail.call(req, res);
+});
+router.post("/:animatorId/location", (req, res) => {
+    setAnimatorLocation.call(req, res);
+});
+router.post("/:animatorId/description", (req, res) => {
+    setAnimatorDescription.call(req, res);
 });
 
 router.get("/:animatorId/name", (req, res) => {

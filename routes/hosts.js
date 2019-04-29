@@ -9,10 +9,12 @@ const createHost = require("../api/hosts/create_host");
 const deleteHost = require("../api/hosts/delete_host");
 const getHost = require("../api/hosts/get_host");
 
-/*
 const setHostName = require("../api/hosts/set_host_name");
+const setHostMail = require("../api/hosts/set_host_mail");
 const setHostLocation = require("../api/hosts/set_host_location");
 const setHostDescription = require("../api/hosts/set_host_description");
+
+/*
 const setHostProfilePicture = require("../api/hosts/set_host_profile_picture");
 const setHostBackgroundPicture = require("../api/hosts/set_host_background_picture");
 */
@@ -65,6 +67,19 @@ router.delete("/:hostId", (req, res) => {
 });
 router.get("/:hostId", (req, res) => {
     getHost.call(req, res);
+});
+
+router.post("/:hostId/name", (req, res) => {
+    setHostName.call(req, res);
+});
+router.post("/:hostId/mail", (req, res) => {
+    setHostMail.call(req, res);
+});
+router.post("/:hostId/location", (req, res) => {
+    setHostLocation.call(req, res);
+});
+router.post("/:hostId/description", (req, res) => {
+    setHostDescription.call(req, res);
 });
 
 router.get("/:hostId/name", (req, res) => {

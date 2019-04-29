@@ -221,7 +221,8 @@ module.exports.checkParameters = function (req, apiType) {
                             };
                             throw response;
                         }
-                    }// Verifies the phone number
+                    }
+                    // Verifies the phone number
                     if (checkItem === "phone"){
                         if (req.body.phone === undefined || req.body.phone === "") {
                             let response = {
@@ -230,6 +231,23 @@ module.exports.checkParameters = function (req, apiType) {
                             };
                             throw response;
                         }else if ((typeof req.body.phone) !== "string"){
+                            let response = {
+                                isInternal: false,
+                                message: "invalid phone number: not a string"
+                            };
+                            throw response;
+                        }
+                        //TODO: Verify the format (care of the international/simplified format !!)
+                    }
+                    // Verifies the phone number
+                    if (checkItem === "location"){
+                        if (req.body.location === undefined || req.body.location === "") {
+                            let response = {
+                                isInternal: false,
+                                message: "missing location"
+                            };
+                            throw response;
+                        }else if ((typeof req.body.location) !== "string"){
                             let response = {
                                 isInternal: false,
                                 message: "invalid phone number: not a string"
@@ -331,6 +349,31 @@ function decideChecklistItems(apiType) {
     }
     if (apiType === "get-host-location"){
         return ["hostId_param"];
+    }
+
+    if (apiType === "set-animator-name"){
+        return ["animatorId_param","name"];
+    }
+    if (apiType === "set-host-name"){
+        return ["hostId_param","name"];
+    }
+    if (apiType === "set-animator-mail"){
+        return ["animatorId_param","mail"];
+    }
+    if (apiType === "set-host-mail"){
+        return ["hostId_param","mail"];
+    }
+    if (apiType === "set-animator-description"){
+        return ["animatorId_param","description"];
+    }
+    if (apiType === "set-host-description"){
+        return ["hostId_param","description"];
+    }
+    if (apiType === "set-animator-location"){
+        return ["animatorId_param","location"];
+    }
+    if (apiType === "set-host-location"){
+        return ["hostId_param","location"];
     }
     // TODO: Add Checklist for each API
 }
