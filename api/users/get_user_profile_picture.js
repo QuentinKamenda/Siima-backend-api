@@ -40,10 +40,8 @@ module.exports.call = function (req,res ) {
             // Return response
             return readstream.pipe(res);
         });
-      }).catch(error => {
-        console.log(`Error caught in ` + functionName + ` - ${error.message}`);
-        errorHandler.handleError(req, res, error);
-      });
+      })
+      throw error;
     }).catch(error => {
       console.log(`Error caught in ` + functionName + ` - ${error.message}`);
       errorHandler.handleError(req, res, error);
