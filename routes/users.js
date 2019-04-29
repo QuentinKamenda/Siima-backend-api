@@ -16,6 +16,8 @@ const signoutUser = require("../api/users/signout_user");
 const deleteUser = require("../api/users/delete_user");
 
 const setUserPassword = require("../api/users/set_user_password");
+const getUserName = require("../api/users/get_user_name");
+const setUserName = require("../api/users/set_user_name");
 /*
 
 const getUser = require("../api/users/get_user");
@@ -51,8 +53,8 @@ router.post("/:userId/signin", (req,res) => {
 });
 
 
-router.put("/:userId/upload",(req,res) => {
-  let upload = multerStorage.getUpload(URLMongoDB).single('name');
+router.put("/:userId/profilePicture",(req,res) => {
+  let upload = multerStorage.getUpload(URLMongoDB).single('file');
   upload(req,res, (err) => {
     setUserPhoto.call(req,res);
   });
@@ -74,15 +76,16 @@ router.delete("/:userId", (req, res) => {
     deleteUser.call(req, res);
 });
 
-
+router.put("/:userId/username", (req, res) => {
+    setUserName.call(req, res);
+    console.log("setUsername log");
+});
 
 /*
 router.delete("/:userId", (req, res) => {
     deleteUser.call(req, res);
 });
-router.put("/:userId/username", (req, res) => {
-    setUserName.call(req, res);
-});
+
 router.put("/:userId/mail", (req, res) => {
     setUserMail.call(req, res);
 });
