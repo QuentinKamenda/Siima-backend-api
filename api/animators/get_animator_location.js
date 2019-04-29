@@ -2,40 +2,40 @@
 const paramCheck = require("../../helpers/param_checker");
 const errorHandler = require("../../helpers/error_handler");
 
-const Host = require("../../models/host/host");
+const Animator = require("../../models/animator/animator");
 
 module.exports.call = function (req, res) {
 
-    let functionName = "get-host-location";
+    let functionName = "get-animator-location";
 
     paramCheck.checkParameters(req, functionName)
       .then(() => {
           console.log(functionName + " - Parameters checked successfully.");
-          let hostId ={
-            _id: req.params.hostId
+          let animatorId ={
+            _id: req.params.animatorId
           };
-          return hostId;
+          return animatorId;
       })
-      .then(hostId => {
-          Host.findOne(hostId).then(result => {
+      .then(animatorId => {
+          Animator.findOne(animatorId).then(result => {
             if (result === null) {
               result = {
                 status: "fail",
-                message: "No host found with this id"
+                message: "No animator found with this id"
               };
             }
             return result;
           })
-          .then(hostInfo => {
-            if (hostInfo.location === undefined) {
+          .then(animatorInfo => {
+            if (animatorInfo.location === undefined) {
               let response = {
                 status: "fail",
-                message: "No location registered for this location"
+                message: "No location registered for this animator"
               };
               res.json(response);
             } else {
               let response = {
-                location : hostInfo.location
+                location : animatorInfo.location
               };
               res.json(response);
             }

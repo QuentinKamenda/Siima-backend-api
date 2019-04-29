@@ -70,7 +70,7 @@ router.get("/:hostId", (req, res) => {
 router.get("/:hostId/name", (req, res) => {
     getHostName.call(req, res);
 });
-router.get("/:hostId/mail"/, (req, res) => {
+router.get("/:hostId/mail", (req, res) => {
     getHostMail.call(req, res);
 });
 router.get("/:hostId/location", (req, res) => {

@@ -27,10 +27,18 @@ module.exports.call = function (req, res) {
             return result;
           })
           .then(hostInfo => {
+            if (hostInfo.name === undefined) {
+              let response = {
+                status: "fail",
+                message: "No name registered for this host"
+              };
+              res.json(response);
+            } else {
               let response = {
                 name : hostInfo.name
-              }
+              };
               res.json(response);
+            }
           })
         })
       .catch(error => {

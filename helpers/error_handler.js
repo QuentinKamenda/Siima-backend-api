@@ -21,7 +21,7 @@ module.exports.handleError = function(req, res, error){
           console.log("Error is logged successfully");
           let response = {
              status: "fail",
-             error: "request failed. (error code:" + result.data.code + ")"
+             error: "request failed. (error code:" + error.message + ")"
           };
           res.json(response);
     }
@@ -30,7 +30,7 @@ module.exports.handleError = function(req, res, error){
         console.log("Error are from Nodejs or other third party libraries");
         let response = {
             status: "fail",
-            error: "request failed. (error code:" + result.data.code + ")"
+            error: "request failed. (error code:" + error.message + ")"
         };
         res.json(response);
     }

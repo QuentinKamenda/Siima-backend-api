@@ -27,10 +27,18 @@ module.exports.call = function (req, res) {
             return result;
           })
           .then(hostInfo => {
+            if (hostInfo.description === undefined) {
+              let response = {
+                status: "fail",
+                message: "No decription registered for this host"
+              };
+              res.json(response);
+            } else {
               let response = {
                 description : hostInfo.description
-              }
+              };
               res.json(response);
+            }
           })
         })
       .catch(error => {

@@ -68,7 +68,7 @@ router.get("/:animatorId", (req, res) => {
 router.get("/:animatorId/name", (req, res) => {
     getAnimatorName.call(req, res);
 });
-router.get("/:animatorId/mail"/, (req, res) => {
+router.get("/:animatorId/mail", (req, res) => {
     getAnimatorMail.call(req, res);
 });
 router.get("/:animatorId/location", (req, res) => {

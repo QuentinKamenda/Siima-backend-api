@@ -27,10 +27,18 @@ module.exports.call = function (req, res) {
             return result;
           })
           .then(hostInfo => {
+            if (hostInfo.mail === undefined) {
               let response = {
-                email : hostInfo.email
-              }
+                status: "fail",
+                message: "No mail address registered for this host"
+              };
               res.json(response);
+            } else {
+              let response = {
+                mail : hostInfo.mail
+              };
+              res.json(response);
+            }
           })
         })
       .catch(error => {
