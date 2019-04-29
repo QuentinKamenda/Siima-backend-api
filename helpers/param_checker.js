@@ -134,6 +134,40 @@ module.exports.checkParameters = function (req, apiType) {
                             throw response;
                         }
                     }
+                    // Verifies the animator id
+                    if (checkItem === "animatorId_param"){
+                        if (req.params.animatorId === undefined || req.params.animatorId === "") {
+                            let response = {
+                                isInternal: false,
+                                message: "missing animatorId"
+                            };
+                            throw response;
+                        }
+                        else if (!verifyObjectIdFormat(req.params.animatorId)){
+                            let response = {
+                                isInternal: false,
+                                message: "invalid animator id: invalid format"
+                            };
+                            throw response;
+                        }
+                    }
+                    // Verifies the host id
+                    if (checkItem === "hostId_param"){
+                        if (req.params.hostId === undefined || req.params.hostId === "") {
+                            let response = {
+                                isInternal: false,
+                                message: "missing hostId"
+                            };
+                            throw response;
+                        }
+                        else if (!verifyObjectIdFormat(req.params.hostId)){
+                            let response = {
+                                isInternal: false,
+                                message: "invalid host id: invalid format"
+                            };
+                            throw response;
+                        }
+                    }
                     // Verifies the name
                     if (checkItem === "name"){
                         if (req.body.name === undefined || req.body.name === "") {
@@ -187,7 +221,8 @@ module.exports.checkParameters = function (req, apiType) {
                             };
                             throw response;
                         }
-                    }// Verifies the phone number
+                    }
+                    // Verifies the phone number
                     if (checkItem === "phone"){
                         if (req.body.phone === undefined || req.body.phone === "") {
                             let response = {
@@ -196,6 +231,23 @@ module.exports.checkParameters = function (req, apiType) {
                             };
                             throw response;
                         }else if ((typeof req.body.phone) !== "string"){
+                            let response = {
+                                isInternal: false,
+                                message: "invalid phone number: not a string"
+                            };
+                            throw response;
+                        }
+                        //TODO: Verify the format (care of the international/simplified format !!)
+                    }
+                    // Verifies the phone number
+                    if (checkItem === "location"){
+                        if (req.body.location === undefined || req.body.location === "") {
+                            let response = {
+                                isInternal: false,
+                                message: "missing location"
+                            };
+                            throw response;
+                        }else if ((typeof req.body.location) !== "string"){
                             let response = {
                                 isInternal: false,
                                 message: "invalid phone number: not a string"
@@ -263,7 +315,71 @@ function decideChecklistItems(apiType) {
         return ["userId_param"];
     }
     if (apiType === "create-animator"){
-        return ["name","description","mail","phone","creator"];
+        return ["name","creator"];
+    }
+    if (apiType === "create-host"){
+        return ["name","creator"];
+    }
+    if (apiType === "get-animator"){
+        return ["animatorId_param"];
+    }
+    if (apiType === "get-host"){
+        return ["hostId_param"];
+    }
+    if (apiType === "delete-animator"){
+        return ["animatorId_param"];
+    }
+    if (apiType === "delete-host"){
+        return ["hostId_param"];
+    }
+    if (apiType === "get-animator-name"){
+        return ["animatorId_param"];
+    }
+    if (apiType === "get-host-name"){
+        return ["hostId_param"];
+    }
+    if (apiType === "get-animator-mail"){
+        return ["animatorId_param"];
+    }
+    if (apiType === "get-host-mail"){
+        return ["hostId_param"];
+    }
+    if (apiType === "get-animator-description"){
+        return ["animatorId_param"];
+    }
+    if (apiType === "get-host-description"){
+        return ["hostId_param"];
+    }
+    if (apiType === "get-animator-location"){
+        return ["animatorId_param"];
+    }
+    if (apiType === "get-host-location"){
+        return ["hostId_param"];
+    }
+
+    if (apiType === "set-animator-name"){
+        return ["animatorId_param","name"];
+    }
+    if (apiType === "set-host-name"){
+        return ["hostId_param","name"];
+    }
+    if (apiType === "set-animator-mail"){
+        return ["animatorId_param","mail"];
+    }
+    if (apiType === "set-host-mail"){
+        return ["hostId_param","mail"];
+    }
+    if (apiType === "set-animator-description"){
+        return ["animatorId_param","description"];
+    }
+    if (apiType === "set-host-description"){
+        return ["hostId_param","description"];
+    }
+    if (apiType === "set-animator-location"){
+        return ["animatorId_param","location"];
+    }
+    if (apiType === "set-host-location"){
+        return ["hostId_param","location"];
     }
     // TODO: Add Checklist for each API
 }
@@ -337,4 +453,14 @@ function verifyObjectIdFormat(userId){
     var objectIdRegex = new RegExp("^[0-9a-fA-F]{24}$");
     var validObjectId = userId.match(objectIdRegex);
     return (validObjectId == userId)
+}
+
+/**
+ * verifyStringFormat - Verifies the format of the input of type "String" (to constomize later)
+ *
+ * @param  {string} str     the string to verify
+ * @return {boolean}        true if the format is correct ; false if incorrect
+ */
+function verifyStringFormat(str){
+    return (true)
 }

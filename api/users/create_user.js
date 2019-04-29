@@ -15,7 +15,7 @@ module.exports.call = function (req, res) {
           console.log(functionName + " - Parameters checked successfully.");
           let userInformation = new User({
             username: req.body.username,
-            mail: req.body.mail
+            email: req.body.mail
           });
           return userInformation;
       })
@@ -31,14 +31,12 @@ module.exports.call = function (req, res) {
               console.log(functionName + " - User " + req.body.mail + " created.")
               res.json(response);
           })
-          .catch(error => {
-              console.log(`Error caught in ` + functionName + ` - ${error.message}`);
-              errorHandler.handleError(req, res, error);
-          })
+          throw error;
       })
-      .catch(error => {
-          console.log(`Error caught in ` + functionName + ` - ${error.message}`);
-          errorHandler.handleError(req, res, error);
-      });
+      throw error;
+    })
+    .catch(error => {
+        console.log(`Error caught in ` + functionName + ` - ${error.message}`);
+        errorHandler.handleError(req, res, error);
     });
 };

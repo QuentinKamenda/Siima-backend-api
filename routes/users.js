@@ -10,12 +10,15 @@ const multerStorage = require("../helpers/multerStorage");
 const createUser = require("../api/users/create_user");
 const validateUser = require("../api/users/validate_user");
 const signinUser = require("../api/users/signin_user");
+
 const setUserPhoto = require("../api/users/set_user_profile_picture");
 const getUserPhoto = require("../api/users/get_user_profile_picture");
 const signoutUser = require("../api/users/signout_user");
+
 const deleteUser = require("../api/users/delete_user");
 
 const setUserPassword = require("../api/users/set_user_password");
+
 const getUserName = require("../api/users/get_user_name");
 const setUserName = require("../api/users/set_user_name");
 /*
@@ -74,11 +77,10 @@ router.put("/:userId/password", (req, res) => {
 
 router.delete("/:userId", (req, res) => {
     deleteUser.call(req, res);
-});
-
+}
+              
 router.put("/:userId/username", (req, res) => {
     setUserName.call(req, res);
-    console.log("setUsername log");
 });
 
 /*
@@ -87,9 +89,10 @@ router.delete("/:userId", (req, res) => {
 });
 
 router.put("/:userId/mail", (req, res) => {
+
     setUserMail.call(req, res);
 });
-router.put("/:userId/birthdate", (req, res) => {
+router.patch("/:userId/birthdate", (req, res) => {
     setUserBirthdate.call(req, res);
 });
 

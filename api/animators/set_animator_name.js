@@ -2,38 +2,38 @@
 const paramCheck = require("../../helpers/param_checker");
 const errorHandler = require("../../helpers/error_handler");
 
-const User = require("../../models/user/user");
+const Animator = require("../../models/animator/animator");
 
 module.exports.call = function (req, res) {
 
-    let functionName = "set-user-birthdate";
+    let functionName = "set-animator-name";
 
     paramCheck.checkParameters(req, functionName)
       .then(() => {
           console.log(functionName + " - Parameters checked successfully.");
-          let userId ={
-            _id: req.params.userId
+          let animatorId ={
+            _id: req.params.animatorId
           };
-          return userId;
+          return animatorId;
       })
-      .then(userId => {
-          User.findOne(userId).then(result => {
+      .then(animatorId => {
+          Animator.findOne(animatorId).then(result => {
             if (result === null) {
               result = {
                 status: "fail",
-                message: "No user found with this id"
+                message: "No animator found with this id"
               }
               res.json(result)
             }
             else {
               let previous = result;
-              User.findOneAndUpdate( {_id: req.params.userId} , { birthday: req.body.birthdate }).then(
+              Animator.findOneAndUpdate( {_id: req.params.animatorId} , { name: req.body.name }).then(
                 result = {
                   status: "success",
-                  message: "User updated",
-                  _id: req.params.userId,
-                  previous_user: previous,
-                  new_birthdate: req.body.birthdate
+                  message: "Animator updated",
+                  _id: req.params.animatorId,
+                  previous_animator: previous,
+                  new_name: req.body.name
                 }
               )
               res.json(result)
