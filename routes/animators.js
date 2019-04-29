@@ -67,16 +67,16 @@ router.get("/:animatorId", (req, res) => {
     getAnimator.call(req, res);
 });
 
-router.post("/:animatorId/name", (req, res) => {
+router.patch("/:animatorId/name", (req, res) => {
     setAnimatorName.call(req, res);
 });
-router.post("/:animatorId/mail", (req, res) => {
+router.patch("/:animatorId/mail", (req, res) => {
     setAnimatorMail.call(req, res);
 });
-router.post("/:animatorId/location", (req, res) => {
+router.patch("/:animatorId/location", (req, res) => {
     setAnimatorLocation.call(req, res);
 });
-router.post("/:animatorId/description", (req, res) => {
+router.patch("/:animatorId/description", (req, res) => {
     setAnimatorDescription.call(req, res);
 });
 

@@ -27,10 +27,19 @@ module.exports.call = function (req, res) {
             return result;
           })
           .then(userInfo => {
+            console.log(userInfo);
+            if (userInfo.mail === undefined) {
               let response = {
-                email : userInfo.email
-              }
+                status: "fail",
+                message: "No mail address registered for this user"
+              };
               res.json(response);
+            } else {
+              let response = {
+                mail : userInfo.mail
+              };
+              res.json(response);
+            }
           })
         })
       .catch(error => {

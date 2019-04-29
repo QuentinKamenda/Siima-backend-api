@@ -27,7 +27,7 @@ module.exports.call = function (req, res) {
             }
             else {
               let previous = result;
-              User.findOneAndUpdate( {_id: req.params.userId} , { birthdate: req.body.birthdate }).then(
+              User.findOneAndUpdate( {_id: req.params.userId} , { birthday: req.body.birthdate }).then(
                 result = {
                   status: "success",
                   message: "User updated",

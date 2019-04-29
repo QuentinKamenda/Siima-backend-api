@@ -69,16 +69,16 @@ router.get("/:hostId", (req, res) => {
     getHost.call(req, res);
 });
 
-router.post("/:hostId/name", (req, res) => {
+router.patch("/:hostId/name", (req, res) => {
     setHostName.call(req, res);
 });
-router.post("/:hostId/mail", (req, res) => {
+router.patch("/:hostId/mail", (req, res) => {
     setHostMail.call(req, res);
 });
-router.post("/:hostId/location", (req, res) => {
+router.patch("/:hostId/location", (req, res) => {
     setHostLocation.call(req, res);
 });
-router.post("/:hostId/description", (req, res) => {
+router.patch("/:hostId/description", (req, res) => {
     setHostDescription.call(req, res);
 });
 

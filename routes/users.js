@@ -18,7 +18,6 @@ const signoutUser = require("../api/users/signout_user");
 const deleteUser = require("../api/users/delete_user");
 
 const setUserPassword = require("../api/users/set_user_password");
-/*
 
 const getUser = require("../api/users/get_user");
 
@@ -77,18 +76,16 @@ router.delete("/:userId", (req, res) => {
 });
 
 
-/*
-
 router.delete("/:userId", (req, res) => {
     deleteUser.call(req, res);
 });
-router.put("/:userId/username", (req, res) => {
+router.patch("/:userId/username", (req, res) => {
     setUserName.call(req, res);
 });
-router.put("/:userId/mail", (req, res) => {
+router.patch("/:userId/mail", (req, res) => {
     setUserMail.call(req, res);
 });
-router.put("/:userId/birthdate", (req, res) => {
+router.patch("/:userId/birthdate", (req, res) => {
     setUserBirthdate.call(req, res);
 });
 

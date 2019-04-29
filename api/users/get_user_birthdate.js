@@ -27,10 +27,18 @@ module.exports.call = function (req, res) {
             return result;
           })
           .then(userInfo => {
+            if (userInfo.birthday === undefined) {
               let response = {
-                birthdate : userInfo.birthdate
-              }
+                status: "fail",
+                message: "No birthdate registered for this user"
+              };
               res.json(response);
+            } else {
+              let response = {
+                birthdate : userInfo.birthday
+              };
+              res.json(response);
+            }
           })
         })
       .catch(error => {

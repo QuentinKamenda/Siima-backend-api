@@ -27,7 +27,7 @@ module.exports.call = function (req, res) {
             }
             else {
               let previous = result;
-              User.findOneAndUpdate( {_id: req.params.userId} , { email: req.body.mail }).then(
+              User.findOneAndUpdate( {_id: req.params.userId} , { mail: req.body.mail }).then(
                 result = {
                   status: "success",
                   message: "User updated",

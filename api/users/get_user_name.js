@@ -27,10 +27,18 @@ module.exports.call = function (req, res) {
             return result;
           })
           .then(userInfo => {
+            if (userInfo.username === undefined) {
+              let response = {
+                status: "fail",
+                message: "No username registered for this user"
+              };
+              res.json(response);
+            } else {
               let response = {
                 username : userInfo.username
-              }
+              };
               res.json(response);
+            }
           })
         })
       .catch(error => {
