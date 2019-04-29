@@ -15,7 +15,7 @@ module.exports.call = function (req, res) {
           console.log(functionName + " - Parameters checked successfully.");
           let userInformation = new User({
             username: req.body.username,
-            mail: req.body.mail
+            email: req.body.mail
           });
           return userInformation;
       })

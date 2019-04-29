@@ -10,9 +10,11 @@ const multerStorage = require("../helpers/multerStorage");
 const createUser = require("../api/users/create_user");
 const validateUser = require("../api/users/validate_user");
 const signinUser = require("../api/users/signin_user");
+
 const setUserPhoto = require("../api/users/set_user_profile_picture");
 const getUserPhoto = require("../api/users/get_user_profile_picture");
 const signoutUser = require("../api/users/signout_user");
+
 const deleteUser = require("../api/users/delete_user");
 
 const setUserPassword = require("../api/users/set_user_password");
@@ -75,8 +77,8 @@ router.delete("/:userId", (req, res) => {
 });
 
 
-
 /*
+
 router.delete("/:userId", (req, res) => {
     deleteUser.call(req, res);
 });

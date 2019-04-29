@@ -27,7 +27,7 @@ module.exports.call = function (req, res) {
             }
             else {
               let previous = result;
-              User.findOne({mail: req.body.friend}).then(friendToAdd => {
+              User.findOne({email: req.body.friend}).then(friendToAdd => {
                   if (friendToAdd === null) {
                       result = {
                         status: "fail",

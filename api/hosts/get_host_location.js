@@ -2,35 +2,43 @@
 const paramCheck = require("../../helpers/param_checker");
 const errorHandler = require("../../helpers/error_handler");
 
-const User = require("../../models/user/user");
+const Host = require("../../models/host/host");
 
 module.exports.call = function (req, res) {
 
-    let functionName = "get-user-mail";
+    let functionName = "get-host-location";
 
     paramCheck.checkParameters(req, functionName)
       .then(() => {
           console.log(functionName + " - Parameters checked successfully.");
-          let userId ={
-            _id: req.params.userId
+          let hostId ={
+            _id: req.params.hostId
           };
-          return userId;
+          return hostId;
       })
-      .then(userId => {
-          User.findOne(userId).then(result => {
+      .then(hostId => {
+          Host.findOne(hostId).then(result => {
             if (result === null) {
               result = {
                 status: "fail",
-                message: "No user found with this id"
+                message: "No host found with this id"
               };
             }
             return result;
           })
-          .then(userInfo => {
+          .then(hostInfo => {
+            if (hostInfo.location === undefined) {
               let response = {
-                email : userInfo.email
-              }
+                status: "fail",
+                message: "No location registered for this location"
+              };
               res.json(response);
+            } else {
+              let response = {
+                location : hostInfo.location
+              };
+              res.json(response);
+            }
           })
         })
       .catch(error => {

@@ -5,20 +5,24 @@ const router = express.Router();
 
 /// The API files
 const createAnimator = require("../api/animators/create_animator");
-
-/*
 const deleteAnimator = require("../api/animators/delete_animator");
 const getAnimator = require("../api/animators/get_animator");
 
 const setAnimatorName = require("../api/animators/set_animator_name");
+const setAnimatorMail = require("../api/animators/set_animator_mail");
 const setAnimatorLocation = require("../api/animators/set_animator_location");
 const setAnimatorDescription = require("../api/animators/set_animator_description");
+
+/*
 const setAnimatorProfilePicture = require("../api/animators/set_animator_profile_picture");
 const setAnimatorBackgroundPicture = require("../api/animators/set_animator_background_picture");
+*/
 
 const getAnimatorName = require("../api/animators/get_animator_name");
+const getAnimatorMail = require("../api/animators/get_animator_mail");
 const getAnimatorLocation = require("../api/animators/get_animator_location");
 const getAnimatorDescription = require("../api/animators/get_animator_description");
+/*
 const getAnimatorProfilePicture = require("../api/animators/get_animator_profile_picture");
 const getAnimatorBackgroundPicture = require("../api/animators/get_animator_background_picture");
 
@@ -56,13 +60,38 @@ const removeAllAnimatorComment = require("../api/animators/remove_all_animator_c
 router.post("/", (req, res) => {
     createAnimator.call(req, res);
 });
-/*
 router.delete("/:animatorId", (req, res) => {
     deleteAnimator.call(req, res);
 });
 router.get("/:animatorId", (req, res) => {
     getAnimator.call(req, res);
 });
-*/
+
+router.post("/:animatorId/name", (req, res) => {
+    setAnimatorName.call(req, res);
+});
+router.post("/:animatorId/mail", (req, res) => {
+    setAnimatorMail.call(req, res);
+});
+router.post("/:animatorId/location", (req, res) => {
+    setAnimatorLocation.call(req, res);
+});
+router.post("/:animatorId/description", (req, res) => {
+    setAnimatorDescription.call(req, res);
+});
+
+router.get("/:animatorId/name", (req, res) => {
+    getAnimatorName.call(req, res);
+});
+router.get("/:animatorId/mail", (req, res) => {
+    getAnimatorMail.call(req, res);
+});
+router.get("/:animatorId/location", (req, res) => {
+    getAnimatorLocation.call(req, res);
+});
+router.get("/:animatorId/description", (req, res) => {
+    getAnimatorDescription.call(req, res);
+});
+
 
 module.exports = router;

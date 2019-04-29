@@ -2,35 +2,44 @@
 const paramCheck = require("../../helpers/param_checker");
 const errorHandler = require("../../helpers/error_handler");
 
-const User = require("../../models/user/user");
+const Animator = require("../../models/animator/animator");
 
 module.exports.call = function (req, res) {
 
-    let functionName = "get-user-mail";
+    let functionName = "get-animator-mail";
 
     paramCheck.checkParameters(req, functionName)
       .then(() => {
           console.log(functionName + " - Parameters checked successfully.");
-          let userId ={
-            _id: req.params.userId
+          let animatorId ={
+            _id: req.params.animatorId
           };
-          return userId;
+          return animatorId;
       })
-      .then(userId => {
-          User.findOne(userId).then(result => {
+      .then(animatorId => {
+          Animator.findOne(animatorId).then(result => {
             if (result === null) {
               result = {
                 status: "fail",
-                message: "No user found with this id"
+                message: "No animator found with this id"
               };
             }
             return result;
           })
-          .then(userInfo => {
+          .then(animatorInfo => {
+            console.log(animatorInfo.mail)
+            if (animatorInfo.mail === undefined) {
               let response = {
-                email : userInfo.email
-              }
+                status: "fail",
+                message: "No mail address registered for this animator"
+              };
               res.json(response);
+            } else {
+              let response = {
+                mail : animatorInfo.mail
+              };
+              res.json(response);
+            }
           })
         })
       .catch(error => {

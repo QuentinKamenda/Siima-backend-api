@@ -2,35 +2,43 @@
 const paramCheck = require("../../helpers/param_checker");
 const errorHandler = require("../../helpers/error_handler");
 
-const User = require("../../models/user/user");
+const Animator = require("../../models/animator/animator");
 
 module.exports.call = function (req, res) {
 
-    let functionName = "get-user-mail";
+    let functionName = "get-animator-location";
 
     paramCheck.checkParameters(req, functionName)
       .then(() => {
           console.log(functionName + " - Parameters checked successfully.");
-          let userId ={
-            _id: req.params.userId
+          let animatorId ={
+            _id: req.params.animatorId
           };
-          return userId;
+          return animatorId;
       })
-      .then(userId => {
-          User.findOne(userId).then(result => {
+      .then(animatorId => {
+          Animator.findOne(animatorId).then(result => {
             if (result === null) {
               result = {
                 status: "fail",
-                message: "No user found with this id"
+                message: "No animator found with this id"
               };
             }
             return result;
           })
-          .then(userInfo => {
+          .then(animatorInfo => {
+            if (animatorInfo.location === undefined) {
               let response = {
-                email : userInfo.email
-              }
+                status: "fail",
+                message: "No location registered for this animator"
+              };
               res.json(response);
+            } else {
+              let response = {
+                location : animatorInfo.location
+              };
+              res.json(response);
+            }
           })
         })
       .catch(error => {

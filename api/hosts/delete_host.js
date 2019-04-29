@@ -2,41 +2,41 @@
 const paramCheck = require("../../helpers/param_checker");
 const errorHandler = require("../../helpers/error_handler");
 
-const Animator = require("../../models/animator/animator");
+const Host = require("../../models/host/host");
 const User = require("../../models/user/user");
 
 module.exports.call = function (req, res) {
 
-    let functionName = "delete-animator";
+    let functionName = "delete-host";
 
     // TODO: Verify rights
 
     paramCheck.checkParameters(req, functionName)
       .then(() => {
           console.log(functionName + " - Parameters checked successfully.");
-          let animatorId ={
-            _id: req.params.animatorId
+          let hostId ={
+            _id: req.params.hostId
           };
-          return animatorId;
+          return hostId;
       })
-      .then(animatorId => {
-          Animator.findOne({_id: animatorId}).then(result => {
+      .then(hostId => {
+          Host.findOne({_id: hostId}).then(result => {
             if (result === null) {
               result = {
                 status: "fail",
-                message: "No animator found with this id"
+                message: "No host found with this id"
               };
             }
             else {
               let removed = result;
               for (var i = 0; i < result.admins.length; i++){
                   console.log("Removing " + result._id + " from " + result.admins[i]);
-                  User.findOneAndUpdate( {_id: result.admins[i]} , { $pull : {animators: result._id}}).then()
+                  User.findOneAndUpdate( {_id: result.admins[i]} , { $pull : {hosts: result._id}}).then()
               }
               result.remove();
               result = {
                 status: "success",
-                message: "Animator deleted",
+                message: "Host deleted",
                 removed: removed
               };
             }

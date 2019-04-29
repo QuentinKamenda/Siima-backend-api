@@ -2,38 +2,38 @@
 const paramCheck = require("../../helpers/param_checker");
 const errorHandler = require("../../helpers/error_handler");
 
-const User = require("../../models/user/user");
+const Host = require("../../models/host/host");
 
 module.exports.call = function (req, res) {
 
-    let functionName = "set-user-mail";
+    let functionName = "set-host-location";
 
     paramCheck.checkParameters(req, functionName)
       .then(() => {
           console.log(functionName + " - Parameters checked successfully.");
-          let userId ={
-            _id: req.params.userId
+          let hostId ={
+            _id: req.params.hostId
           };
-          return userId;
+          return hostId;
       })
-      .then(userId => {
-          User.findOne(userId).then(result => {
+      .then(hostId => {
+          Host.findOne(hostId).then(result => {
             if (result === null) {
               result = {
                 status: "fail",
-                message: "No user found with this id"
+                message: "No host found with this id"
               }
               res.json(result)
             }
             else {
               let previous = result;
-              User.findOneAndUpdate( {_id: req.params.userId} , { email: req.body.mail }).then(
+              Host.findOneAndUpdate( {_id: req.params.hostId} , { location: req.body.location }).then(
                 result = {
                   status: "success",
-                  message: "User updated",
-                  _id: req.params.userId,
-                  previous_user: previous,
-                  new_mail: req.body.mail
+                  message: "Host updated",
+                  _id: req.params.hostId,
+                  previous_animator: previous,
+                  new_location: req.body.location
                 }
               )
               res.json(result)
