@@ -19,10 +19,6 @@ const deleteUser = require("../api/users/delete_user");
 
 const setUserPassword = require("../api/users/set_user_password");
 
-const getUserName = require("../api/users/get_user_name");
-const setUserName = require("../api/users/set_user_name");
-/*
-
 const getUser = require("../api/users/get_user");
 
 const getUserName = require("../api/users/get_user_name");
@@ -77,24 +73,22 @@ router.put("/:userId/password", (req, res) => {
 
 router.delete("/:userId", (req, res) => {
     deleteUser.call(req, res);
-}
-              
-router.put("/:userId/username", (req, res) => {
-    setUserName.call(req, res);
 });
 
-/*
-router.delete("/:userId", (req, res) => {
-    deleteUser.call(req, res);
+router.put("/:userId/username", (req, res) => {
+    setUserName.call(req, res);
 });
 
 router.put("/:userId/mail", (req, res) => {
 
     setUserMail.call(req, res);
 });
+
+/*
 router.patch("/:userId/birthdate", (req, res) => {
     setUserBirthdate.call(req, res);
 });
+*/
 
 router.post("/:userId/friends", (req, res) => {
     addUserFriend.call(req, res);

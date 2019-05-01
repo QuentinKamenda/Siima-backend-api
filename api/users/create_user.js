@@ -15,11 +15,12 @@ module.exports.call = function (req, res) {
           console.log(functionName + " - Parameters checked successfully.");
           let userInformation = new User({
             username: req.body.username,
-            email: req.body.mail
+            mail: req.body.mail
           });
           return userInformation;
       })
       .then(userInfo => {
+        console.log(userInfo);
           userInfo.save().then(userInfo => {
           //helperFirebase.signup(req, res);
           firebase.auth().createUserWithEmailAndPassword(req.body.mail, req.body.password).then(userInfo => {
@@ -31,9 +32,15 @@ module.exports.call = function (req, res) {
               console.log(functionName + " - User " + req.body.mail + " created.")
               res.json(response);
           })
-          throw error;
+          .catch(error => {
+              console.log(`Error caught in ` + functionName + ` - ${error.message}`);
+              errorHandler.handleError(req, res, error);
+          });
       })
-      throw error;
+      .catch(error => {
+          console.log(`Error caught in ` + functionName + ` - ${error.message}`);
+          errorHandler.handleError(req, res, error);
+      });
     })
     .catch(error => {
         console.log(`Error caught in ` + functionName + ` - ${error.message}`);
