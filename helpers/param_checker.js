@@ -429,6 +429,19 @@ function decideChecklistItems(apiType) {
     if (apiType === "remove-animator-tags"){
         return ["animatorId_param","tags"];
     }
+  // Host: Lists
+    if (apiType === "get-host-tags"){
+        return ["hostId_param"];
+    }
+    if (apiType === "set-host-tags"){
+        return ["hostId_param","tags"];
+    }
+    if (apiType === "add-host-tags"){
+        return ["hostId_param","tags"];
+    }
+    if (apiType === "remove-host-tags"){
+        return ["hostId_param","tags"];
+    }
     // TODO: Add Checklist for each API
 }
 

@@ -13,7 +13,6 @@ const setHostName = require("../api/hosts/set_host_name");
 const setHostMail = require("../api/hosts/set_host_mail");
 const setHostLocation = require("../api/hosts/set_host_location");
 const setHostDescription = require("../api/hosts/set_host_description");
-
 /*
 const setHostProfilePicture = require("../api/hosts/set_host_profile_picture");
 const setHostBackgroundPicture = require("../api/hosts/set_host_background_picture");
@@ -23,13 +22,18 @@ const getHostName = require("../api/hosts/get_host_name");
 const getHostMail = require("../api/hosts/get_host_mail");
 const getHostLocation = require("../api/hosts/get_host_location");
 const getHostDescription = require("../api/hosts/get_host_description");
-
 /*
 const getHostProfilePicture = require("../api/hosts/get_host_profile_picture");
 const getHostBackgroundPicture = require("../api/hosts/get_host_background_picture");
+*/
 
+const getHostTags = require("../api/hosts/get_host_tags");
+const setHostTags = require("../api/hosts/set_host_tags");
+const addHostTags = require("../api/hosts/add_host_tags");
+const removeHostTags = require("../api/hosts/remove_host_tags");
+
+/*
 const addHostAdmin = require("../api/hosts/add_host_admin");
-const addHostTag = require("../api/hosts/add_host_tag");
 const addHostEvent = require("../api/hosts/add_host_event");
 const addHostOffer = require("../api/hosts/add_host_offer");
 const addHostLink = require("../api/hosts/add_host_link");
@@ -38,7 +42,6 @@ const addHostMedium = require("../api/hosts/add_host_medium");
 const addHostComment = require("../api/hosts/add_host_comment");
 
 const removeHostAdmin = require("../api/hosts/remove_host_admin");
-const removeHostTag = require("../api/hosts/remove_host_tag");
 const removeHostEvent = require("../api/hosts/remove_host_event");
 const removeHostOffer = require("../api/hosts/remove_host_offer");
 const removeHostLink = require("../api/hosts/remove_host_link");
@@ -47,7 +50,6 @@ const removeHostMedium = require("../api/hosts/remove_host_medium");
 const removeHostComment = require("../api/hosts/remove_host_comment");
 
 const removeAllHostAdmin = require("../api/hosts/remove_all_host_admin");
-const removeAllHostTag = require("../api/hosts/remove_all_host_tag");
 const removeAllHostEvent = require("../api/hosts/remove_all_host_event");
 const removeAllHostOffer = require("../api/hosts/remove_all_host_offer");
 const removeAllHostLink = require("../api/hosts/remove_all_host_link");
@@ -93,6 +95,19 @@ router.get("/:hostId/location", (req, res) => {
 });
 router.get("/:hostId/description", (req, res) => {
     getHostDescription.call(req, res);
+});
+
+router.get("/:hostId/tags", (req, res) => {
+    getHostTags.call(req, res);
+});
+router.post("/:hostId/tags", (req, res) => {
+    setHostTags.call(req, res);
+});
+router.put("/:hostId/tags", (req, res) => {
+    addHostTags.call(req, res);
+});
+router.delete("/:hostId/tags", (req, res) => {
+    removeHostTags.call(req, res);
 });
 
 module.exports = router;
