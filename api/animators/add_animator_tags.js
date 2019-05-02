@@ -28,7 +28,9 @@ module.exports.call = function (req, res) {
             else {
               let previous = result;
               for (var tag in req.body.tags){
-                result.tags.push(req.body.tags[tag]);
+                if (result.tags.indexOf(req.body.tags[tag]) == -1){
+                  result.tags.push(req.body.tags[tag]);
+                }
               }
               result.save();
               response = {
