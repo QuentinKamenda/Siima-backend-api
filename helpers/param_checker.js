@@ -250,12 +250,44 @@ module.exports.checkParameters = function (req, apiType) {
                         }else if ((typeof req.body.location) !== "string"){
                             let response = {
                                 isInternal: false,
-                                message: "invalid phone number: not a string"
+                                message: "invalid location: not a string"
                             };
                             throw response;
                         }
-                        //TODO: Verify the format (care of the international/simplified format !!)
+                        //TODO: Verify the format (care of the address/country format !!)
                     }
+                    // Verifies the tags (list)
+                    if (checkItem === "tags"){
+                        if (req.body.tags === undefined || req.body.tags === "") {
+                            let response = {
+                                isInternal: false,
+                                message: "missing location"
+                            };
+                            throw response;
+                        }else if (!Array.isArray(req.body.tags)){
+                            let response = {
+                                isInternal: false,
+                                message: "invalid tags: not a list of string"
+                            };
+                            throw response;
+                        }
+                    }
+                    // Verifies the tag (string)
+                    // if (checkItem === "tag"){
+                    //     if (req.body.tag === undefined || req.body.tag === "") {
+                    //         let response = {
+                    //             isInternal: false,
+                    //             message: "missing location"
+                    //         };
+                    //         throw response;
+                    //     }else if ((typeof req.body.tag) !== "string"){
+                    //         let response = {
+                    //             isInternal: false,
+                    //             message: "invalid tag: not a string"
+                    //         };
+                    //         throw response;
+                    //     }
+                    // }
                 }
             }
         }catch(err) {
@@ -275,6 +307,7 @@ module.exports.checkParameters = function (req, apiType) {
  * @return {list[string]}         the list of all the parameters to check
  */
 function decideChecklistItems(apiType) {
+  // User: Basics
     if (apiType === "create-user"){
         return ["username", "password", "mail"];
     }
@@ -302,18 +335,21 @@ function decideChecklistItems(apiType) {
     if (apiType === "get-user-birthdate"){
         return ["userId_param"];
     }
+  // User: Friends
     if (apiType === "add-user-friend"){
         return ["userId_param"];
     }
     if (apiType === "remove-user-friend"){
         return ["userId_param"];
     }
+  // User: Media
     if (apiType === "set-user-profile-picture"){
         return ["userId_param"];
     }
     if (apiType === "get-user-profile-picture"){
         return ["userId_param"];
     }
+  // Animators & Hosts: Basics
     if (apiType === "create-animator"){
         return ["name","creator"];
     }
@@ -356,7 +392,6 @@ function decideChecklistItems(apiType) {
     if (apiType === "get-host-location"){
         return ["hostId_param"];
     }
-
     if (apiType === "set-animator-name"){
         return ["animatorId_param","name"];
     }
@@ -380,6 +415,19 @@ function decideChecklistItems(apiType) {
     }
     if (apiType === "set-host-location"){
         return ["hostId_param","location"];
+    }
+  // Animator: Lists
+    if (apiType === "get-animator-tags"){
+        return ["animatorId_param"];
+    }
+    if (apiType === "set-animator-tags"){
+        return ["animatorId_param","tags"];
+    }
+    if (apiType === "add-animator-tags"){
+        return ["animatorId_param","tags"];
+    }
+    if (apiType === "remove-animator-tags"){
+        return ["animatorId_param","tags"];
     }
     // TODO: Add Checklist for each API
 }
