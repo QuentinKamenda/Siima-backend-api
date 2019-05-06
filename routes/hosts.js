@@ -9,6 +9,8 @@ const createHost = require("../api/hosts/create_host");
 const deleteHost = require("../api/hosts/delete_host");
 const getHost = require("../api/hosts/get_host");
 
+const queryHost = require("../api/hosts/query_host");
+
 const setHostName = require("../api/hosts/set_host_name");
 const setHostMail = require("../api/hosts/set_host_mail");
 const setHostLocation = require("../api/hosts/set_host_location");
@@ -70,6 +72,10 @@ router.delete("/:hostId", (req, res) => {
 router.get("/:hostId", (req, res) => {
     getHost.call(req, res);
 });
+
+router.get("/", (req,res) => {
+    queryHost.call(req,res);
+})
 
 router.patch("/:hostId/name", (req, res) => {
     setHostName.call(req, res);

@@ -261,7 +261,7 @@ module.exports.checkParameters = function (req, apiType) {
                         if (req.body.tags === undefined || req.body.tags === "") {
                             let response = {
                                 isInternal: false,
-                                message: "missing location"
+                                message: "missing tags"
                             };
                             throw response;
                         }else if (!Array.isArray(req.body.tags)){
@@ -288,6 +288,42 @@ module.exports.checkParameters = function (req, apiType) {
                     //         throw response;
                     //     }
                     // }
+                    // Verifies the query parameters
+                    if (checkItem === "userQuery_param"){
+                        for (var param in req.query){
+                          if (!(['username', 'mail'].indexOf(param) >= 0)){
+                            let response = {
+                              isInternal: false,
+                              message: "invalid query parameters: " + param + " is not a valid parameter"
+                            }
+                            throw response;
+                          }
+                        }
+                    }
+                    // Verifies the query parameters
+                    if (checkItem === "animQuery_param"){
+                        for (var param in req.query){
+                          if (!(['name', 'description','location','mail','tag'].indexOf(param) >= 0)){
+                            let response = {
+                              isInternal: false,
+                              message: "invalid query parameters: " + param + " is not a valid parameter"
+                            }
+                            throw response;
+                          }
+                        }
+                    }
+                    // Verifies the query parameters
+                    if (checkItem === "hostQuery_param"){
+                        for (var param in req.query){
+                          if (!(['name', 'description','location','mail','tag'].indexOf(param) >= 0)){
+                            let response = {
+                              isInternal: false,
+                              message: "invalid query parameters: " + param + " is not a valid parameter"
+                            }
+                            throw response;
+                          }
+                        }
+                    }
                 }
             }
         }catch(err) {
@@ -442,6 +478,16 @@ function decideChecklistItems(apiType) {
     if (apiType === "remove-host-tags"){
         return ["hostId_param","tags"];
     }
+  // Queries
+  if (apiType === "query-user"){
+      return ["userQuery_param"];
+  }
+  if (apiType === "query-animator"){
+      return ["animQuery_param"];
+  }
+  if (apiType === "query-host"){
+      return ["hostQuery_param"];
+  }
     // TODO: Add Checklist for each API
 }
 

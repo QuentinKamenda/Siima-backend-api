@@ -11,6 +11,8 @@ const createUser = require("../api/users/create_user");
 const validateUser = require("../api/users/validate_user");
 const signinUser = require("../api/users/signin_user");
 
+const queryUser = require("../api/users/query_user");
+
 const setUserPhoto = require("../api/users/set_user_profile_picture");
 const getUserPhoto = require("../api/users/get_user_profile_picture");
 const signoutUser = require("../api/users/signout_user");
@@ -51,6 +53,9 @@ router.post("/:userId/signin", (req,res) => {
     signinUser.call(req, res);
 });
 
+router.get("/", (req,res) => {
+    queryUser.call(req, res);
+})
 
 router.put("/:userId/profilePicture",(req,res) => {
   let upload = multerStorage.getUpload(URLMongoDB).single('file');

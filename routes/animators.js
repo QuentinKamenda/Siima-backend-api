@@ -8,6 +8,8 @@ const createAnimator = require("../api/animators/create_animator");
 const deleteAnimator = require("../api/animators/delete_animator");
 const getAnimator = require("../api/animators/get_animator");
 
+const queryAnimator = require("../api/animators/query_animator");
+
 const setAnimatorName = require("../api/animators/set_animator_name");
 const setAnimatorMail = require("../api/animators/set_animator_mail");
 const setAnimatorLocation = require("../api/animators/set_animator_location");
@@ -71,6 +73,10 @@ router.delete("/:animatorId", (req, res) => {
 router.get("/:animatorId", (req, res) => {
     getAnimator.call(req, res);
 });
+
+router.get("/", (req,res) => {
+    queryAnimator.call(req, res);
+})
 
 router.patch("/:animatorId/name", (req, res) => {
     setAnimatorName.call(req, res);
