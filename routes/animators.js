@@ -12,6 +12,8 @@ const setAnimatorName = require("../api/animators/set_animator_name");
 const setAnimatorMail = require("../api/animators/set_animator_mail");
 const setAnimatorLocation = require("../api/animators/set_animator_location");
 const setAnimatorDescription = require("../api/animators/set_animator_description");
+const setAnimatorProfilePicture = require("../api/animators/set_animator_profile_picture");
+const getAnimatorProfilePicture = require("../api/animators/get_animator_profile_picture");
 
 /*
 const setAnimatorProfilePicture = require("../api/animators/set_animator_profile_picture");
@@ -73,6 +75,15 @@ router.patch("/:animatorId/name", (req, res) => {
 router.patch("/:animatorId/mail", (req, res) => {
     setAnimatorMail.call(req, res);
 });
+
+router.put("/:userId/profilePicture",(req,res) => {
+  setAnimatorProfilePicture.call(req,res);
+});
+
+router.get("/:userId/profilePicture", (req, res) => {
+  getAnimatorProfilePicture.call(req, res);
+});
+
 router.patch("/:animatorId/location", (req, res) => {
     setAnimatorLocation.call(req, res);
 });

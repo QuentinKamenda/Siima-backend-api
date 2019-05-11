@@ -1,5 +1,5 @@
 
-const User = require("../../models/user/user");
+const Host = require("../../models/user/host");
 const Media = require("../../models/media/media")
 const fs = require("fs");
 const errorHandler = require("../../helpers/error_handler");
@@ -23,7 +23,7 @@ module.exports.call = function (req,res ) {
         //save the image
         newMedia.save().then((picture)=>{
           //put the id of the image object into the corresponding user
-          User.findOneAndUpdate( {_id: req.params.userId} , { profile_picture: picture._id })
+          Host.findOneAndUpdate( {_id: req.params.userId} , { profile_picture: picture._id })
           .then(()=>{
             let result = {
               status: "success",

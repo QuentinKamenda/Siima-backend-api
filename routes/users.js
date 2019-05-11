@@ -1,17 +1,15 @@
 "use strict";
 
-const URLMongoDB = 'mongodb://localhost/siima_db';
-
 const express = require("express");
 const router = express.Router();
 
-const multerStorage = require("../helpers/multerStorage");
+
 // The API files
 const createUser = require("../api/users/create_user");
 const validateUser = require("../api/users/validate_user");
 const signinUser = require("../api/users/signin_user");
 
-const setUserPhoto = require("../api/users/set_user_profile_picture");
+const setUserProfilePicture = require("../api/users/set_user_profile_picture");
 const getUserPhoto = require("../api/users/get_user_profile_picture");
 const signoutUser = require("../api/users/signout_user");
 
@@ -53,10 +51,7 @@ router.post("/:userId/signin", (req,res) => {
 
 
 router.put("/:userId/profilePicture",(req,res) => {
-  let upload = multerStorage.getUpload(URLMongoDB).single('file');
-  upload(req,res, (err) => {
-    setUserPhoto.call(req,res);
-  });
+  setUserProfilePicture.call(req,res);
 });
 
 router.get("/:userId/profilePicture", (req, res) => {

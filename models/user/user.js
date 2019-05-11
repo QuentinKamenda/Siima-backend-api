@@ -8,7 +8,7 @@ const userSchema = new Schema({
   friends:[{type: Schema.Types.ObjectId, ref: 'Friend'}],
   hosts:[{type: Schema.Types.ObjectId, ref: 'Host'}],
   animators:[{type: Schema.Types.ObjectId, ref: 'Animator'}],
-  profile_picture:{type: Schema.Types.ObjectId, ref: 'Image'}
+  profile_picture:{type: Schema.Types.ObjectId, ref: 'Media'}
 },{timestamps : true});
 
 const user = mongoose.model('User', userSchema);

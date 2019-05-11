@@ -1,5 +1,5 @@
 
-const User = require("../../models/user/user");
+const Host = require("../../models/user/host");
 const Media = require("../../models/media/media");
 const mongooseInit = require("../../helpers/mongoDB");
 const Grid = require('gridfs-stream');
@@ -20,7 +20,7 @@ module.exports.call = function (req,res ) {
       _id: req.params.userId
     };
     //find the user wich you want to get the profile picture from
-    User.findOne(userId).then((result)=>{
+    Host.findOne(userId).then((result)=>{
       //find the image object wich containe the name of the file
       Media.findOne({ _id : result.profile_picture }).then((image)=>{
         //get the file with the correct name
