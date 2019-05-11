@@ -4,6 +4,8 @@ let actionCodeSettings = config.actionCodeSettings;
 
 var firebase = require("firebase");
 
+const MongoUser = require("../models/user/user");
+
 module.exports.signin = function (email,password) {
   return new Promise((resolve, reject) => {
     try{
@@ -41,7 +43,7 @@ module.exports.signin = function (email,password) {
 module.exports.signout = function () {
   return new Promise((resolve, reject) => {
     try{
-      if (firebase.auth.currentUser){
+      if (firebase.auth().currentUser){
         var user = firebase.auth().currentUser;
         firebase.auth().signOut().then(function() {
           // Sign-out successful.
@@ -167,8 +169,15 @@ module.exports.initfire = function() {
         // [START_EXCLUDE silent]
         // [END_EXCLUDE]
         if (user) {
-          // User is signed in.
-          // [END_EXCLUDE]
+          MongoUser.findOne({mail: user.email}).then( result => {
+
+           if (result == null){
+                 console.log("pas trouvé")
+             }
+             else {
+                user.provideId = result._id;
+             }
+          })
         } else {
           // User is signed out.
           // [START_EXCLUDE]
