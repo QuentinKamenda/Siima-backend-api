@@ -11,7 +11,15 @@ module.exports.call = function (req, res) {
     paramCheck.checkParameters(req, functionName)
       .then(() => {
         console.log(functionName + " - Parameters checked successfully.");
-        User.find(req.query).then(result => {
+        let queryName = '';
+        if(!(req.query.name == undefined)){ queryName = '^'+req.query.name+'$'}
+        let queryMail = '';
+        if(!(req.query.mail == undefined)){ queryMail = '^'+req.query.mail+'$'}
+        let query = {$and: [
+          {name: {$regex: queryName}},
+          {mail: {$regex: queryMail}}
+        ]}
+        User.find(query).then(result => {
           if (result === null || result.length < 1) {
             result = {
               status: "fail",
