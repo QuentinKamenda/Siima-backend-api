@@ -6,6 +6,9 @@ const errorHandler = require("../../helpers/error_handler");
 const paramCheck = require("../../helpers/param_checker");
 const URLMongoDB = 'mongodb://localhost/siima_db';
 const multerStorage = require("../../helpers/multerStorage");
+const mongooseInit = require("../../helpers/mongoDB");
+const Grid = require('gridfs-stream');
+const mongoose = require('mongoose');
 
 module.exports.call = function (req,res ) {
 
@@ -22,22 +25,46 @@ module.exports.call = function (req,res ) {
         });
         //save the image
         newMedia.save().then((picture)=>{
-          //put the id of the image object into the corresponding user
-          User.findOneAndUpdate( {_id: req.params.userId} , { profile_picture: picture._id })
-          .then(()=>{
-            let result = {
-              status: "success",
-              message: "User updated profile picture",
-              _id: req.params.userId,
-              new_username: req.body.username
+          User.findOne({profile_picture: { $exists: true, $ne: null }, _id: req.params.userId }).then((result)=>{
+            if(result==null){
+              //put the id of the image object into the corresponding user
+              User.findOneAndUpdate( {_id: req.params.userId} , { profile_picture: picture._id })
+              .then(()=>{
+                let result = {
+                  status: "success",
+                  message: "User updated profile picture",
+                  _id: req.params.userId,
+                  new_username: req.body.username
+                }
+                res.json(result);
+              });
             }
-
-            res.json(result);
+            else{
+              Media.findOne({_id: result.profile_picture}).then((media)=>{
+                mongooseInit.initMongoDBConnection().then((conn)=>{
+                  const gfs = Grid(conn.db, mongoose.mongo);
+                  //set collection name to lookup into
+                  gfs.collection('uploads');
+                  gfs.files.remove({filename: media.name });
+                  Media.remove({_id: result.profile_picture}).then(()=>{
+                    User.findOneAndUpdate( {_id: req.params.userId} , { profile_picture: picture._id }).then(()=>{
+                      let result = {
+                        status: "success",
+                        message: "User updated profile picture",
+                        _id: req.params.userId,
+                        new_username: req.body.username
+                      }
+                      res.json(result);
+                    });
+                  });
+                });
+              });
+            }
           });
         })
         .catch(error => {
-            console.log(`Error caught in ` + functionName + ` - ${error.message}`);
-            errorHandler.handleError(req, res, error);
+          console.log(`Error caught in ` + functionName + ` - ${error.message}`);
+          errorHandler.handleError(req, res, error);
         });
       });
     }

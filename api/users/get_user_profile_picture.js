@@ -9,7 +9,7 @@ const errorHandler = require("../../helpers/error_handler");
 
 module.exports.call = function (req,res ) {
 
-  let functionName = "set-user-profile-picture";
+  let functionName = "get-user-profile-picture";
 
   //connection to mongoDB to get gfs
   mongooseInit.initMongoDBConnection().then((conn)=>{

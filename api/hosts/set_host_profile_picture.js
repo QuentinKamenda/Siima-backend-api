@@ -1,11 +1,14 @@
 
-const Host = require("../../models/user/host");
+const Host = require("../../models/host/host");
 const Media = require("../../models/media/media")
 const fs = require("fs");
 const errorHandler = require("../../helpers/error_handler");
 const paramCheck = require("../../helpers/param_checker");
 const URLMongoDB = 'mongodb://localhost/siima_db';
 const multerStorage = require("../../helpers/multerStorage");
+const mongooseInit = require("../../helpers/mongoDB");
+const Grid = require('gridfs-stream');
+const mongoose = require('mongoose');
 
 module.exports.call = function (req,res ) {
 
@@ -13,31 +16,55 @@ module.exports.call = function (req,res ) {
   let upload = multerStorage.getUpload(URLMongoDB).single('file');
   upload(req,res, (err) => {
     if(req.body.mediaType === 'picture'){
-      let functionName = "set-user-profile-picture";
+      let functionName = "set-host-profile-picture";
       paramCheck.checkParameters(req, functionName).then(()=>{
-        let userId ={_id: req.params.userId};
+        let hostId ={_id: req.params.hostId};
         //create a new image object to store the name of the file
         let newMedia = new Media({
           name : req.file.filename,
         });
         //save the image
         newMedia.save().then((picture)=>{
-          //put the id of the image object into the corresponding user
-          Host.findOneAndUpdate( {_id: req.params.userId} , { profile_picture: picture._id })
-          .then(()=>{
-            let result = {
-              status: "success",
-              message: "User updated profile picture",
-              _id: req.params.userId,
-              new_username: req.body.username
+          Host.findOne({profile_picture: { $exists: true, $ne: null }, _id: req.params.hostId }).then((result)=>{
+            if(result==null){
+              //put the id of the image object into the corresponding user
+              Host.findOneAndUpdate( {_id: req.params.hostId} , { profile_picture: picture._id })
+              .then(()=>{
+                let result = {
+                  status: "success",
+                  message: "User updated profile picture",
+                  _id: req.params.hostId,
+                  new_username: req.body.username
+                }
+                res.json(result);
+              });
             }
-
-            res.json(result);
+            else{
+              Media.findOne({_id: result.profile_picture}).then((media)=>{
+                mongooseInit.initMongoDBConnection().then((conn)=>{
+                  const gfs = Grid(conn.db, mongoose.mongo);
+                  //set collection name to lookup into
+                  gfs.collection('uploads');
+                  gfs.files.remove({filename: media.name });
+                  Media.remove({_id: result.profile_picture}).then(()=>{
+                    Host.findOneAndUpdate( {_id: req.params.hostId} , { profile_picture: picture._id }).then(()=>{
+                      let result = {
+                        status: "success",
+                        message: "Host updated profile picture",
+                        _id: req.params.hostId,
+                        new_username: req.body.username
+                      }
+                      res.json(result);
+                    });
+                  });
+                });
+              });
+            }
           });
         })
         .catch(error => {
-            console.log(`Error caught in ` + functionName + ` - ${error.message}`);
-            errorHandler.handleError(req, res, error);
+          console.log(`Error caught in ` + functionName + ` - ${error.message}`);
+          errorHandler.handleError(req, res, error);
         });
       });
     }

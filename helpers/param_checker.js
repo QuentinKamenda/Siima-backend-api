@@ -314,6 +314,18 @@ function decideChecklistItems(apiType) {
     if (apiType === "get-user-profile-picture"){
         return ["userId_param"];
     }
+    if (apiType === "set-host-profile-picture"){
+        return ["hostId_param"];
+    }
+    if (apiType === "get-host-profile-picture"){
+        return ["hostId_param"];
+    }
+    if (apiType === "set-animator-profile-picture"){
+        return ["animatorId_param"];
+    }
+    if (apiType === "get-animator-profile-picture"){
+        return ["animatorId_param"];
+    }
     if (apiType === "create-animator"){
         return ["name","creator"];
     }

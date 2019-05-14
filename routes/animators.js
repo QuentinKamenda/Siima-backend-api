@@ -76,11 +76,11 @@ router.patch("/:animatorId/mail", (req, res) => {
     setAnimatorMail.call(req, res);
 });
 
-router.put("/:userId/profilePicture",(req,res) => {
+router.put("/:animatorId/profilePicture",(req,res) => {
   setAnimatorProfilePicture.call(req,res);
 });
 
-router.get("/:userId/profilePicture", (req, res) => {
+router.get("/:animatorId/profilePicture", (req, res) => {
   getAnimatorProfilePicture.call(req, res);
 });
 

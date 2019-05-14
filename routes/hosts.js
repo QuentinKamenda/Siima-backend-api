@@ -13,6 +13,8 @@ const setHostName = require("../api/hosts/set_host_name");
 const setHostMail = require("../api/hosts/set_host_mail");
 const setHostLocation = require("../api/hosts/set_host_location");
 const setHostDescription = require("../api/hosts/set_host_description");
+const setHostProfilePicture = require("../api/hosts/set_host_profile_picture");
+const getHostProfilePicture = require("../api/hosts/get_host_profile_picture");
 
 /*
 const setHostProfilePicture = require("../api/hosts/set_host_profile_picture");
@@ -80,6 +82,14 @@ router.patch("/:hostId/location", (req, res) => {
 });
 router.patch("/:hostId/description", (req, res) => {
     setHostDescription.call(req, res);
+});
+
+router.put("/:hostId/profilePicture",(req,res) => {
+  setHostProfilePicture.call(req,res);
+});
+
+router.get("/:hostId/profilePicture", (req, res) => {
+  getHostProfilePicture.call(req, res);
 });
 
 router.get("/:hostId/name", (req, res) => {
