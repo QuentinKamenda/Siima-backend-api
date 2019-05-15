@@ -11,6 +11,8 @@ module.exports.call = function (req, res) {
     paramCheck.checkParameters(req, functionName)
       .then(() => {
         console.log(functionName + " - Parameters checked successfully.");
+        var page = parseInt(req.query.page) || 0;
+        var limit = parseInt(req.query.limit) || 10;
         let queryName = '';
         if(!(req.query.name == undefined)){ queryName = '^'+req.query.name+'$'}
         let queryMail = '';
@@ -22,12 +24,16 @@ module.exports.call = function (req, res) {
           {name: {$regex: queryName}},
           {mail: {$regex: queryMail}}
         ]}
-        Animator.find(query).then(result => {
-          if (result === null || result.length < 1) {
-            result = {
-              status: "fail",
-              message: "No animator found with these parameters"
-            };
+        Animator.find(query)
+          .sort({updatedAt: -1})
+          .skip(page * limit)
+          .limit(limit)
+          .then(result => {
+            if (result === null || result.length < 1) {
+              result = {
+                status: "fail",
+                message: "No animator found with these parameters"
+              };
           }
           res.json(result);
         })

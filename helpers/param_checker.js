@@ -291,7 +291,7 @@ module.exports.checkParameters = function (req, apiType) {
                     // Verifies the query parameters
                     if (checkItem === "userQuery_param"){
                         for (var param in req.query){
-                          if (!(['username', 'mail'].indexOf(param) >= 0)){
+                          if (!(['page','limit','username', 'mail'].indexOf(param) >= 0)){
                             let response = {
                               isInternal: false,
                               message: "invalid query parameters: " + param + " is not a valid parameter"
@@ -303,7 +303,7 @@ module.exports.checkParameters = function (req, apiType) {
                     // Verifies the query parameters
                     if (checkItem === "animQuery_param"){
                         for (var param in req.query){
-                          if (!(['name', 'description','location','mail','tags'].indexOf(param) >= 0)){
+                          if (!(['page','limit','name', 'description','location','mail','tags'].indexOf(param) >= 0)){
                             let response = {
                               isInternal: false,
                               message: "invalid query parameters: " + param + " is not a valid parameter"
@@ -315,7 +315,7 @@ module.exports.checkParameters = function (req, apiType) {
                     // Verifies the query parameters
                     if (checkItem === "hostQuery_param"){
                         for (var param in req.query){
-                          if (!(['name', 'description','location','mail','tags'].indexOf(param) >= 0)){
+                          if (!(['page','limit','name', 'description','location','mail','tags'].indexOf(param) >= 0)){
                             let response = {
                               isInternal: false,
                               message: "invalid query parameters: " + param + " is not a valid parameter"
