@@ -71,6 +71,30 @@ module.exports.checkParameters = function (req, apiType) {
                             throw response;
                         }
                     }
+                    // Verifies the admin
+                    if (checkItem === "admin"){
+                        if (req.body.admin === undefined || req.body.admin === "") {
+                            let response = {
+                                isInternal: false,
+                                message: "missing admin id"
+                            };
+                            throw response;
+
+                        }else if ((typeof req.body.admin) !== "string"){
+                            let response = {
+                                isInternal: false,
+                                message: "invalid admin: not a string"
+                            };
+                            throw response;
+                        }
+                        else if (!verifyObjectIdFormat(req.body.admin)){
+                            let response = {
+                                isInternal: false,
+                                message: "invalid admin id: invalid format"
+                            };
+                            throw response;
+                        }
+                    }
                     // Verifies the mail address
                     if (checkItem === "mail"){
                         if (req.body.mail === undefined || req.body.mail === "") {
@@ -399,10 +423,10 @@ function decideChecklistItems(apiType) {
         return ["hostId_param"];
     }
     if (apiType === "delete-animator"){
-        return ["animatorId_param"];
+        return ["animatorId_param", "admin"];
     }
     if (apiType === "delete-host"){
-        return ["hostId_param"];
+        return ["hostId_param", "admin"];
     }
     if (apiType === "get-animator-name"){
         return ["animatorId_param"];

@@ -28,17 +28,25 @@ module.exports.call = function (req, res) {
               };
             }
             else {
-              let removed = result;
-              for (var i = 0; i < result.admins.length; i++){
-                  console.log("Removing " + result._id + " from " + result.admins[i]);
-                  User.findOneAndUpdate( {_id: result.admins[i]} , { $pull : {animators: result._id}}).then()
+              if (result.admins.indexOf(req.body.admin) >= 0){
+                let removed = result;
+                for (var i = 0; i < result.admins.length; i++){
+                    console.log("Removing " + result._id + " from " + result.admins[i]);
+                    User.findOneAndUpdate( {_id: result.admins[i]} , { $pull : {animators: result._id}}).then()
+                }
+                result.remove();
+                result = {
+                  status: "success",
+                  message: "Animator deleted",
+                  removed: removed
+                };
               }
-              result.remove();
-              result = {
-                status: "success",
-                message: "Animator deleted",
-                removed: removed
-              };
+              else {
+                result = {
+                  status: "fail",
+                  message: "User " + req.body.admin + " not allowed to delete this animator."
+                };
+              }
             }
             res.json(result);
           })
