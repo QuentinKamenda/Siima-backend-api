@@ -16,6 +16,8 @@ const setHostDescription = require("../api/hosts/set_host_description");
 const setHostProfilePicture = require("../api/hosts/set_host_profile_picture");
 const getHostProfilePicture = require("../api/hosts/get_host_profile_picture");
 
+const addHostMedia = require("../api/hosts/add_host_media");
+const removeHostMedia = require("../api/hosts/remove_host_media");
 /*
 const setHostProfilePicture = require("../api/hosts/set_host_profile_picture");
 const setHostBackgroundPicture = require("../api/hosts/set_host_background_picture");
@@ -104,5 +106,14 @@ router.get("/:hostId/location", (req, res) => {
 router.get("/:hostId/description", (req, res) => {
     getHostDescription.call(req, res);
 });
+
+router.delete("/:hostId/media", (req, res) => {
+    removeHostMedia.call(req, res);
+});
+
+router.put("/:hostId/media", (req, res) => {
+    addHostMedia.call(req, res);
+});
+
 
 module.exports = router;

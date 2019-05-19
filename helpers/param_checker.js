@@ -368,7 +368,6 @@ function decideChecklistItems(apiType) {
     if (apiType === "get-host-location"){
         return ["hostId_param"];
     }
-
     if (apiType === "set-animator-name"){
         return ["animatorId_param","name"];
     }
@@ -392,6 +391,18 @@ function decideChecklistItems(apiType) {
     }
     if (apiType === "set-host-location"){
         return ["hostId_param","location"];
+    }
+    if (apiType === "remove-host-media"){
+        return ["hostId_param"];
+    }
+    if (apiType === "add-host-media"){
+        return ["hostId_param"];
+    }
+    if (apiType === "remove-animator-media"){
+        return ["animatorId_param"];
+    }
+    if (apiType === "add-animator-media"){
+        return ["animatorId_param"];
     }
     // TODO: Add Checklist for each API
 }

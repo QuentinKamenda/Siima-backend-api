@@ -14,6 +14,8 @@ const setAnimatorLocation = require("../api/animators/set_animator_location");
 const setAnimatorDescription = require("../api/animators/set_animator_description");
 const setAnimatorProfilePicture = require("../api/animators/set_animator_profile_picture");
 const getAnimatorProfilePicture = require("../api/animators/get_animator_profile_picture");
+const addAnimatorMedia = require("../api/animators/add_animator_media");
+const removeAnimatorMedia = require("../api/animators/remove_animator_media");
 
 /*
 const setAnimatorProfilePicture = require("../api/animators/set_animator_profile_picture");
@@ -102,6 +104,14 @@ router.get("/:animatorId/location", (req, res) => {
 });
 router.get("/:animatorId/description", (req, res) => {
     getAnimatorDescription.call(req, res);
+});
+
+router.delete("/:animatorId/media", (req, res) => {
+    removeAnimatorMedia.call(req, res);
+});
+
+router.put("/:animatorId/media", (req, res) => {
+    addAnimatorMedia.call(req, res);
 });
 
 

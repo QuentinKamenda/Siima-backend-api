@@ -32,9 +32,8 @@ module.exports.call = function (req,res ) {
               .then(()=>{
                 let result = {
                   status: "success",
-                  message: "User updated profile picture",
+                  message: "Animator updated profile picture",
                   _id: req.params.animatorId,
-                  new_username: req.body.username
                 }
                 res.json(result);
               });
