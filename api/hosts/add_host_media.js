@@ -29,14 +29,17 @@ module.exports.call = async  function (req, res) {
     else if(req.body.mediaType === 'video'){
       media = new Media({
         typeMedia : req.body.mediaType,
-        videoLink : req.file.videoLink,
+        videoLink : req.body.videoLink,
       });
       if(req.checkBody('description').exists()){
         media.set('description',req.body.description);
       }
     }
+    else{
+      res.json({error: "wrong media type"});
+    }
     var mediaSaved = await media.save();
-    await Host.findOneAndUpdate( {_id: req.params.hostId},{$push: {media: mediaSaved.id} } );
+    var mediaPushed = await Host.findOneAndUpdate( {_id: req.params.hostId},{$push: {media: mediaSaved.id} } );
     let result = {
       status: "success",
       message: "a media was added to this host",

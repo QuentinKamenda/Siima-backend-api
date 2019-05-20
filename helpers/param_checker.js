@@ -404,6 +404,13 @@ function decideChecklistItems(apiType) {
     if (apiType === "add-animator-media"){
         return ["animatorId_param"];
     }
+
+    if (apiType === "get-host-media-list"){
+        return ["hostId_param"];
+    }
+    if (apiType === "get-animator-media-list"){
+        return ["animatorId_param"];
+    }
     // TODO: Add Checklist for each API
 }
 

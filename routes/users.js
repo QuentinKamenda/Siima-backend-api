@@ -29,6 +29,8 @@ const setUserBirthdate = require("../api/users/set_user_birthdate");
 
 const addUserFriend = require("../api/users/add_user_friend");
 const removeUserFriend = require("../api/users/remove_user_friend");
+
+const getMedia = require("../api/users/get_media");
 /*
 const getUserPassword = require("../api/users/get_user_password");
 const getUserProfilePicture = require("../api/users/get_user_profile_picture");
@@ -108,6 +110,11 @@ router.get("/:userId/username", (req, res) => {
 router.get("/:userId/mail", (req, res) => {
     getUserMail.call(req, res);
 });
+
+router.get("/:mediaId/media", (req, res) => {
+    getMedia.call(req, res);
+});
+
 router.get("/:userId/birthdate", (req, res) => {
     getUserBirthdate.call(req, res);
 });

@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const mediaSchema = new Schema({
   typeMedia : String,
-  name : { type: String, required: true},
+  name : { type: String},
   videoLink : String ,
   description : String
 },{timestamps : true});

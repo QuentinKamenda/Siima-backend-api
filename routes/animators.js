@@ -16,6 +16,7 @@ const setAnimatorProfilePicture = require("../api/animators/set_animator_profile
 const getAnimatorProfilePicture = require("../api/animators/get_animator_profile_picture");
 const addAnimatorMedia = require("../api/animators/add_animator_media");
 const removeAnimatorMedia = require("../api/animators/remove_animator_media");
+const getAnimatorMediaList = require("../api/animators/get_animator_media_list");
 
 /*
 const setAnimatorProfilePicture = require("../api/animators/set_animator_profile_picture");
@@ -78,11 +79,11 @@ router.patch("/:animatorId/mail", (req, res) => {
     setAnimatorMail.call(req, res);
 });
 
-router.put("/:animatorId/profilePicture",(req,res) => {
+router.put("/:animatorId/profile_picture",(req,res) => {
   setAnimatorProfilePicture.call(req,res);
 });
 
-router.get("/:animatorId/profilePicture", (req, res) => {
+router.get("/:animatorId/profile_picture", (req, res) => {
   getAnimatorProfilePicture.call(req, res);
 });
 
@@ -112,6 +113,10 @@ router.delete("/:animatorId/media", (req, res) => {
 
 router.put("/:animatorId/media", (req, res) => {
     addAnimatorMedia.call(req, res);
+});
+
+router.get("/:animatorId/media_list", (req, res) => {
+    getAnimatorMediaList.call(req, res);
 });
 
 

@@ -29,11 +29,14 @@ module.exports.call = async  function (req, res) {
     else if(req.body.mediaType === 'video'){
       media = new Media({
         typeMedia : req.body.mediaType,
-        videoLink : req.file.videoLink,
+        videoLink : req.body.videoLink,
       });
       if(req.checkBody('description').exists()){
         media.set('description',req.body.description);
       }
+    }
+    else{
+      res.json({error: "this media type does not exist" });
     }
     var mediaSaved = await media.save();
     await Animator.findOneAndUpdate( {_id: req.params.animatorId},{$push: {media: mediaSaved.id} } );
