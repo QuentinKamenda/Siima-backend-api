@@ -6,11 +6,11 @@ const errorHandler = require("../../helpers/error_handler");
     let functionName = 'signin-user';
 
     helper_firebase.signin(req.body.email,req.body.pwd)
-     .then(() => {
+     .then(result => {
        let response = {
          status: "success",
          message: "user signed in",
-         userInformation: req.body.email
+         userInformation: result,
        };
        res.json(response);
      })
