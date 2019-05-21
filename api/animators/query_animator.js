@@ -24,6 +24,17 @@ module.exports.call = function (req, res) {
           {name: {$regex: queryName}},
           {mail: {$regex: queryMail}}
         ]}
+        let queryTags = [];
+        if(!(req.query.tags == undefined)){
+          queryTags = req.query.tags.split(",");
+          query = {$and: [
+            {description: {$regex: queryDesc}},
+            {name: {$regex: queryName}},
+            {mail: {$regex: queryMail}},
+            {tags: {$in: queryTags}}
+          ]}
+        }
+        console.log("Attempting query: ", query)
         Animator.find(query)
           .sort({updatedAt: -1})
           .skip(page * limit)

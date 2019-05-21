@@ -19,13 +19,22 @@ module.exports.call = function (req, res) {
         if(!(req.query.mail == undefined)){ queryMail = '^'+req.query.mail+'$'}
         let queryDesc = '';
         if(!(req.query.description == undefined)){ queryDesc = ''+req.query.description+''}
-        let queryTags = [];
-        if(!(req.query.tags == undefined)){ queryTags = req.query.tags}
         let query = {$and: [
           {description: {$regex: queryDesc}},
           {name: {$regex: queryName}},
           {mail: {$regex: queryMail}}
         ]}
+        let queryTags = [];
+        if(!(req.query.tags == undefined)){
+          queryTags = req.query.tags.split(",");
+          let query = {$and: [
+            {description: {$regex: queryDesc}},
+            {name: {$regex: queryName}},
+            {mail: {$regex: queryMail}},
+            {tags: {$in: queryTags}}
+          ]}
+        }
+        console.log("Attempting query: ", query)
         Host.find(query)
           .sort({updatedAt: -1})
           .skip(page * limit)
