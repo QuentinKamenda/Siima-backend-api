@@ -1,17 +1,17 @@
 "use strict";
 
-const URLMongoDB = 'mongodb://localhost/siima_db';
-
 const express = require("express");
 const router = express.Router();
 
-const multerStorage = require("../helpers/multerStorage");
+
 // The API files
 const createUser = require("../api/users/create_user");
 const validateUser = require("../api/users/validate_user");
 const signinUser = require("../api/users/signin_user");
 
-const setUserPhoto = require("../api/users/set_user_profile_picture");
+const queryUser = require("../api/users/query_user");
+
+const setUserProfilePicture = require("../api/users/set_user_profile_picture");
 const getUserPhoto = require("../api/users/get_user_profile_picture");
 const signoutUser = require("../api/users/signout_user");
 
@@ -31,6 +31,8 @@ const setUserBirthdate = require("../api/users/set_user_birthdate");
 
 const addUserFriend = require("../api/users/add_user_friend");
 const removeUserFriend = require("../api/users/remove_user_friend");
+
+const getMedia = require("../api/users/get_media");
 /*
 const getUserPassword = require("../api/users/get_user_password");
 const getUserProfilePicture = require("../api/users/get_user_profile_picture");
@@ -51,12 +53,12 @@ router.post("/signin", (req,res) => {
     signinUser.call(req, res);
 });
 
+router.get("/", (req,res) => {
+    queryUser.call(req, res);
+})
 
 router.put("/:userId/profilePicture",(req,res) => {
-  let upload = multerStorage.getUpload(URLMongoDB).single('file');
-  upload(req,res, (err) => {
-    setUserPhoto.call(req,res);
-  });
+  setUserProfilePicture.call(req,res);
 });
 
 router.get("/:userId/profilePicture", (req, res) => {
@@ -113,6 +115,11 @@ router.get("/:userId/username", (req, res) => {
 router.get("/:userId/mail", (req, res) => {
     getUserMail.call(req, res);
 });
+
+router.get("/:mediaId/media", (req, res) => {
+    getMedia.call(req, res);
+});
+
 router.get("/:userId/birthdate", (req, res) => {
     getUserBirthdate.call(req, res);
 });

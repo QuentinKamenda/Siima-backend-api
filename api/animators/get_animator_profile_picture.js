@@ -1,5 +1,5 @@
 
-const User = require("../../models/user/user");
+const Animator = require("../../models/animator/animator");
 const Media = require("../../models/media/media");
 const mongooseInit = require("../../helpers/mongoDB");
 const Grid = require('gridfs-stream');
@@ -9,18 +9,18 @@ const errorHandler = require("../../helpers/error_handler");
 
 module.exports.call = function (req,res ) {
 
-  let functionName = "get-user-profile-picture";
+  let functionName = "set-animator-profile-picture";
 
   //connection to mongoDB to get gfs
   mongooseInit.initMongoDBConnection().then((conn)=>{
     const gfs = Grid(conn.db, mongoose.mongo);
     //set collection name to lookup into
     gfs.collection('uploads');
-    let userId ={
-      _id: req.params.userId
+    let animatorId ={
+      _id: req.params.animatorId
     };
     //find the user wich you want to get the profile picture from
-    User.findOne(userId).then((result)=>{
+    Animator.findOne(animatorId).then((result)=>{
       //find the image object wich containe the name of the file
       Media.findOne({ _id : result.profile_picture }).then((image)=>{
         //get the file with the correct name

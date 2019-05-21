@@ -13,9 +13,10 @@ const AnimatorSchema = new Schema({
   phone: { type: Number, required: false},                 //true
   link:{type:Schema.Types.ObjectId, ref : 'Link'},         //true
   media: [{type:Schema.Types.ObjectId, ref :'Media'}],   // true
-  startDate: {type: Date, default: Date.now , required: true },
+  start_date: {type: Date, default: Date.now , required: true },
   location: String,
-  event:[{type:Schema.Types.ObjectId, ref : 'Event'}]
+  event:[{type:Schema.Types.ObjectId, ref : 'Event'}],
+  profile_picture:{type: Schema.Types.ObjectId, ref: 'Media'}
 },{timestamps : true});
 
 const Animator = mongoose.model('animator', AnimatorSchema);

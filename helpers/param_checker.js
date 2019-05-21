@@ -71,6 +71,30 @@ module.exports.checkParameters = function (req, apiType) {
                             throw response;
                         }
                     }
+                    // Verifies the admin
+                    if (checkItem === "admin"){
+                        if (req.body.admin === undefined || req.body.admin === "") {
+                            let response = {
+                                isInternal: false,
+                                message: "missing admin id"
+                            };
+                            throw response;
+
+                        }else if ((typeof req.body.admin) !== "string"){
+                            let response = {
+                                isInternal: false,
+                                message: "invalid admin: not a string"
+                            };
+                            throw response;
+                        }
+                        else if (!verifyObjectIdFormat(req.body.admin)){
+                            let response = {
+                                isInternal: false,
+                                message: "invalid admin id: invalid format"
+                            };
+                            throw response;
+                        }
+                    }
                     // Verifies the mail address
                     if (checkItem === "mail"){
                         if (req.body.mail === undefined || req.body.mail === "") {
@@ -250,11 +274,79 @@ module.exports.checkParameters = function (req, apiType) {
                         }else if ((typeof req.body.location) !== "string"){
                             let response = {
                                 isInternal: false,
-                                message: "invalid phone number: not a string"
+                                message: "invalid location: not a string"
                             };
                             throw response;
                         }
-                        //TODO: Verify the format (care of the international/simplified format !!)
+                        //TODO: Verify the format (care of the address/country format !!)
+                    }
+                    // Verifies the tags (list)
+                    if (checkItem === "tags"){
+                        if (req.body.tags === undefined || req.body.tags === "") {
+                            let response = {
+                                isInternal: false,
+                                message: "missing tags"
+                            };
+                            throw response;
+                        }else if (!Array.isArray(req.body.tags)){
+                            let response = {
+                                isInternal: false,
+                                message: "invalid tags: not a list of string"
+                            };
+                            throw response;
+                        }
+                    }
+                    // Verifies the tag (string)
+                    // if (checkItem === "tag"){
+                    //     if (req.body.tag === undefined || req.body.tag === "") {
+                    //         let response = {
+                    //             isInternal: false,
+                    //             message: "missing location"
+                    //         };
+                    //         throw response;
+                    //     }else if ((typeof req.body.tag) !== "string"){
+                    //         let response = {
+                    //             isInternal: false,
+                    //             message: "invalid tag: not a string"
+                    //         };
+                    //         throw response;
+                    //     }
+                    // }
+                    // Verifies the query parameters
+                    if (checkItem === "userQuery_param"){
+                        for (var param in req.query){
+                          if (!(['page','limit','username', 'mail'].indexOf(param) >= 0)){
+                            let response = {
+                              isInternal: false,
+                              message: "invalid query parameters: " + param + " is not a valid parameter"
+                            }
+                            throw response;
+                          }
+                        }
+                    }
+                    // Verifies the query parameters
+                    if (checkItem === "animQuery_param"){
+                        for (var param in req.query){
+                          if (!(['page','limit','name', 'description','location','mail','tags'].indexOf(param) >= 0)){
+                            let response = {
+                              isInternal: false,
+                              message: "invalid query parameters: " + param + " is not a valid parameter"
+                            }
+                            throw response;
+                          }
+                        }
+                    }
+                    // Verifies the query parameters
+                    if (checkItem === "hostQuery_param"){
+                        for (var param in req.query){
+                          if (!(['page','limit','name', 'description','location','mail','tags'].indexOf(param) >= 0)){
+                            let response = {
+                              isInternal: false,
+                              message: "invalid query parameters: " + param + " is not a valid parameter"
+                            }
+                            throw response;
+                          }
+                        }
                     }
                 }
             }
@@ -275,6 +367,7 @@ module.exports.checkParameters = function (req, apiType) {
  * @return {list[string]}         the list of all the parameters to check
  */
 function decideChecklistItems(apiType) {
+  // User: Basics
     if (apiType === "create-user"){
         return ["username", "password", "mail"];
     }
@@ -302,18 +395,34 @@ function decideChecklistItems(apiType) {
     if (apiType === "get-user-birthdate"){
         return ["userId_param"];
     }
+  // User: Friends
     if (apiType === "add-user-friend"){
         return ["userId_param"];
     }
     if (apiType === "remove-user-friend"){
         return ["userId_param"];
     }
+  // User: Media
     if (apiType === "set-user-profile-picture"){
         return ["userId_param"];
     }
     if (apiType === "get-user-profile-picture"){
         return ["userId_param"];
     }
+    if (apiType === "set-host-profile-picture"){
+        return ["hostId_param"];
+    }
+    if (apiType === "get-host-profile-picture"){
+        return ["hostId_param"];
+    }
+    if (apiType === "set-animator-profile-picture"){
+        return ["animatorId_param"];
+    }
+    if (apiType === "get-animator-profile-picture"){
+        return ["animatorId_param"];
+    }
+  
+  // Animators & Hosts: Basics
     if (apiType === "create-animator"){
         return ["name","creator"];
     }
@@ -327,10 +436,10 @@ function decideChecklistItems(apiType) {
         return ["hostId_param"];
     }
     if (apiType === "delete-animator"){
-        return ["animatorId_param"];
+        return ["animatorId_param", "admin"];
     }
     if (apiType === "delete-host"){
-        return ["hostId_param"];
+        return ["hostId_param", "admin"];
     }
     if (apiType === "get-animator-name"){
         return ["animatorId_param"];
@@ -356,7 +465,6 @@ function decideChecklistItems(apiType) {
     if (apiType === "get-host-location"){
         return ["hostId_param"];
     }
-
     if (apiType === "set-animator-name"){
         return ["animatorId_param","name"];
     }
@@ -381,6 +489,61 @@ function decideChecklistItems(apiType) {
     if (apiType === "set-host-location"){
         return ["hostId_param","location"];
     }
+    if (apiType === "remove-host-media"){
+        return ["hostId_param"];
+    }
+    if (apiType === "add-host-media"){
+        return ["hostId_param"];
+    }
+    if (apiType === "remove-animator-media"){
+        return ["animatorId_param"];
+    }
+    if (apiType === "add-animator-media"){
+        return ["animatorId_param"];
+    }
+
+    if (apiType === "get-host-media-list"){
+        return ["hostId_param"];
+    }
+    if (apiType === "get-animator-media-list"){
+        return ["animatorId_param"];
+    }
+  // Animator: Lists
+    if (apiType === "get-animator-tags"){
+        return ["animatorId_param"];
+    }
+    if (apiType === "set-animator-tags"){
+        return ["animatorId_param","tags"];
+    }
+    if (apiType === "add-animator-tags"){
+        return ["animatorId_param","tags"];
+    }
+    if (apiType === "remove-animator-tags"){
+        return ["animatorId_param","tags"];
+    }
+  // Host: Lists
+    if (apiType === "get-host-tags"){
+        return ["hostId_param"];
+    }
+    if (apiType === "set-host-tags"){
+        return ["hostId_param","tags"];
+    }
+    if (apiType === "add-host-tags"){
+        return ["hostId_param","tags"];
+    }
+    if (apiType === "remove-host-tags"){
+        return ["hostId_param","tags"];
+    }
+  // Queries
+  if (apiType === "query-user"){
+      return ["userQuery_param"];
+  }
+  if (apiType === "query-animator"){
+      return ["animQuery_param"];
+  }
+  if (apiType === "query-host"){
+      return ["hostQuery_param"];
+  }
     // TODO: Add Checklist for each API
 }
 

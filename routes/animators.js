@@ -8,10 +8,18 @@ const createAnimator = require("../api/animators/create_animator");
 const deleteAnimator = require("../api/animators/delete_animator");
 const getAnimator = require("../api/animators/get_animator");
 
+const queryAnimator = require("../api/animators/query_animator");
+
 const setAnimatorName = require("../api/animators/set_animator_name");
 const setAnimatorMail = require("../api/animators/set_animator_mail");
 const setAnimatorLocation = require("../api/animators/set_animator_location");
 const setAnimatorDescription = require("../api/animators/set_animator_description");
+
+const setAnimatorProfilePicture = require("../api/animators/set_animator_profile_picture");
+const getAnimatorProfilePicture = require("../api/animators/get_animator_profile_picture");
+const addAnimatorMedia = require("../api/animators/add_animator_media");
+const removeAnimatorMedia = require("../api/animators/remove_animator_media");
+const getAnimatorMediaList = require("../api/animators/get_animator_media_list");
 
 /*
 const setAnimatorProfilePicture = require("../api/animators/set_animator_profile_picture");
@@ -25,9 +33,15 @@ const getAnimatorDescription = require("../api/animators/get_animator_descriptio
 /*
 const getAnimatorProfilePicture = require("../api/animators/get_animator_profile_picture");
 const getAnimatorBackgroundPicture = require("../api/animators/get_animator_background_picture");
+*/
 
+const getAnimatorTags = require("../api/animators/get_animator_tags");
+const setAnimatorTags = require("../api/animators/set_animator_tags");
+const addAnimatorTags = require("../api/animators/add_animator_tags");
+const removeAnimatorTags = require("../api/animators/remove_animator_tags");
+
+/*
 const addAnimatorAdmin = require("../api/animators/add_animator_admin");
-const addAnimatorTag = require("../api/animators/add_animator_tag");
 const addAnimatorEvent = require("../api/animators/add_animator_event");
 const addAnimatorOffer = require("../api/animators/add_animator_offer");
 const addAnimatorLink = require("../api/animators/add_animator_link");
@@ -67,12 +81,25 @@ router.get("/:animatorId", (req, res) => {
     getAnimator.call(req, res);
 });
 
+router.get("/", (req,res) => {
+    queryAnimator.call(req, res);
+})
+
 router.patch("/:animatorId/name", (req, res) => {
     setAnimatorName.call(req, res);
 });
 router.patch("/:animatorId/mail", (req, res) => {
     setAnimatorMail.call(req, res);
 });
+
+router.put("/:animatorId/profile_picture",(req,res) => {
+  setAnimatorProfilePicture.call(req,res);
+});
+
+router.get("/:animatorId/profile_picture", (req, res) => {
+  getAnimatorProfilePicture.call(req, res);
+});
+
 router.patch("/:animatorId/location", (req, res) => {
     setAnimatorLocation.call(req, res);
 });
@@ -93,5 +120,29 @@ router.get("/:animatorId/description", (req, res) => {
     getAnimatorDescription.call(req, res);
 });
 
+router.delete("/:animatorId/media", (req, res) => {
+    removeAnimatorMedia.call(req, res);
+});
+
+router.put("/:animatorId/media", (req, res) => {
+    addAnimatorMedia.call(req, res);
+});
+
+router.get("/:animatorId/media_list", (req, res) => {
+    getAnimatorMediaList.call(req, res);
+});
+
+router.get("/:animatorId/tags", (req, res) => {
+    getAnimatorTags.call(req, res);
+});
+router.post("/:animatorId/tags", (req, res) => {
+    setAnimatorTags.call(req, res);
+});
+router.put("/:animatorId/tags", (req, res) => {
+    addAnimatorTags.call(req, res);
+});
+router.delete("/:animatorId/tags", (req, res) => {
+    removeAnimatorTags.call(req, res);
+});
 
 module.exports = router;
