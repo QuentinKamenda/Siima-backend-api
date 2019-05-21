@@ -6,6 +6,8 @@ const config = require("./config/config");
 var firebase = require("firebase");
 
 const express = require("express");
+const expressValidator = require('express-validator');
+
 const json = require("body-parser");
 
 // TODO: Add routing groups here
@@ -27,8 +29,14 @@ MongoDB.initMongoDBConnection().then((conn)=>{
 });
 
 app.disable("x-powered-by");
+app.use(expressValidator({
+  customValidators: {
+    isNotUndefined: value => value !== undefined
+  }
+}));
 app.use(json());
 app.use(cors());
+
 
 let firebaseConfig = config.firebase;
 firebase.initializeApp(firebaseConfig);

@@ -2,7 +2,6 @@ const multer =require('multer');
 const path = require('path');
 const crypto = require('crypto');
 const GridFsStorage = require('multer-gridfs-storage');
-const Image = require("../models/media/image");
 
 module.exports.getUpload = function(mongoURI){
   var storage = new GridFsStorage({

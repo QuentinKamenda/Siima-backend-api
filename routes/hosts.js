@@ -15,6 +15,14 @@ const setHostName = require("../api/hosts/set_host_name");
 const setHostMail = require("../api/hosts/set_host_mail");
 const setHostLocation = require("../api/hosts/set_host_location");
 const setHostDescription = require("../api/hosts/set_host_description");
+
+const setHostProfilePicture = require("../api/hosts/set_host_profile_picture");
+const getHostProfilePicture = require("../api/hosts/get_host_profile_picture");
+const getHostMediaList = require("../api/hosts/get_host_media_list");
+
+const addHostMedia = require("../api/hosts/add_host_media");
+const removeHostMedia = require("../api/hosts/remove_host_media");
+
 /*
 const setHostProfilePicture = require("../api/hosts/set_host_profile_picture");
 const setHostBackgroundPicture = require("../api/hosts/set_host_background_picture");
@@ -90,6 +98,14 @@ router.patch("/:hostId/description", (req, res) => {
     setHostDescription.call(req, res);
 });
 
+router.put("/:hostId/profile_picture",(req,res) => {
+  setHostProfilePicture.call(req,res);
+});
+
+router.get("/:hostId/profile_picture", (req, res) => {
+  getHostProfilePicture.call(req, res);
+});
+
 router.get("/:hostId/name", (req, res) => {
     getHostName.call(req, res);
 });
@@ -101,6 +117,18 @@ router.get("/:hostId/location", (req, res) => {
 });
 router.get("/:hostId/description", (req, res) => {
     getHostDescription.call(req, res);
+});
+
+router.delete("/:hostId/media", (req, res) => {
+    removeHostMedia.call(req, res);
+});
+
+router.put("/:hostId/media", (req, res) => {
+    addHostMedia.call(req, res);
+});
+
+router.get("/:hostId/media_list", (req, res) => {
+    getHostMediaList.call(req, res);
 });
 
 router.get("/:hostId/tags", (req, res) => {

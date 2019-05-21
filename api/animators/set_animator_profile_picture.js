@@ -1,5 +1,5 @@
 
-const User = require("../../models/user/user");
+const Animator = require("../../models/animator/animator");
 const Media = require("../../models/media/media")
 const fs = require("fs");
 const errorHandler = require("../../helpers/error_handler");
@@ -16,25 +16,24 @@ module.exports.call = function (req,res ) {
   let upload = multerStorage.getUpload(URLMongoDB).single('file');
   upload(req,res, (err) => {
     if(req.body.mediaType === 'picture'){
-      let functionName = "set-user-profile-picture";
+      let functionName = "get-animator-profile-picture";
       paramCheck.checkParameters(req, functionName).then(()=>{
-        let userId ={_id: req.params.userId};
+        let animatorId ={_id: req.params.animatorId};
         //create a new image object to store the name of the file
         let newMedia = new Media({
           name : req.file.filename,
         });
         //save the image
         newMedia.save().then((picture)=>{
-          User.findOne({profile_picture: { $exists: true, $ne: null }, _id: req.params.userId }).then((result)=>{
+          Animator.findOne({profile_picture: { $exists: true, $ne: null }, _id: req.params.animatorId }).then((result)=>{
             if(result==null){
               //put the id of the image object into the corresponding user
-              User.findOneAndUpdate( {_id: req.params.userId} , { profile_picture: picture._id })
+              Animator.findOneAndUpdate( {_id: req.params.animatorId} , { profile_picture: picture._id })
               .then(()=>{
                 let result = {
                   status: "success",
-                  message: "User updated profile picture",
-                  _id: req.params.userId,
-                  new_username: req.body.username
+                  message: "Animator updated profile picture",
+                  _id: req.params.animatorId,
                 }
                 res.json(result);
               });
@@ -47,11 +46,11 @@ module.exports.call = function (req,res ) {
                   gfs.collection('uploads');
                   gfs.files.remove({filename: media.name });
                   Media.remove({_id: result.profile_picture}).then(()=>{
-                    User.findOneAndUpdate( {_id: req.params.userId} , { profile_picture: picture._id }).then(()=>{
+                    Animator.findOneAndUpdate( {_id: req.params.animatorId} , { profile_picture: picture._id }).then(()=>{
                       let result = {
                         status: "success",
-                        message: "User updated profile picture",
-                        _id: req.params.userId,
+                        message: "Animator updated profile picture",
+                        _id: req.params.animatorId,
                         new_username: req.body.username
                       }
                       res.json(result);

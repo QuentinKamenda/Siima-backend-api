@@ -409,6 +409,19 @@ function decideChecklistItems(apiType) {
     if (apiType === "get-user-profile-picture"){
         return ["userId_param"];
     }
+    if (apiType === "set-host-profile-picture"){
+        return ["hostId_param"];
+    }
+    if (apiType === "get-host-profile-picture"){
+        return ["hostId_param"];
+    }
+    if (apiType === "set-animator-profile-picture"){
+        return ["animatorId_param"];
+    }
+    if (apiType === "get-animator-profile-picture"){
+        return ["animatorId_param"];
+    }
+  
   // Animators & Hosts: Basics
     if (apiType === "create-animator"){
         return ["name","creator"];
@@ -475,6 +488,25 @@ function decideChecklistItems(apiType) {
     }
     if (apiType === "set-host-location"){
         return ["hostId_param","location"];
+    }
+    if (apiType === "remove-host-media"){
+        return ["hostId_param"];
+    }
+    if (apiType === "add-host-media"){
+        return ["hostId_param"];
+    }
+    if (apiType === "remove-animator-media"){
+        return ["animatorId_param"];
+    }
+    if (apiType === "add-animator-media"){
+        return ["animatorId_param"];
+    }
+
+    if (apiType === "get-host-media-list"){
+        return ["hostId_param"];
+    }
+    if (apiType === "get-animator-media-list"){
+        return ["animatorId_param"];
     }
   // Animator: Lists
     if (apiType === "get-animator-tags"){

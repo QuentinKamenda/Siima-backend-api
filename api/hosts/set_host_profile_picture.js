@@ -1,5 +1,5 @@
 
-const User = require("../../models/user/user");
+const Host = require("../../models/host/host");
 const Media = require("../../models/media/media")
 const fs = require("fs");
 const errorHandler = require("../../helpers/error_handler");
@@ -16,24 +16,24 @@ module.exports.call = function (req,res ) {
   let upload = multerStorage.getUpload(URLMongoDB).single('file');
   upload(req,res, (err) => {
     if(req.body.mediaType === 'picture'){
-      let functionName = "set-user-profile-picture";
+      let functionName = "set-host-profile-picture";
       paramCheck.checkParameters(req, functionName).then(()=>{
-        let userId ={_id: req.params.userId};
+        let hostId ={_id: req.params.hostId};
         //create a new image object to store the name of the file
         let newMedia = new Media({
           name : req.file.filename,
         });
         //save the image
         newMedia.save().then((picture)=>{
-          User.findOne({profile_picture: { $exists: true, $ne: null }, _id: req.params.userId }).then((result)=>{
+          Host.findOne({profile_picture: { $exists: true, $ne: null }, _id: req.params.hostId }).then((result)=>{
             if(result==null){
               //put the id of the image object into the corresponding user
-              User.findOneAndUpdate( {_id: req.params.userId} , { profile_picture: picture._id })
+              Host.findOneAndUpdate( {_id: req.params.hostId} , { profile_picture: picture._id })
               .then(()=>{
                 let result = {
                   status: "success",
                   message: "User updated profile picture",
-                  _id: req.params.userId,
+                  _id: req.params.hostId,
                   new_username: req.body.username
                 }
                 res.json(result);
@@ -47,11 +47,11 @@ module.exports.call = function (req,res ) {
                   gfs.collection('uploads');
                   gfs.files.remove({filename: media.name });
                   Media.remove({_id: result.profile_picture}).then(()=>{
-                    User.findOneAndUpdate( {_id: req.params.userId} , { profile_picture: picture._id }).then(()=>{
+                    Host.findOneAndUpdate( {_id: req.params.hostId} , { profile_picture: picture._id }).then(()=>{
                       let result = {
                         status: "success",
-                        message: "User updated profile picture",
-                        _id: req.params.userId,
+                        message: "Host updated profile picture",
+                        _id: req.params.hostId,
                         new_username: req.body.username
                       }
                       res.json(result);
