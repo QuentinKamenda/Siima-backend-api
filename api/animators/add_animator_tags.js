@@ -3,13 +3,10 @@ const paramCheck = require("../../helpers/param_checker");
 const errorHandler = require("../../helpers/error_handler");
 
 const Animator = require("../../models/animator/animator");
-const User = require("../../models/user/user");
 
 module.exports.call = function (req, res) {
 
-    let functionName = "delete-animator";
-
-    // TODO: Verify rights
+    let functionName = "add-animator-tags";
 
     paramCheck.checkParameters(req, functionName)
       .then(() => {
@@ -20,35 +17,31 @@ module.exports.call = function (req, res) {
           return animatorId;
       })
       .then(animatorId => {
-          Animator.findOne({_id: animatorId}).then(result => {
+          Animator.findOne(animatorId).then(result => {
             if (result === null) {
               result = {
                 status: "fail",
                 message: "No animator found with this id"
-              };
+              }
+              res.json(result)
             }
             else {
-              if (result.admins.indexOf(req.body.admin) >= 0){
-                let removed = result;
-                for (var i = 0; i < result.admins.length; i++){
-                    console.log("Removing " + result._id + " from " + result.admins[i]);
-                    User.findOneAndUpdate( {_id: result.admins[i]} , { $pull : {animators: result._id}}).then()
+              let previous = result;
+              for (var tag in req.body.tags){
+                if (result.tags.indexOf(req.body.tags[tag]) == -1){
+                  result.tags.push(req.body.tags[tag]);
                 }
-                result.remove();
-                result = {
-                  status: "success",
-                  message: "Animator deleted",
-                  removed: removed
-                };
               }
-              else {
-                result = {
-                  status: "fail",
-                  message: "User " + req.body.admin + " not allowed to delete this animator."
-                };
+              result.save();
+              response = {
+                status: "success",
+                message: "Animator updated",
+                _id: req.params.animatorId,
+                previous_animator: previous,
+                tag_added: req.body.tag
               }
+              res.json(response);
             }
-            res.json(result);
           })
         })
       .catch(error => {
