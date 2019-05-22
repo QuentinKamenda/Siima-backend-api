@@ -17,7 +17,15 @@ module.exports.signin = function (email,password) {
            firebase.auth().signInWithEmailAndPassword(email, password)
            .then(() => {
              console.log(email + " is signed in");
-             resolve();})
+             MongoUser.findOne({mail: email}).then( result => {
+              if (result == null){
+                    console.log("pas trouvé")
+                }
+                else {
+                  resolve(result);
+                }
+             })
+           })
            .catch(function(error) {
              // Handle Errors here.
              var errorCode = error.code;

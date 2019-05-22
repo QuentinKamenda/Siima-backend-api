@@ -49,7 +49,7 @@ router.post("/:userId/validate", (req,res) => {
     validateUser.call(req, res);
 });
 
-router.post("/:userId/signin", (req,res) => {
+router.post("/signin", (req,res) => {
     signinUser.call(req, res);
 });
 
