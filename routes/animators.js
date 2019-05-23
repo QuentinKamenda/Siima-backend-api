@@ -10,33 +10,12 @@ const getAnimator = require("../api/animators/get_animator");
 const modifyAnimator = require("../api/animators/modify_animator");
 const queryAnimator = require("../api/animators/query_animator");
 
-const setAnimatorName = require("../api/animators/set_animator_name");
-const setAnimatorMail = require("../api/animators/set_animator_mail");
-const setAnimatorLocation = require("../api/animators/set_animator_location");
-const setAnimatorDescription = require("../api/animators/set_animator_description");
-
 const setAnimatorProfilePicture = require("../api/animators/set_animator_profile_picture");
 const getAnimatorProfilePicture = require("../api/animators/get_animator_profile_picture");
 const addAnimatorMedia = require("../api/animators/add_animator_media");
 const removeAnimatorMedia = require("../api/animators/remove_animator_media");
 const getAnimatorMediaList = require("../api/animators/get_animator_media_list");
 
-/*
-const setAnimatorProfilePicture = require("../api/animators/set_animator_profile_picture");
-const setAnimatorBackgroundPicture = require("../api/animators/set_animator_background_picture");
-*/
-
-const getAnimatorName = require("../api/animators/get_animator_name");
-const getAnimatorMail = require("../api/animators/get_animator_mail");
-const getAnimatorLocation = require("../api/animators/get_animator_location");
-const getAnimatorDescription = require("../api/animators/get_animator_description");
-/*
-const getAnimatorProfilePicture = require("../api/animators/get_animator_profile_picture");
-const getAnimatorBackgroundPicture = require("../api/animators/get_animator_background_picture");
-*/
-
-const getAnimatorTags = require("../api/animators/get_animator_tags");
-const setAnimatorTags = require("../api/animators/set_animator_tags");
 const addAnimatorTags = require("../api/animators/add_animator_tags");
 const removeAnimatorTags = require("../api/animators/remove_animator_tags");
 
@@ -83,10 +62,49 @@ router.get("/:animatorId", (req, res) => {
 router.patch("/:animatorId", (req, res) => {
     modifyAnimator.call(req, res);
 });
-
 router.get("/", (req,res) => {
     queryAnimator.call(req, res);
 })
+
+router.put("/:animatorId/profile_picture",(req,res) => {
+  setAnimatorProfilePicture.call(req,res);
+});
+router.get("/:animatorId/profile_picture", (req, res) => {
+  getAnimatorProfilePicture.call(req, res);
+});
+router.delete("/:animatorId/media", (req, res) => {
+    removeAnimatorMedia.call(req, res);
+});
+router.put("/:animatorId/media", (req, res) => {
+    addAnimatorMedia.call(req, res);
+});
+router.get("/:animatorId/media_list", (req, res) => {
+    getAnimatorMediaList.call(req, res);
+});
+
+router.put("/:animatorId/tags", (req, res) => {
+    addAnimatorTags.call(req, res);
+});
+router.delete("/:animatorId/tags", (req, res) => {
+    removeAnimatorTags.call(req, res);
+});
+
+module.exports = router;
+
+/* TODO: Remove if validated by the team, Retrieve from Graveyard if not
+const setAnimatorName = require("../api/animators/set_animator_name");
+const setAnimatorMail = require("../api/animators/set_animator_mail");
+const setAnimatorLocation = require("../api/animators/set_animator_location");
+const setAnimatorDescription = require("../api/animators/set_animator_description");
+
+const getAnimatorName = require("../api/animators/get_animator_name");
+const getAnimatorMail = require("../api/animators/get_animator_mail");
+const getAnimatorLocation = require("../api/animators/get_animator_location");
+const getAnimatorDescription = require("../api/animators/get_animator_description");
+
+const getAnimatorTags = require("../api/animators/get_animator_tags");
+const setAnimatorTags = require("../api/animators/set_animator_tags");
+
 
 router.patch("/:animatorId/name", (req, res) => {
     setAnimatorName.call(req, res);
@@ -94,22 +112,12 @@ router.patch("/:animatorId/name", (req, res) => {
 router.patch("/:animatorId/mail", (req, res) => {
     setAnimatorMail.call(req, res);
 });
-
-router.put("/:animatorId/profile_picture",(req,res) => {
-  setAnimatorProfilePicture.call(req,res);
-});
-
-router.get("/:animatorId/profile_picture", (req, res) => {
-  getAnimatorProfilePicture.call(req, res);
-});
-
 router.patch("/:animatorId/location", (req, res) => {
     setAnimatorLocation.call(req, res);
 });
 router.patch("/:animatorId/description", (req, res) => {
     setAnimatorDescription.call(req, res);
 });
-
 router.get("/:animatorId/name", (req, res) => {
     getAnimatorName.call(req, res);
 });
@@ -123,29 +131,10 @@ router.get("/:animatorId/description", (req, res) => {
     getAnimatorDescription.call(req, res);
 });
 
-router.delete("/:animatorId/media", (req, res) => {
-    removeAnimatorMedia.call(req, res);
-});
-
-router.put("/:animatorId/media", (req, res) => {
-    addAnimatorMedia.call(req, res);
-});
-
-router.get("/:animatorId/media_list", (req, res) => {
-    getAnimatorMediaList.call(req, res);
-});
-
 router.get("/:animatorId/tags", (req, res) => {
     getAnimatorTags.call(req, res);
 });
 router.post("/:animatorId/tags", (req, res) => {
     setAnimatorTags.call(req, res);
 });
-router.put("/:animatorId/tags", (req, res) => {
-    addAnimatorTags.call(req, res);
-});
-router.delete("/:animatorId/tags", (req, res) => {
-    removeAnimatorTags.call(req, res);
-});
-
-module.exports = router;
+*/

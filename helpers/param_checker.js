@@ -377,24 +377,6 @@ function decideChecklistItems(apiType) {
     if (apiType === "delete-user"){
         return ["userId_param"];
     }
-    if (apiType === "set-user-mail"){
-        return ["userId_param", "mail"];
-    }
-    if (apiType === "set-user-name"){
-        return ["userId_param", "username"];
-    }
-    if (apiType === "set-user-birthdate"){
-        return ["userId_param", "birthdate"];
-    }
-    if (apiType === "get-user-mail"){
-        return ["userId_param"];
-    }
-    if (apiType === "get-user-name"){
-        return ["userId_param"];
-    }
-    if (apiType === "get-user-birthdate"){
-        return ["userId_param"];
-    }
   // User: Friends
     if (apiType === "add-user-friend"){
         return ["userId_param"];
@@ -441,54 +423,6 @@ function decideChecklistItems(apiType) {
     if (apiType === "delete-host"){
         return ["hostId_param", "admin"];
     }
-    if (apiType === "get-animator-name"){
-        return ["animatorId_param"];
-    }
-    if (apiType === "get-host-name"){
-        return ["hostId_param"];
-    }
-    if (apiType === "get-animator-mail"){
-        return ["animatorId_param"];
-    }
-    if (apiType === "get-host-mail"){
-        return ["hostId_param"];
-    }
-    if (apiType === "get-animator-description"){
-        return ["animatorId_param"];
-    }
-    if (apiType === "get-host-description"){
-        return ["hostId_param"];
-    }
-    if (apiType === "get-animator-location"){
-        return ["animatorId_param"];
-    }
-    if (apiType === "get-host-location"){
-        return ["hostId_param"];
-    }
-    if (apiType === "set-animator-name"){
-        return ["animatorId_param","name"];
-    }
-    if (apiType === "set-host-name"){
-        return ["hostId_param","name"];
-    }
-    if (apiType === "set-animator-mail"){
-        return ["animatorId_param","mail"];
-    }
-    if (apiType === "set-host-mail"){
-        return ["hostId_param","mail"];
-    }
-    if (apiType === "set-animator-description"){
-        return ["animatorId_param","description"];
-    }
-    if (apiType === "set-host-description"){
-        return ["hostId_param","description"];
-    }
-    if (apiType === "set-animator-location"){
-        return ["animatorId_param","location"];
-    }
-    if (apiType === "set-host-location"){
-        return ["hostId_param","location"];
-    }
     if (apiType === "remove-host-media"){
         return ["hostId_param"];
     }
@@ -509,25 +443,13 @@ function decideChecklistItems(apiType) {
         return ["animatorId_param"];
     }
   // Animator: Lists
-    if (apiType === "get-animator-tags"){
-        return ["animatorId_param"];
-    }
-    if (apiType === "set-animator-tags"){
-        return ["animatorId_param","tags"];
-    }
     if (apiType === "add-animator-tags"){
         return ["animatorId_param","tags"];
     }
     if (apiType === "remove-animator-tags"){
         return ["animatorId_param","tags"];
     }
-  // Host: Lists
-    if (apiType === "get-host-tags"){
-        return ["hostId_param"];
-    }
-    if (apiType === "set-host-tags"){
-        return ["hostId_param","tags"];
-    }
+  // Host: 
     if (apiType === "add-host-tags"){
         return ["hostId_param","tags"];
     }
