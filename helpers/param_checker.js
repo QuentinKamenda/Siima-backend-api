@@ -421,7 +421,7 @@ function decideChecklistItems(apiType) {
     if (apiType === "get-animator-profile-picture"){
         return ["animatorId_param"];
     }
-  
+
   // Animators & Hosts: Basics
     if (apiType === "create-animator"){
         return ["name","creator"];
@@ -545,6 +545,15 @@ function decideChecklistItems(apiType) {
       return ["hostQuery_param"];
   }
     // TODO: Add Checklist for each API
+  if (apiType === "modify-user"){
+      return ["userId_param"];
+  }
+  if (apiType === "modify-animator"){
+      return ["animId_param"];
+  }
+  if (apiType === "modify-host"){
+      return ["hostId_param"];
+  }
 }
 
 
