@@ -192,6 +192,23 @@ module.exports.checkParameters = function (req, apiType) {
                             throw response;
                         }
                     }
+                    // Verifies the host id
+                    if (checkItem === "eventId_param"){
+                        if (req.params.eventId === undefined || req.params.eventId === "") {
+                            let response = {
+                                isInternal: false,
+                                message: "missing eventId"
+                            };
+                            throw response;
+                        }
+                        else if (!verifyObjectIdFormat(req.params.eventId)){
+                            let response = {
+                                isInternal: false,
+                                message: "invalid event id: invalid format"
+                            };
+                            throw response;
+                        }
+                    }
                     // Verifies the name
                     if (checkItem === "name"){
                         if (req.body.name === undefined || req.body.name === "") {
@@ -526,6 +543,9 @@ function decideChecklistItems(apiType) {
   }
   if (apiType === "create-event"){
     return ["name", "creator", "animator", "host", "location"]
+  }
+  if (apiType === "delete-event"){
+      return ["eventId_param", "admin"];
   }
 }
 

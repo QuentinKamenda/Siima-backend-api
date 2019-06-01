@@ -5,8 +5,8 @@ const router = express.Router();
 
 /// The API files
 const createEvent = require("../api/events/create_event");
-/*
 const deleteEvent = require("../api/events/delete_event");
+/*
 const getEvent = require("../api/events/get_event");
 
 const setEventName = require("../api/events/set_event_name");
@@ -54,19 +54,19 @@ const removeAllEventComment = require("../api/events/remove_all_event_comment");
 const removeAllEventPost = require("../api/events/remove_all_event_post");
 const removeAllEventQuestion = require("../api/events/remove_all_event_question");
 
-// The current hierarchy is at /events
-router.delete("/:eventId", (req, res) => {
-    deleteEvent.call(req, res);
-});
-
 router.get("/:eventId", (req, res) => {
     getEvent.call(req, res);
 });
 */
 
+// The current hierarchy is at /events
+
 // The routing
 router.post("/", (req, res) => {
     createEvent.call(req, res);
+});
+router.delete("/:eventId", (req, res) => {
+    deleteEvent.call(req, res);
 });
 
 module.exports = router;
