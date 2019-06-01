@@ -230,6 +230,38 @@ module.exports.checkParameters = function (req, apiType) {
                             throw response;
                         }
                     }
+                    // Verifies the creator
+                    if (checkItem === "animator"){
+                        if (req.body.animator === undefined || req.body.animator === "") {
+                            let response = {
+                                isInternal: false,
+                                message: "missing animator"
+                            };
+                            throw response;
+                        }else if ((typeof req.body.animator) !== "string"){
+                            let response = {
+                                isInternal: false,
+                                message: "invalid animator: not a string"
+                            };
+                            throw response;
+                        }
+                    }
+                    // Verifies the creator
+                    if (checkItem === "host"){
+                        if (req.body.host === undefined || req.body.host === "") {
+                            let response = {
+                                isInternal: false,
+                                message: "missing host"
+                            };
+                            throw response;
+                        }else if ((typeof req.body.host) !== "string"){
+                            let response = {
+                                isInternal: false,
+                                message: "invalid host: not a string"
+                            };
+                            throw response;
+                        }
+                    }
                     // Verifies the description
                     if (checkItem === "description"){
                         if (req.body.description === undefined || req.body.description === "") {
@@ -242,6 +274,22 @@ module.exports.checkParameters = function (req, apiType) {
                             let response = {
                                 isInternal: false,
                                 message: "invalid description: not a string"
+                            };
+                            throw response;
+                        }
+                    }
+                    // Verifies the description
+                    if (checkItem === "location"){
+                        if (req.body.location === undefined || req.body.location === "") {
+                            let response = {
+                                isInternal: false,
+                                message: "missing location"
+                            };
+                            throw response;
+                        }else if ((typeof req.body.location) !== "string"){
+                            let response = {
+                                isInternal: false,
+                                message: "invalid location: not a string"
                             };
                             throw response;
                         }
@@ -449,7 +497,7 @@ function decideChecklistItems(apiType) {
     if (apiType === "remove-animator-tags"){
         return ["animatorId_param","tags"];
     }
-  // Host: 
+  // Host:
     if (apiType === "add-host-tags"){
         return ["hostId_param","tags"];
     }
@@ -475,6 +523,9 @@ function decideChecklistItems(apiType) {
   }
   if (apiType === "modify-host"){
       return ["hostId_param"];
+  }
+  if (apiType === "create-event"){
+    return ["name", "creator", "animator", "host", "location"]
   }
 }
 
