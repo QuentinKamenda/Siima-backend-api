@@ -551,6 +551,9 @@ function decideChecklistItems(apiType) {
   if (apiType === "get-event"){
       return ["eventId_param"];
   }
+  if (apiType === "modify-event"){
+      return ["eventId_param"];
+  }
 }
 
 
