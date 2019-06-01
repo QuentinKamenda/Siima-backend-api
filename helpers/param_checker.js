@@ -541,11 +541,15 @@ function decideChecklistItems(apiType) {
   if (apiType === "modify-host"){
       return ["hostId_param"];
   }
+  // Event basic CRUD
   if (apiType === "create-event"){
     return ["name", "creator", "animator", "host", "location"]
   }
   if (apiType === "delete-event"){
       return ["eventId_param", "admin"];
+  }
+  if (apiType === "get-event"){
+      return ["eventId_param"];
   }
 }
 
