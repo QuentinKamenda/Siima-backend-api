@@ -45,8 +45,20 @@ module.exports.call = function (req, res) {
                 status: "fail",
                 message: "No animator found with these parameters"
               };
-          }
-          res.json(result);
+              res.status(400)
+              res.json(result);
+            }
+            else {
+              anims = result;
+              result = {
+                status: "success",
+                message: "Animator.s retrieved",
+                result: anims
+              }
+              res.status(200);
+              res.json(result);
+            }
+
         })
 
       })
