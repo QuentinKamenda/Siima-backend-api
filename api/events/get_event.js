@@ -11,13 +11,13 @@ module.exports.call = function (req, res) {
     paramCheck.checkParameters(req, functionName)
       .then(() => {
           console.log(functionName + " - Parameters checked successfully.");
-          let hostId ={
+          let eventId ={
             _id: req.params.eventId
           };
           return eventId;
       })
       .then(eventId => {
-          Host.findOne({_id: req.params.eventId}).then(result => {
+          Event.findOne({_id: req.params.eventId}).then(result => {
             if (result === null) {
               result = {
                 status: "fail",

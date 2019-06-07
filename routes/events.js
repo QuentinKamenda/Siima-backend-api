@@ -8,6 +8,7 @@ const createEvent = require("../api/events/create_event");
 const deleteEvent = require("../api/events/delete_event");
 const getEvent = require("../api/events/get_event");
 const modifyEvent = require("../api/events/modify_event");
+const queryEvent = require("../api/events/query_event");
 
 /*
 const setEventName = require("../api/events/set_event_name");
@@ -70,6 +71,9 @@ router.get("/:eventId", (req, res) => {
 });
 router.patch("/:eventId", (req, res) => {
     modifyEvent.call(req, res);
+});
+router.get("/", (req, res) => {
+    queryEvent.call(req, res);
 });
 
 module.exports = router;

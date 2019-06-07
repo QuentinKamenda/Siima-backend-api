@@ -554,6 +554,9 @@ function decideChecklistItems(apiType) {
   if (apiType === "modify-event"){
       return ["eventId_param"];
   }
+  if (apiType === "query-event"){
+      return ["eventQuery_param"];
+  }
 }
 
 
