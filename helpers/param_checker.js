@@ -280,6 +280,23 @@ module.exports.checkParameters = function (req, apiType) {
                         }
                         //TODO: Verify the format (care of the address/country format !!)
                     }
+                    // Verifies the friend mail
+                    if (checkItem === "friend"){
+                        if (req.body.friend === undefined || req.body.friend === "") {
+                            let response = {
+                                isInternal: false,
+                                message: "missing friend mail address"
+                            };
+                            throw response;
+                        }else if ((typeof req.body.friend) !== "string"){
+                            let response = {
+                                isInternal: false,
+                                message: "invalid friend nmail address: not a string"
+                            };
+                            throw response;
+                        }
+                        //TODO: Verify the format (care of the address/country format !!)
+                    }
                     // Verifies the tags (list)
                     if (checkItem === "tags"){
                         if (req.body.tags === undefined || req.body.tags === "") {
@@ -379,10 +396,10 @@ function decideChecklistItems(apiType) {
     }
   // User: Friends
     if (apiType === "add-user-friend"){
-        return ["userId_param"];
+        return ["userId_param", "friend"];
     }
     if (apiType === "remove-user-friend"){
-        return ["userId_param"];
+        return ["userId_param", "friend"];
     }
   // User: Media
     if (apiType === "set-user-profile-picture"){
@@ -449,7 +466,7 @@ function decideChecklistItems(apiType) {
     if (apiType === "remove-animator-tags"){
         return ["animatorId_param","tags"];
     }
-  // Host: 
+  // Host:
     if (apiType === "add-host-tags"){
         return ["hostId_param","tags"];
     }
