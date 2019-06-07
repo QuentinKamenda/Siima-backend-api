@@ -8,6 +8,7 @@ const userSchema = new Schema({
   friends:[{type: Schema.Types.ObjectId, ref: 'Friend'}],
   hosts:[{type: Schema.Types.ObjectId, ref: 'Host'}],
   animators:[{type: Schema.Types.ObjectId, ref: 'Animator'}],
+  events:[{type: Schema.Types.ObjectId, ref: 'Event'}],
   profile_picture:{type: Schema.Types.ObjectId, ref: 'Media'}
 },{timestamps : true});
 
