@@ -27,7 +27,7 @@ module.exports.call = function (req, res) {
             }
             else {
               let previous = result;
-              result.friends.pull(req.body.friend);
+              result.friends.pull(result);
               result.save();
               response = {
                 status: "success",
