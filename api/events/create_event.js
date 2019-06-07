@@ -14,13 +14,17 @@ module.exports.call = function (req, res) {
     paramCheck.checkParameters(req, functionName)
       .then(() => {
           console.log(functionName + " - Parameters checked successfully.");
+          let [desc, loc] = ['null', 'null'];
+          if(!(req.body.description == undefined)){ desc = ''+req.body.description+''}
+          if(!(req.body.location == undefined)){ loc = ''+req.body.location+''}
           let eventInformation = new Event({
             name: req.body.name,
             // Default admin is the Creator
             admins: [req.body.creator],
             animators: [req.body.animator],
             hosts: [req.body.host],
-            lieu: req.body.location
+            lieu: loc,
+            description: desc
           });
           return eventInformation;
       })
