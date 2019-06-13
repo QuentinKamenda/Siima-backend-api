@@ -9,6 +9,10 @@ const deleteEvent = require("../api/events/delete_event");
 const getEvent = require("../api/events/get_event");
 const modifyEvent = require("../api/events/modify_event");
 const queryEvent = require("../api/events/query_event");
+const setEventProfilePicture = require("../api/events/set_event_profile_picture");
+const getEventProfilePicture = require("../api/events/get_event_profile_picture");
+const addEventMedia = require("../api/events/add_event_media");
+const removeEventMedia = require("../api/events/remove_event_media");
 
 /*
 const setEventName = require("../api/events/set_event_name");
@@ -74,6 +78,19 @@ router.patch("/:eventId", (req, res) => {
 });
 router.get("/", (req, res) => {
     queryEvent.call(req, res);
+});
+
+router.put("/:eventId/profile_picture",(req,res) => {
+  setEventProfilePicture.call(req,res);
+});
+router.get("/:eventId/profile_picture", (req, res) => {
+  getEventProfilePicture.call(req, res);
+});
+router.delete("/:eventId/media", (req, res) => {
+    removeEventMedia.call(req, res);
+});
+router.put("/:eventId/media", (req, res) => {
+    addEventMedia.call(req, res);
 });
 
 module.exports = router;
