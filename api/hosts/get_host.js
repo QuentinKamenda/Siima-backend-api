@@ -17,17 +17,23 @@ module.exports.call = function (req, res) {
           return hostId;
       })
       .then(hostId => {
-          Host.findOne({_id: req.params.hostId}).then(result => {
-            if (result === null) {
+          Host.findOne({_id: req.params.hostId}).then(rslt => {
+            if (rslt === null) {
               result = {
                 status: "fail",
                 message: "No host found with this id"
               };
+              res.status(400);
             }
-            return result;
-          })
-          .then(hostInfo => {
-              res.json(hostInfo);
+            else {
+              result = {
+                status: "success",
+                message: "Host retrieved",
+                host: rslt
+              };
+              res.status(200);
+            }
+            res.json(result)
           })
         })
 

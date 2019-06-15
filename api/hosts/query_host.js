@@ -39,12 +39,21 @@ module.exports.call = function (req, res) {
           .sort({updatedAt: -1})
           .skip(page * limit)
           .limit(limit)
-          .then(result => {
-          if (result === null || result.length < 1) {
-            result = {
+          .then(rslt => {
+          if (rslt === null || result.length < 1) {
+            let result = {
               status: "fail",
               message: "No host found with these parameters"
             };
+            res.status(400);
+          }
+          else {
+            let result = {
+              status: "success",
+              message: "Hosts retrieved",
+              hosts: rslt
+            }
+            res.status(200);
           }
           res.json(result);
         })

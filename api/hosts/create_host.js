@@ -34,6 +34,7 @@ module.exports.call = function (req, res) {
                       status: "fail",
                       message: "Creator: No user registered with this id"
                     }
+                    res.status(400);
                     res.json(result)
                 }
                 else {
@@ -44,6 +45,7 @@ module.exports.call = function (req, res) {
                     message: "host created",
                     hostInformation: hostInfo
                   };
+                  res.status(200);
                   res.json(response)
                 }
             })
