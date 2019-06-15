@@ -40,7 +40,7 @@ module.exports.call = function (req, res) {
           .skip(page * limit)
           .limit(limit)
           .then(rslt => {
-          if (rslt === null || result.length < 1) {
+          if (rslt === null || rslt.length < 1) {
             let result = {
               status: "fail",
               message: "No host found with these parameters"

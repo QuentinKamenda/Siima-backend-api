@@ -24,6 +24,7 @@ const errorHandler = require("../../helpers/error_handler");
                 status: "fail",
                 message: "No user found with this id"
               };
+              res.status(400);
             }
             else {
               let removed = result;
@@ -34,6 +35,7 @@ const errorHandler = require("../../helpers/error_handler");
                 message: "User deleted",
                 removed: removed
               };
+              res.status(200);
             }
             res.json(result);
           })
