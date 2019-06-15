@@ -36,8 +36,8 @@ module.exports.call = function (req, res) {
                   previous_user: previous,
                   requested_modifications: req.body
                 }
-                res.status(200)
               )
+              res.status(200);
               res.json(result)
             }
           })

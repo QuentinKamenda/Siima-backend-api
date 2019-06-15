@@ -43,6 +43,7 @@ module.exports.call = function (req, res) {
                 status: "fail",
                 message: "No event found with these parameters"
               };
+            }
             else {
               let result = {
                 status: "success",
@@ -50,7 +51,6 @@ module.exports.call = function (req, res) {
                 events: rslt
               }
             }
-          }
           res.json(result);
         })
 
