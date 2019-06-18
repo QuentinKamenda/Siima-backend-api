@@ -14,8 +14,10 @@ const eventSchema = new Schema({
   links: [ {type:Schema.Types.ObjectId, ref:'Link'}],
   facilities: [{type: String}],
   remainingPlaces: Number,
-  lieu: {type : String , required: true}
-
+  lieu: {type : String , required: true},
+  profile_picture:{type: Schema.Types.ObjectId, ref: 'Media'},
+  startingDate : String,
+  endingDate : String
 },{timestamps : true});
 
 const event = mongoose.model('Event', eventSchema);
