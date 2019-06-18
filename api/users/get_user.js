@@ -17,17 +17,23 @@ module.exports.call = function (req, res) {
           return userId;
       })
       .then(userId => {
-          User.findOne(userId).then(result => {
-            if (result === null) {
+          User.findOne(userId).then(rslt => {
+            if (rslt === null) {
               result = {
                 status: "fail",
                 message: "No user found with this id"
               };
+              res.status(400);
             }
-            return result;
-          })
-          .then(userInfo => {
-              res.json(userInfo);
+            else {
+              result = {
+                status: "success",
+                message: "User retrieved",
+                user: rslt
+              }
+              res.status(200);
+            }
+            res.json(result);
           })
         })
 

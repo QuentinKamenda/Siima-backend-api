@@ -37,13 +37,20 @@ module.exports.call = function (req, res) {
           .sort({updatedAt: -1})
           .skip(page * limit)
           .limit(limit)
-          .then(result => {
-            if (result === null || result.length < 1) {
-              result = {
+          .then(rslt => {
+            if (rslt === null || rslt.length < 1) {
+              let result = {
                 status: "fail",
                 message: "No event found with these parameters"
               };
-          }
+            }
+            else {
+              let result = {
+                status: "success",
+                message: "Evets retieved",
+                events: rslt
+              }
+            }
           res.json(result);
         })
 

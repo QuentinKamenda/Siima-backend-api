@@ -70,7 +70,12 @@ module.exports.call = function (req, res) {
             }
 
             res.status(200);
-            res.json(eventInfo)
+            result = {
+              status: "success",
+              message: "Event created successfully",
+              eventInformation: eventInfo
+            }
+            res.json(result)
 
           })
       })

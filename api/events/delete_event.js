@@ -47,6 +47,7 @@ module.exports.call = function (req, res) {
                 };
               }
               else {
+                res.status(200);
                 result = {
                   status: "fail",
                   message: "User " + req.body.admin + " not allowed to delete this event."

@@ -23,6 +23,7 @@ module.exports.call = function (req, res) {
                 status: "fail",
                 message: "No animator found with this id"
               }
+              res.status(400);
               res.json(result)
             }
             else {
@@ -38,6 +39,7 @@ module.exports.call = function (req, res) {
                 previous_animator: previous,
                 tag_removed: req.body.tags
               }
+              res.status(200);
               res.json(response);
             }
           })

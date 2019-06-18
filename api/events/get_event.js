@@ -28,7 +28,12 @@ module.exports.call = function (req, res) {
           })
           .then(eventId => {
               res.status(200);
-              res.json(eventId);
+              result = {
+                status: "success",
+                message: "Event retrieved successfully",
+                eventInformation: eventId
+              }
+              res.json(result)
           })
         })
 

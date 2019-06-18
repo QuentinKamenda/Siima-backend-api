@@ -40,12 +40,14 @@ module.exports.call = function (req, res) {
                   message: "Animator deleted",
                   removed: removed
                 };
+                res.status(200)
               }
               else {
                 result = {
                   status: "fail",
                   message: "User " + req.body.admin + " not allowed to delete this animator."
                 };
+                res.status(400)
               }
             }
             res.json(result);
