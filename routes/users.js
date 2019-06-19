@@ -2,6 +2,7 @@
 
 const express = require("express");
 const router = express.Router();
+const helper_firebase = require("../helpers/firebase");
 
 
 // The API files
@@ -33,6 +34,12 @@ const addUserFriend = require("../api/users/add_user_friend");
 const removeUserFriend = require("../api/users/remove_user_friend");
 
 const getMedia = require("../api/users/get_media");
+
+var jwt = require('express-jwt');
+var auth = jwt({
+  secret: 'SIIMA',
+  userProperty: 'payload'
+});
 /*
 const getUserPassword = require("../api/users/get_user_password");
 const getUserProfilePicture = require("../api/users/get_user_profile_picture");
@@ -65,8 +72,7 @@ router.get("/:userId/profilePicture", (req, res) => {
     getUserPhoto.call(req, res);
 });
 
-router.post("/:userId/signout", (req, res) => {
-    signoutUser.call(req, res);
+router.get("/:userId/signout", auth, signoutUser.call , (req, res) => {
 });
 
 router.put("/:userId/password", (req, res) => {

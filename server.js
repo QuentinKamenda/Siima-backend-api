@@ -43,6 +43,15 @@ firebase.initializeApp(firebaseConfig);
 const helperFirebase = require("./helpers/firebase");
 helperFirebase.initfire();
 
+
+// user non authorized
+app.use(function (err, req, res, next) {
+  if (err.name === 'UnauthorizedError') {
+    res.status(401);
+    res.json({"message" : err.name + ": " + err.message});
+  }
+});
+
 //Detect JSON format errouser
 app.use((error, req, res, next) => {
     if(error instanceof SyntaxError) {
