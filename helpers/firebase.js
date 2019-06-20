@@ -3,6 +3,7 @@ const config = require("../config/config");
 let actionCodeSettings = config.actionCodeSettings;
 
 var firebase = require("firebase");
+var jwt = require('jsonwebtoken');
 
 const MongoUser = require("../models/user/user");
 
@@ -48,7 +49,26 @@ module.exports.signin = function (email,password) {
   });
 }
 
-module.exports.signout = function () {
+module.exports.generateJwt = function(userInformation) {
+  return new Promise((resolve, reject) => {
+    try{
+      var expiry = new Date();
+      expiry.setDate(expiry.getDate() + 7);
+
+      resolve(jwt.sign({
+        _id: userInformation._id,
+        email: userInformation.mail,
+        name: userInformation.username,
+        exp: parseInt(expiry.getTime() / 1000),
+      }, "SIIMA")); // DO NOT KEEP YOUR SECRET IN THE CODE
+    }catch(err) {
+        reject(err);
+    }
+  });
+};
+
+module.exports.signout = function (userId) {
+  console.log("logged_out" + userId);
   return new Promise((resolve, reject) => {
     try{
       if (firebase.auth().currentUser){
@@ -164,6 +184,29 @@ module.exports.deleteUser = function () {
       });
     }catch(err) {
         reject(err);
+    }
+  });
+}
+
+module.exports.getUser = function(_id) {
+  MongoUser
+    .findById(_id)
+    .exec(function(err, user) {
+      return user;
+    });
+}
+
+module.exports.handleUnauthorizedError = function(req,res) {
+  return new Promise((resolve, reject) => {
+    try{
+      if (!req.payload._id ) { // || getUser(req.payload._id) === undefined
+        res.status(401).json({
+          "message" : "UnauthorizedError: private profile"
+        });
+      }
+      resolve();
+    } catch(err) {
+      reject(err);
     }
   });
 }

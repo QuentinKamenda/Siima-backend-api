@@ -1,7 +1,14 @@
 "use strict";
 
+var jwt = require('express-jwt');
+var auth = jwt({
+  secret: 'SIIMA',
+  userProperty: 'payload'
+});
+
 const express = require("express");
 const router = express.Router();
+const helper_firebase = require("../helpers/firebase");
 
 // The API files
 const validateUser = require("../api/users/validate_user");
@@ -22,6 +29,8 @@ const getMedia = require("../api/users/get_media");
 const addUserFriend = require("../api/users/add_user_friend");
 const removeUserFriend = require("../api/users/remove_user_friend");
 
+const getMedia = require("../api/users/get_media");
+
 /*
 const getUserPassword = require("../api/users/get_user_password");
 const getUserProfilePicture = require("../api/users/get_user_profile_picture");
@@ -35,9 +44,11 @@ router.post("/:userId/validate", (req,res) => {
 router.post("/signin", (req,res) => {
     signinUser.call(req, res);
 });
-router.post("/:userId/signout", (req, res) => {
+
+router.get("/:userId/signout", auth, signoutUser.call , (req, res) => {
     signoutUser.call(req, res);
 });
+
 router.put("/:userId/password", (req, res) => {
     setUserPassword.call(req, res);
 });

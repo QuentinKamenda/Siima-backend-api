@@ -7,12 +7,13 @@ const errorHandler = require("../../helpers/error_handler");
 
     helper_firebase.signin(req.body.email,req.body.pwd)
      .then(result => {
-       let response = {
-         status: "success",
-         message: "user signed in",
-         userInformation: result,
-       };
-       res.json(response);
+       helper_firebase.generateJwt(result).then(myJwd => {
+         console.log(myJwd);
+         res.status(200);
+         res.json({
+            "token" : myJwd
+          });
+       });
      })
        .catch(error => {
        console.log(`Error caught in ` + functionName + ` - ${error.message}`);
