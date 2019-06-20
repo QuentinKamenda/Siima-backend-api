@@ -2,45 +2,43 @@
 const paramCheck = require("../../helpers/param_checker");
 const errorHandler = require("../../helpers/error_handler");
 
-const Animator = require("../../models/animator/animator");
+const User = require("../../models/user/user");
 
 module.exports.call = function (req, res) {
 
-    let functionName = "remove-animator-tags";
+    let functionName = "modify-user";
 
     paramCheck.checkParameters(req, functionName)
       .then(() => {
           console.log(functionName + " - Parameters checked successfully.");
-          let animatorId ={
-            _id: req.params.animatorId
+          let userId ={
+            _id: req.params.userId
           };
-          return animatorId;
+          return userId;
       })
-      .then(animatorId => {
-          Animator.findOne(animatorId).then(result => {
+      .then(userId => {
+          User.findOne(userId).then(result => {
             if (result === null) {
               result = {
                 status: "fail",
-                message: "No animator found with this id"
+                message: "No user found with this id"
               }
-              res.status(400);
+              res.status(400)
               res.json(result)
             }
             else {
               let previous = result;
-              for (var tag in req.body.tags){
-                result.tags.pull(req.body.tags[tag]);
-              }
-              result.save();
-              response = {
-                status: "success",
-                message: "Animator updated",
-                _id: req.params.animatorId,
-                previous_animator: previous,
-                tag_removed: req.body.tags
-              }
+              User.findOneAndUpdate( {_id: req.params.userId} , req.body ).then(
+                result = {
+                  status: "success",
+                  message: "User updated",
+                  _id: req.params.userId,
+                  previous_user: previous,
+                  requested_modifications: req.body
+                }
+              )
               res.status(200);
-              res.json(response);
+              res.json(result)
             }
           })
         })

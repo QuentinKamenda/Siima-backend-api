@@ -23,11 +23,12 @@ module.exports.call = function (req, res) {
                 status: "fail",
                 message: "No user found with this id"
               }
+              res.status(400)
               res.json(result)
             }
             else {
               let previous = result;
-              result.friends.pull(req.body.friend);
+              result.friends.pull(result);
               result.save();
               response = {
                 status: "success",
@@ -36,6 +37,7 @@ module.exports.call = function (req, res) {
                 previous_user: previous,
                 friend_removed: req.body.friend
               }
+              res.status(200);
               res.json(response)
             }
           })

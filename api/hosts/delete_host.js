@@ -26,6 +26,7 @@ module.exports.call = function (req, res) {
                 status: "fail",
                 message: "No host found with this id"
               };
+              res.status(400);
             }
             else {
               if (result.admins.indexOf(req.body.admin) >= 0){
@@ -40,12 +41,14 @@ module.exports.call = function (req, res) {
                   message: "Host deleted",
                   removed: removed
                 };
+                res.status(400);
               }
               else {
                 result = {
                   status: "fail",
                   message: "User " + req.body.admin + " not allowed to delete this host."
                 };
+                res.status(200);
               }
             }
             res.json(result);

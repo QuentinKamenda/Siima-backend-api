@@ -25,12 +25,21 @@ module.exports.call = function (req, res) {
           .sort({updatedAt: -1})
           .skip(page * limit)
           .limit(limit)
-          .then(result => {
-          if (result === null || result.length < 1) {
+          .then(rslt => {
+          if (rslt === null || rslt.length < 1) {
             result = {
               status: "fail",
               message: "No user found with these parameters"
             };
+            res.status(400)
+          }
+          else {
+            result = {
+              status: "success",
+              message: "User retrieved",
+              user: rslt
+            }
+            res.status(200);
           }
           res.json(result);
         })

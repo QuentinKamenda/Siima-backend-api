@@ -192,6 +192,23 @@ module.exports.checkParameters = function (req, apiType) {
                             throw response;
                         }
                     }
+                    // Verifies the host id
+                    if (checkItem === "eventId_param"){
+                        if (req.params.eventId === undefined || req.params.eventId === "") {
+                            let response = {
+                                isInternal: false,
+                                message: "missing eventId"
+                            };
+                            throw response;
+                        }
+                        else if (!verifyObjectIdFormat(req.params.eventId)){
+                            let response = {
+                                isInternal: false,
+                                message: "invalid event id: invalid format"
+                            };
+                            throw response;
+                        }
+                    }
                     // Verifies the name
                     if (checkItem === "name"){
                         if (req.body.name === undefined || req.body.name === "") {
@@ -230,6 +247,38 @@ module.exports.checkParameters = function (req, apiType) {
                             throw response;
                         }
                     }
+                    // Verifies the creator
+                    if (checkItem === "animator"){
+                        if (req.body.animator === undefined || req.body.animator === "") {
+                            let response = {
+                                isInternal: false,
+                                message: "missing animator"
+                            };
+                            throw response;
+                        }else if ((typeof req.body.animator) !== "string"){
+                            let response = {
+                                isInternal: false,
+                                message: "invalid animator: not a string"
+                            };
+                            throw response;
+                        }
+                    }
+                    // Verifies the creator
+                    if (checkItem === "host"){
+                        if (req.body.host === undefined || req.body.host === "") {
+                            let response = {
+                                isInternal: false,
+                                message: "missing host"
+                            };
+                            throw response;
+                        }else if ((typeof req.body.host) !== "string"){
+                            let response = {
+                                isInternal: false,
+                                message: "invalid host: not a string"
+                            };
+                            throw response;
+                        }
+                    }
                     // Verifies the description
                     if (checkItem === "description"){
                         if (req.body.description === undefined || req.body.description === "") {
@@ -242,6 +291,22 @@ module.exports.checkParameters = function (req, apiType) {
                             let response = {
                                 isInternal: false,
                                 message: "invalid description: not a string"
+                            };
+                            throw response;
+                        }
+                    }
+                    // Verifies the description
+                    if (checkItem === "location"){
+                        if (req.body.location === undefined || req.body.location === "") {
+                            let response = {
+                                isInternal: false,
+                                message: "missing location"
+                            };
+                            throw response;
+                        }else if ((typeof req.body.location) !== "string"){
+                            let response = {
+                                isInternal: false,
+                                message: "invalid location: not a string"
                             };
                             throw response;
                         }
@@ -275,6 +340,23 @@ module.exports.checkParameters = function (req, apiType) {
                             let response = {
                                 isInternal: false,
                                 message: "invalid location: not a string"
+                            };
+                            throw response;
+                        }
+                        //TODO: Verify the format (care of the address/country format !!)
+                    }
+                    // Verifies the friend mail
+                    if (checkItem === "friend"){
+                        if (req.body.friend === undefined || req.body.friend === "") {
+                            let response = {
+                                isInternal: false,
+                                message: "missing friend mail address"
+                            };
+                            throw response;
+                        }else if ((typeof req.body.friend) !== "string"){
+                            let response = {
+                                isInternal: false,
+                                message: "invalid friend nmail address: not a string"
                             };
                             throw response;
                         }
@@ -377,30 +459,12 @@ function decideChecklistItems(apiType) {
     if (apiType === "delete-user"){
         return ["userId_param"];
     }
-    if (apiType === "set-user-mail"){
-        return ["userId_param", "mail"];
-    }
-    if (apiType === "set-user-name"){
-        return ["userId_param", "username"];
-    }
-    if (apiType === "set-user-birthdate"){
-        return ["userId_param", "birthdate"];
-    }
-    if (apiType === "get-user-mail"){
-        return ["userId_param"];
-    }
-    if (apiType === "get-user-name"){
-        return ["userId_param"];
-    }
-    if (apiType === "get-user-birthdate"){
-        return ["userId_param"];
-    }
   // User: Friends
     if (apiType === "add-user-friend"){
-        return ["userId_param"];
+        return ["userId_param", "friend"];
     }
     if (apiType === "remove-user-friend"){
-        return ["userId_param"];
+        return ["userId_param", "friend"];
     }
   // User: Media
     if (apiType === "set-user-profile-picture"){
@@ -421,7 +485,7 @@ function decideChecklistItems(apiType) {
     if (apiType === "get-animator-profile-picture"){
         return ["animatorId_param"];
     }
-  
+
   // Animators & Hosts: Basics
     if (apiType === "create-animator"){
         return ["name","creator"];
@@ -440,54 +504,6 @@ function decideChecklistItems(apiType) {
     }
     if (apiType === "delete-host"){
         return ["hostId_param", "admin"];
-    }
-    if (apiType === "get-animator-name"){
-        return ["animatorId_param"];
-    }
-    if (apiType === "get-host-name"){
-        return ["hostId_param"];
-    }
-    if (apiType === "get-animator-mail"){
-        return ["animatorId_param"];
-    }
-    if (apiType === "get-host-mail"){
-        return ["hostId_param"];
-    }
-    if (apiType === "get-animator-description"){
-        return ["animatorId_param"];
-    }
-    if (apiType === "get-host-description"){
-        return ["hostId_param"];
-    }
-    if (apiType === "get-animator-location"){
-        return ["animatorId_param"];
-    }
-    if (apiType === "get-host-location"){
-        return ["hostId_param"];
-    }
-    if (apiType === "set-animator-name"){
-        return ["animatorId_param","name"];
-    }
-    if (apiType === "set-host-name"){
-        return ["hostId_param","name"];
-    }
-    if (apiType === "set-animator-mail"){
-        return ["animatorId_param","mail"];
-    }
-    if (apiType === "set-host-mail"){
-        return ["hostId_param","mail"];
-    }
-    if (apiType === "set-animator-description"){
-        return ["animatorId_param","description"];
-    }
-    if (apiType === "set-host-description"){
-        return ["hostId_param","description"];
-    }
-    if (apiType === "set-animator-location"){
-        return ["animatorId_param","location"];
-    }
-    if (apiType === "set-host-location"){
-        return ["hostId_param","location"];
     }
     if (apiType === "remove-host-media"){
         return ["hostId_param"];
@@ -509,25 +525,13 @@ function decideChecklistItems(apiType) {
         return ["animatorId_param"];
     }
   // Animator: Lists
-    if (apiType === "get-animator-tags"){
-        return ["animatorId_param"];
-    }
-    if (apiType === "set-animator-tags"){
-        return ["animatorId_param","tags"];
-    }
     if (apiType === "add-animator-tags"){
         return ["animatorId_param","tags"];
     }
     if (apiType === "remove-animator-tags"){
         return ["animatorId_param","tags"];
     }
-  // Host: Lists
-    if (apiType === "get-host-tags"){
-        return ["hostId_param"];
-    }
-    if (apiType === "set-host-tags"){
-        return ["hostId_param","tags"];
-    }
+  // Host:
     if (apiType === "add-host-tags"){
         return ["hostId_param","tags"];
     }
@@ -545,6 +549,43 @@ function decideChecklistItems(apiType) {
       return ["hostQuery_param"];
   }
     // TODO: Add Checklist for each API
+  if (apiType === "modify-user"){
+      return ["userId_param"];
+  }
+  if (apiType === "modify-animator"){
+      return ["animId_param"];
+  }
+  if (apiType === "modify-host"){
+      return ["hostId_param"];
+  }
+  // Event basic CRUD
+  if (apiType === "create-event"){
+    return ["name", "creator", "animator", "host", "location"]
+  }
+  if (apiType === "delete-event"){
+      return ["eventId_param", "admin"];
+  }
+  if (apiType === "get-event"){
+      return ["eventId_param"];
+  }
+  if (apiType === "modify-event"){
+      return ["eventId_param"];
+  }
+  if (apiType === "query-event"){
+      return ["eventQuery_param"];
+  }
+  if (apiType === "remove-event-media"){
+      return ["eventId_param"];
+  }
+  if (apiType === "add-event-media"){
+      return ["eventId_param"];
+  }
+  if (apiType === "set-event-profile-picture"){
+      return ["eventId_param"];
+  }
+  if (apiType === "get-event-profile-picture"){
+      return ["eventId_param"];
+  }
 }
 
 

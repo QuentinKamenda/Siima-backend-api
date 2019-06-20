@@ -23,6 +23,16 @@ module.exports.call = function (req, res) {
                 status: "fail",
                 message: "No animator found with this id"
               };
+              res.status(400)
+            }
+            else {
+              anim = result;
+              result = {
+                status: "success",
+                message: "animator retrieved",
+                animatorInfo: anim
+              }
+              res.status(200)
             }
             return result;
           })

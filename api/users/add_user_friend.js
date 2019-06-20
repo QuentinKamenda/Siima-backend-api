@@ -27,7 +27,8 @@ module.exports.call = function (req, res) {
             }
             else {
               let previous = result;
-              User.findOne({email: req.body.friend}).then(friendToAdd => {
+              User.findOne({mail: req.body.friend}).then(friendToAdd => {
+                console.log(friendToAdd)
                   if (friendToAdd === null) {
                       result = {
                         status: "fail",
@@ -36,7 +37,7 @@ module.exports.call = function (req, res) {
                       res.json(result)
                   }
                   else {
-                    result.friends.push(req.body.friend);
+                    result.friends.push(friendToAdd);
                     result.save();
                     response = {
                       status: "success",

@@ -6,7 +6,7 @@ const Animator = require("../../models/animator/animator");
 
 module.exports.call = function (req, res) {
 
-    let functionName = "remove-animator-tags";
+    let functionName = "modify-animator";
 
     paramCheck.checkParameters(req, functionName)
       .then(() => {
@@ -23,24 +23,22 @@ module.exports.call = function (req, res) {
                 status: "fail",
                 message: "No animator found with this id"
               }
-              res.status(400);
+              res.status(400)
               res.json(result)
             }
             else {
               let previous = result;
-              for (var tag in req.body.tags){
-                result.tags.pull(req.body.tags[tag]);
-              }
-              result.save();
-              response = {
-                status: "success",
-                message: "Animator updated",
-                _id: req.params.animatorId,
-                previous_animator: previous,
-                tag_removed: req.body.tags
-              }
-              res.status(200);
-              res.json(response);
+              Animator.findOneAndUpdate( {_id: req.params.animatorId} , req.body ).then(
+                result = {
+                  status: "success",
+                  message: "Animator updated",
+                  _id: req.params.animatorId,
+                  previous_animator: previous,
+                  requested_modifications: req.body
+                }
+              )
+              res.status(200)
+              res.json(result)
             }
           })
         })

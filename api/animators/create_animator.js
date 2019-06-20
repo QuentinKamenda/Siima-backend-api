@@ -12,14 +12,17 @@ module.exports.call = function (req, res) {
     paramCheck.checkParameters(req, functionName)
       .then(() => {
           console.log(functionName + " - Parameters checked successfully.");
+          let [desc, loc, email] = ['null', 'null','null'];
+          if(!(req.body.description == undefined)){ desc = ''+req.body.description+''}
+          if(!(req.body.location == undefined)){ loc = ''+req.body.location+''}
+          if(!(req.body.mail == undefined)){ email = ''+req.body.mail+''}
           let animatorInformation = new Animator({
             name: req.body.name,
             // Default admin is the Creator
             admins: [req.body.creator],
-            // Default Moderator is the Creator
-            //moderators: [req.body.creator],
-            // Default Editor id the Creator
-            //editors: [req.body.creator],
+            description: desc,
+            mail: email,
+            location: loc
           });
           return animatorInformation;
       })
@@ -32,6 +35,7 @@ module.exports.call = function (req, res) {
                         status: "fail",
                         message: "Creator: No user registered with this id"
                       }
+                      res.status(400)
                       res.json(result)
                   }
                   else {
@@ -42,6 +46,7 @@ module.exports.call = function (req, res) {
                       message: "animator created",
                       animatorInformation: animatorInfo
                     };
+                    res.status(200)
                     res.json(response)
                   }
               })

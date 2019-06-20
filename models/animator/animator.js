@@ -5,7 +5,8 @@ const AnimatorSchema = new Schema({
   name: { type: String, required: true}, // unique: true  //true
   //categories: [{type: String, required: false}],          // false
   tags: [{type: String, required: false}],                // true
-  admins: [ {type: String} ],               // true
+  admins: [{ type : Schema.Types.ObjectId, ref: 'User' }],
+  events:[{type: Schema.Types.ObjectId, ref: 'Event'}],               // true
   //moderators: [ {type: String, unique: true} ],           //false
   //editors: [ {type: String, unique: true} ],              //false
   description: { type: String, required: false},           //true

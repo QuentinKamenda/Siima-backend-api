@@ -6,7 +6,7 @@ const Host = require("../../models/host/host");
 
 module.exports.call = function (req, res) {
 
-    let functionName = "get-host";
+    let functionName = "modify-host";
 
     paramCheck.checkParameters(req, functionName)
       .then(() => {
@@ -17,26 +17,29 @@ module.exports.call = function (req, res) {
           return hostId;
       })
       .then(hostId => {
-          Host.findOne({_id: req.params.hostId}).then(rslt => {
-            if (rslt === null) {
+          Host.findOne(hostId).then(result => {
+            if (result === null) {
               result = {
                 status: "fail",
                 message: "No host found with this id"
-              };
-              res.status(400);
+              }
+              res.json(result)
             }
             else {
-              result = {
-                status: "success",
-                message: "Host retrieved",
-                host: rslt
-              };
-              res.status(200);
+              let previous = result;
+              Host.findOneAndUpdate( {_id: req.params.hostId} , req.body ).then(
+                result = {
+                  status: "success",
+                  message: "Host updated",
+                  _id: req.params.hostId,
+                  previous_host: previous,
+                  requested_modifications: req.body
+                }
+              )
+              res.json(result)
             }
-            res.json(result)
           })
         })
-
       .catch(error => {
           console.log(`Error caught in ` + functionName + ` - ${error.message}`);
           errorHandler.handleError(req, res, error);
