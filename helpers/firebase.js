@@ -196,7 +196,7 @@ module.exports.getUser = function(_id) {
     });
 }
 
-module.exports.handleUnauthorizedError = function(req,res) {
+module.exports.handleUnauthorizedError = async function(req,res) {
   return new Promise((resolve, reject) => {
     try{
       if (!req.payload._id ) { // || getUser(req.payload._id) === undefined

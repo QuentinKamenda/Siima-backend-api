@@ -7,6 +7,8 @@ const Grid = require('gridfs-stream');
 const Host = require("../../models/host/host");
 const Media = require("../../models/media/media");
 const mongoose = require('mongoose');
+const firebase = require("../../helpers/firebase");
+const User = require("../../models/user/user");
 
 module.exports.call = async  function (req, res) {
 

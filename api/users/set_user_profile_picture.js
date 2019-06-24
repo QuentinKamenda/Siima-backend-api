@@ -9,6 +9,7 @@ const multerStorage = require("../../helpers/multerStorage");
 const mongooseInit = require("../../helpers/mongoDB");
 const Grid = require('gridfs-stream');
 const mongoose = require('mongoose');
+const firebase = require("../../helpers/firebase");
 
 module.exports.call = function (req,res ) {
 

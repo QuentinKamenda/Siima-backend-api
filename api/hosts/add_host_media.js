@@ -4,7 +4,8 @@ const errorHandler = require("../../helpers/error_handler");
 const URLMongoDB = 'mongodb://localhost/siima_db';
 const multerStorage = require("../../helpers/multerStorage");
 const expressValidator = require('express-validator');
-
+const firebase = require("../../helpers/firebase");
+const User = require("../../models/user/user");
 const Host = require("../../models/host/host");
 const Media = require("../../models/media/media");
 

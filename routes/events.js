@@ -1,5 +1,11 @@
 "use strict";
 
+var jwt = require('express-jwt');
+var auth = jwt({
+  secret: 'SIIMA',
+  userProperty: 'payload'
+});
+
 const express = require("express");
 const router = express.Router();
 
@@ -80,16 +86,16 @@ router.get("/", (req, res) => {
     queryEvent.call(req, res);
 });
 
-router.put("/:eventId/profile_picture",(req,res) => {
+router.put("/:eventId/profile_picture", auth,(req,res) => {
   setEventProfilePicture.call(req,res);
 });
 router.get("/:eventId/profile_picture", (req, res) => {
   getEventProfilePicture.call(req, res);
 });
-router.delete("/:eventId/media", (req, res) => {
+router.delete("/:eventId/media", auth, (req, res) => {
     removeEventMedia.call(req, res);
 });
-router.put("/:eventId/media", (req, res) => {
+router.put("/:eventId/media",  auth,(req, res) => {
     addEventMedia.call(req, res);
 });
 
