@@ -14,7 +14,7 @@ module.exports.call = async  function (req, res) {
   await firebase.handleUnauthorizedError(req,res);
 
   var user = await User.findOne({_id : req.payload._id});
-  if(user!=null && Array.from(user["animators"]).indexOf(req.params.animatorId)!=1){
+  if(user!=null && user["animators"].indexOf(req.params.animatorId)!=-1){
     let functionName = "add-animator-media";
 
     await paramCheck.checkParameters(req, functionName);
@@ -41,6 +41,7 @@ module.exports.call = async  function (req, res) {
         }
       }
       else{
+        res.status(200);
         res.json({error: "this media type does not exist" });
       }
       var mediaSaved = await media.save();
@@ -50,11 +51,13 @@ module.exports.call = async  function (req, res) {
         message: "a media was added to this animator",
         _id: req.params.animatorId,
       }
+      res.status(200);
       res.json(result);
     });
   }
   else{
     console.log("user is not admin or does not exist");
+    res.status(400);
     res.send({"error":"no user with this id or is admin"});
   }
 };

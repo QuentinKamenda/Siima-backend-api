@@ -10,6 +10,13 @@ const Event = require("../../models/event/event");
 const Media = require("../../models/media/media");
 
 module.exports.call = async  function (req, res) {
+
+  await firebase.handleUnauthorizedError(req,res);
+
+  var eventObject = await Event.findOne({_id : req.params.eventId});
+  if(eventObject!=null && eventObject["admins"].indexOf(req.payload._id)!=-1)
+  {
+
     let functionName = "add-event-media";
 
     await paramCheck.checkParameters(req, functionName);
@@ -47,4 +54,8 @@ module.exports.call = async  function (req, res) {
       }
       res.json(result);
     });
+  }else{
+    res.send({"error": "user is not admin or event does not exist"});
+  }
+
 };

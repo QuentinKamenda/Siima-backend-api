@@ -17,8 +17,7 @@ module.exports.call = async function (req,res ) {
   await firebase.handleUnauthorizedError(req,res);
 
   var user = await User.findOne({_id : req.payload._id});
-  if(user!=null && Array.from(user["animators"]).indexOf(req.params.animatorId)!=1){
-    console.log("success");
+  if(user!=null && user["animators"].indexOf(req.params.animatorId)!=-1){
     let upload = multerStorage.getUpload(URLMongoDB).single('file');
     upload(req,res, (err) => {
       if(req.body.mediaType === 'picture'){
