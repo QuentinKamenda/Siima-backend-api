@@ -4,7 +4,7 @@ const errorHandler = require("../../helpers/error_handler");
 
 const User = require("../../models/user/user");
 
-module.exports.call = function (req, res) {
+module.exports.call = async function (req, res) {
 
     let functionName = "add-user-friend";
 

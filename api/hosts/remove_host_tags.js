@@ -4,7 +4,7 @@ const errorHandler = require("../../helpers/error_handler");
 
 const Host = require("../../models/host/host");
 
-module.exports.call = function (req, res) {
+module.exports.call = async function (req, res) {
 
     let functionName = "remove-host-tags";
 
