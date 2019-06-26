@@ -7,11 +7,11 @@ const User = require("../../models/user/user");
 const Animator = require("../../models/animator/animator");
 const Host = require("../../models/host/host");
 
-module.exports.call = function (req, res) {
+module.exports.call = async function (req, res) {
 
     let functionName = "delete-event";
 
-    // TODO: Verify rights
+    await firebase.handleUnauthorizedError(req,res);
 
     paramCheck.checkParameters(req, functionName)
       .then(() => {
@@ -31,7 +31,7 @@ module.exports.call = function (req, res) {
               };
             }
             else {
-              if (result.admins.indexOf(req.body.admin) >= 0){
+              if (result.admins.indexOf(req.payload._id) >= 0){
                 let removed = result;
                 for (var i = 0; i < result.admins.length; i++){
                     console.log("Removing " + result._id + " from " + result.admins[i]);
@@ -47,10 +47,10 @@ module.exports.call = function (req, res) {
                 };
               }
               else {
-                res.status(200);
+                res.status(400);
                 result = {
                   status: "fail",
-                  message: "User " + req.body.admin + " not allowed to delete this event."
+                  message: "User " + req.payload._id + " not allowed to delete this event."
                 };
               }
             }

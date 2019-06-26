@@ -70,23 +70,23 @@ const removeAllEventQuestion = require("../api/events/remove_all_event_question"
 // The current hierarchy is at /events
 
 // The routing
-router.post("/", (req, res) => {
+router.post("/", auth, (req, res) => {
     createEvent.call(req, res);
 });
-router.delete("/:eventId", (req, res) => {
+router.delete("/:eventId", auth, (req, res) => {
     deleteEvent.call(req, res);
 });
 router.get("/:eventId", (req, res) => {
     getEvent.call(req, res);
 });
-router.patch("/:eventId", (req, res) => {
+router.patch("/:eventId", auth, (req, res) => {
     modifyEvent.call(req, res);
 });
 router.get("/", (req, res) => {
     queryEvent.call(req, res);
 });
 
-router.put("/:eventId/profile_picture", auth,(req,res) => {
+router.put("/:eventId/profile_picture", auth, (req,res) => {
   setEventProfilePicture.call(req,res);
 });
 router.get("/:eventId/profile_picture", (req, res) => {
@@ -95,7 +95,7 @@ router.get("/:eventId/profile_picture", (req, res) => {
 router.delete("/:eventId/media", auth, (req, res) => {
     removeEventMedia.call(req, res);
 });
-router.put("/:eventId/media",  auth,(req, res) => {
+router.put("/:eventId/media",  auth, (req, res) => {
     addEventMedia.call(req, res);
 });
 
