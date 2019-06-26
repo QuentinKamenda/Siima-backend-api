@@ -4,9 +4,11 @@ const errorHandler = require("../../helpers/error_handler");
 
 const Animator = require("../../models/animator/animator");
 
-module.exports.call = function (req, res) {
+module.exports.call = async function (req, res) {
 
     let functionName = "modify-animator";
+
+    await firebase.handleUnauthorizedError(req,res);
 
     paramCheck.checkParameters(req, functionName)
       .then(() => {
@@ -27,17 +29,26 @@ module.exports.call = function (req, res) {
               res.json(result)
             }
             else {
-              let previous = result;
-              Animator.findOneAndUpdate( {_id: req.params.animatorId} , req.body ).then(
+              if (result.admins.indexOf(req.payload._id) >= 0){
+                let previous = result;
+                Animator.findOneAndUpdate( {_id: req.params.animatorId} , req.body ).then(
+                  result = {
+                    status: "success",
+                    message: "Animator updated",
+                    _id: req.params.animatorId,
+                    previous_animator: previous,
+                    requested_modifications: req.body
+                  }
+                )
+                res.status(200)
+              }
+              else {
                 result = {
-                  status: "success",
-                  message: "Animator updated",
-                  _id: req.params.animatorId,
-                  previous_animator: previous,
-                  requested_modifications: req.body
-                }
-              )
-              res.status(200)
+                  status: "fail",
+                  message: "User " + req.payload._id + " not allowed to modify this animator."
+                };
+                res.status(400)
+              }
               res.json(result)
             }
           })
