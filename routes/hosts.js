@@ -59,26 +59,26 @@ const removeAllHostComment = require("../api/hosts/remove_all_host_comment");
 router.post("/", (req, res) => {
     createHost.call(req, res);
 });
-router.delete("/:hostId", (req, res) => {
+router.delete("/:hostId", auth, (req, res) => {
     deleteHost.call(req, res);
 });
 router.get("/:hostId", (req, res) => {
     getHost.call(req, res);
 });
-router.patch("/:hostId", (req, res) => {
+router.patch("/:hostId", auth, (req, res) => {
     modifyHost.call(req, res);
 });
 router.get("/", (req,res) => {
     queryHost.call(req,res);
 })
 
-router.put("/:hostId/profile_picture", auth,(req,res) => {
+router.put("/:hostId/profile_picture", auth, (req,res) => {
   setHostProfilePicture.call(req,res);
 });
 router.get("/:hostId/profile_picture", (req, res) => {
   getHostProfilePicture.call(req, res);
 });
-router.delete("/:hostId/media",  auth,(req, res) => {
+router.delete("/:hostId/media",  auth, (req, res) => {
     removeHostMedia.call(req, res);
 });
 router.put("/:hostId/media", auth, (req, res) => {
@@ -88,10 +88,10 @@ router.get("/:hostId/media_list", (req, res) => {
     getHostMediaList.call(req, res);
 });
 
-router.put("/:hostId/tags", (req, res) => {
+router.put("/:hostId/tags", auth, (req, res) => {
     addHostTags.call(req, res);
 });
-router.delete("/:hostId/tags", (req, res) => {
+router.delete("/:hostId/tags", auth, (req, res) => {
     removeHostTags.call(req, res);
 });
 

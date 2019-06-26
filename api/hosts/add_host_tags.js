@@ -8,6 +8,8 @@ module.exports.call = function (req, res) {
 
     let functionName = "add-host-tags";
 
+    await firebase.handleUnauthorizedError(req,res);
+
     paramCheck.checkParameters(req, functionName)
       .then(() => {
           console.log(functionName + " - Parameters checked successfully.");
@@ -26,20 +28,29 @@ module.exports.call = function (req, res) {
               res.json(result)
             }
             else {
-              let previous = result;
-              for (var tag in req.body.tags){
-                if (result.tags.indexOf(req.body.tags[tag]) == -1){
-                  result.tags.push(req.body.tags[tag]);
+              if (result.admins.indexOf(req.payload._id) >= 0){
+                let previous = result;
+                for (var tag in req.body.tags){
+                  if (result.tags.indexOf(req.body.tags[tag]) == -1){
+                    result.tags.push(req.body.tags[tag]);
+                  }
+                }
+                result.save();
+                response = {
+                  status: "success",
+                  message: "Host updated",
+                  _id: req.params.hostId,
+                  previous_host: previous,
+                  tag_added: req.body.tag
                 }
               }
-              result.save();
-              response = {
-                status: "success",
-                message: "Host updated",
-                _id: req.params.hostId,
-                previous_host: previous,
-                tag_added: req.body.tag
-              }
+              else {
+                  response = {
+                    status: "fail",
+                    message: "User " + req.payload._id + " not allowed to add a tag to this host."
+                  };
+                  res.status(200);
+                }
               res.json(response);
             }
           })
