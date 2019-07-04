@@ -29,8 +29,6 @@ const getMedia = require("../api/users/get_media");
 const addUserFriend = require("../api/users/add_user_friend");
 const removeUserFriend = require("../api/users/remove_user_friend");
 
-const getMedia = require("../api/users/get_media");
-
 /*
 const getUserPassword = require("../api/users/get_user_password");
 const getUserProfilePicture = require("../api/users/get_user_profile_picture");

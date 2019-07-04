@@ -15,10 +15,8 @@ module.exports.call = function (req, res) {
         var limit = parseInt(req.query.limit) || 10;
         let queryName = '';
         if(!(req.query.name == undefined)){ queryName = '^'+req.query.name+'$'}
-        console.log(queryName)
         let queryDesc = '';
         if(!(req.query.description == undefined)){ queryDesc = ''+req.query.description+''}
-        console.log(queryDesc)
         let query = {$and: [
           {description: {$regex: queryDesc}},
           {name: {$regex: queryName}}
@@ -47,7 +45,7 @@ module.exports.call = function (req, res) {
             else {
               let result = {
                 status: "success",
-                message: "Evets retieved",
+                message: "Events retieved",
                 events: rslt
               }
             }
