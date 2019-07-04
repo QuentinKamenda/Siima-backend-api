@@ -1,21 +1,23 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const offerSchema = new Schema(
+const offerSchema = new Schema({
   name: { type: String, required: true},
   tags: [{type: String, required: false}],
-  animator: [{ type : mongoose.Schema.Types.ObjectId, ref: 'Animator' }],
-  nbAnimator: Number,
-  host:[{type : Schema.Types.ObjectId, ref: 'Host'}],
-  nbHost: Number,
-  admin: [{ type : mongoose.Schema.Types.ObjectId, ref: 'User' }],
+  participants: [{ type : Schema.Types.ObjectId, ref: 'User' }],
+  animators: [{ type : Schema.Types.ObjectId, ref: 'Animator' }],
+  hosts:[{type : Schema.Types.ObjectId, ref: 'Host'}],
+  admins: [{ type : Schema.Types.ObjectId, ref: 'User' }],
   description: { type: String},
-  media:[{type: Schema.Types.ObjectId , ref : 'Media'}],
-  date: {type: Schema.Types.ObjectId, ref : 'eventDate' },
-  paid: Boolean,
-  equipements: [type: String],
-  lieu: {type : String , required: true}
-  visibility:Number
+  media:{type: Schema.Types.ObjectId , ref : 'Media'},
+  price: Number,
+  links: [ {type:Schema.Types.ObjectId, ref:'Link'}],
+  facilities: [{type: String}],
+  remainingPlaces: Number,
+  lieu: {type : String , required: true},
+  profile_picture:{type: Schema.Types.ObjectId, ref: 'Media'},
+  startingDate : String,
+  endingDate : String
 },{timestamps : true});
 
 const offer = mongoose.model('Offer', offerSchema);

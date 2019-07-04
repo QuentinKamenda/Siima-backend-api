@@ -28,7 +28,7 @@ module.exports.call = async function (req, res) {
             admins: [req.payload._id],
             animators: anim,
             hosts: host,
-            startingDate: date
+            startingDate: date,
             lieu: loc,
             description: desc
           });
