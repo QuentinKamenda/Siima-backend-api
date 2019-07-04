@@ -7,6 +7,7 @@ const hostSchema = new Schema({
   tags: [{type: String, required: false}],
   admins: [{ type : Schema.Types.ObjectId, ref: 'User' }],
   events:[{type: Schema.Types.ObjectId, ref: 'Event'}],               // true
+  offers:[{type: Schema.Types.ObjectId, ref: 'Offer'}],
   //moderators: [ {type: String, unique: true} ],           //false
   //editors: [ {type: String, unique: true} ],             //false
   description: { type: String, required: false},           //true

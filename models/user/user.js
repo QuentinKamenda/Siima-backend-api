@@ -9,6 +9,7 @@ const userSchema = new Schema({
   hosts:[{type: Schema.Types.ObjectId, ref: 'Host'}],
   animators:[{type: Schema.Types.ObjectId, ref: 'Animator'}],
   events:[{type: Schema.Types.ObjectId, ref: 'Event'}],
+  offers:[{type: Schema.Types.ObjectId, ref: 'Offer'}],
   profile_picture:{type: Schema.Types.ObjectId, ref: 'Media'}
 },{timestamps : true});
 
