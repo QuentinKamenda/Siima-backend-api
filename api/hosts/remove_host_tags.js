@@ -4,9 +4,11 @@ const errorHandler = require("../../helpers/error_handler");
 
 const Host = require("../../models/host/host");
 
-module.exports.call = function (req, res) {
+module.exports.call = async function (req, res) {
 
     let functionName = "remove-host-tags";
+
+    await firebase.handleUnauthorizedError(req,res);
 
     paramCheck.checkParameters(req, functionName)
       .then(() => {
@@ -26,18 +28,27 @@ module.exports.call = function (req, res) {
               res.json(result)
             }
             else {
-              let previous = result;
-              for (var tag in req.body.tags){
-                result.tags.pull(req.body.tags[tag]);
+              if (result.admins.indexOf(req.payload._id) >= 0){
+                let previous = result;
+                for (var tag in req.body.tags){
+                  result.tags.pull(req.body.tags[tag]);
+                }
+                result.save();
+                response = {
+                  status: "success",
+                  message: "Host updated",
+                  _id: req.params.hostId,
+                  previous_host: previous,
+                  tag_removed: req.body.tags
+                }
               }
-              result.save();
-              response = {
-                status: "success",
-                message: "Host updated",
-                _id: req.params.hostId,
-                previous_host: previous,
-                tag_removed: req.body.tags
-              }
+              else {
+                  response = {
+                    status: "fail",
+                    message: "User " + req.payload._id + " not allowed to remove a tag from this host."
+                  };
+                  res.status(200);
+                }
               res.json(response);
             }
           })

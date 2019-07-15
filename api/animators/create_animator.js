@@ -1,13 +1,16 @@
 // Import Helper methods
 const paramCheck = require("../../helpers/param_checker");
 const errorHandler = require("../../helpers/error_handler");
-
+const firebase = require("../../helpers/firebase");
 const Animator = require("../../models/animator/animator");
 const User = require("../../models/user/user");
 
-module.exports.call = function (req, res) {
+module.exports.call = async function (req, res) {
 
     let functionName = "create-animator";
+
+    await firebase.handleUnauthorizedError(req,res);
+    console.log(req.payload._id);
 
     paramCheck.checkParameters(req, functionName)
       .then(() => {
@@ -19,7 +22,7 @@ module.exports.call = function (req, res) {
           let animatorInformation = new Animator({
             name: req.body.name,
             // Default admin is the Creator
-            admins: [req.body.creator],
+            admins: [req.payload._id],
             description: desc,
             mail: email,
             location: loc
@@ -29,7 +32,7 @@ module.exports.call = function (req, res) {
       // Saves animator as Object in DB
       .then(animatorInfo => {
           animatorInfo.save().then(animatorInfo => {
-              User.findOne({_id: req.body.creator}).then(result => {
+              User.findOne({_id: req.payload._id}).then(result => {
                   if (result === null) {
                       result = {
                         status: "fail",
