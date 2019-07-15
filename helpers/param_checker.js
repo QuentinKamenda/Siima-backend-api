@@ -505,10 +505,10 @@ function decideChecklistItems(apiType) {
 
   // Animators & Hosts: Basics
     if (apiType === "create-animator"){
-        return ["name","creator"];
+        return ["name"];
     }
     if (apiType === "create-host"){
-        return ["name","creator"];
+        return ["name"];
     }
     if (apiType === "get-animator"){
         return ["animatorId_param"];

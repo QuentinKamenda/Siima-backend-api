@@ -5,9 +5,11 @@ const errorHandler = require("../../helpers/error_handler");
 const Host = require("../../models/host/host");
 const User = require("../../models/user/user");
 
-module.exports.call = function (req, res) {
+module.exports.call = async function (req, res) {
 
     let functionName = "create-host";
+
+    await firebase.handleUnauthorizedError(req,res);
 
     paramCheck.checkParameters(req, functionName)
       .then(() => {
@@ -19,7 +21,7 @@ module.exports.call = function (req, res) {
           let hostInformation = new Host({
             name: req.body.name,
             // Default admin is the Creator
-            admins: [req.body.creator],
+            admins: [req.payload._id],
             description: desc,
             mail: email,
             location: loc
@@ -28,7 +30,7 @@ module.exports.call = function (req, res) {
       })
       .then(hostInfo => {
           hostInfo.save().then(hostInfo => {
-            User.findOne({_id: req.body.creator}).then(result => {
+            User.findOne({_id: req.payload._id}).then(result => {
                 if (result === null) {
                     result = {
                       status: "fail",

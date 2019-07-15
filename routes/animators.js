@@ -1,5 +1,11 @@
 "use strict";
 
+var jwt = require('express-jwt');
+var auth = jwt({
+  secret: 'SIIMA',
+  userProperty: 'payload'
+});
+
 const express = require("express");
 const router = express.Router();
 
@@ -50,42 +56,42 @@ const removeAllAnimatorComment = require("../api/animators/remove_all_animator_c
 // The current hierarchy is at /animators
 
 // The routing
-router.post("/", (req, res) => {
+router.post("/", auth, (req, res) => {
     createAnimator.call(req, res);
 });
-router.delete("/:animatorId", (req, res) => {
+router.delete("/:animatorId", auth, (req, res) => {
     deleteAnimator.call(req, res);
 });
 router.get("/:animatorId", (req, res) => {
     getAnimator.call(req, res);
 });
-router.patch("/:animatorId", (req, res) => {
+router.patch("/:animatorId", auth, (req, res) => {
     modifyAnimator.call(req, res);
 });
 router.get("/", (req,res) => {
     queryAnimator.call(req, res);
 })
 
-router.put("/:animatorId/profile_picture",(req,res) => {
+router.put("/:animatorId/profile_picture", auth, (req,res) => {
   setAnimatorProfilePicture.call(req,res);
 });
 router.get("/:animatorId/profile_picture", (req, res) => {
   getAnimatorProfilePicture.call(req, res);
 });
-router.delete("/:animatorId/media", (req, res) => {
+router.delete("/:animatorId/media", auth, (req, res) => {
     removeAnimatorMedia.call(req, res);
 });
-router.put("/:animatorId/media", (req, res) => {
+router.put("/:animatorId/media",  auth, (req, res) => {
     addAnimatorMedia.call(req, res);
 });
 router.get("/:animatorId/media_list", (req, res) => {
     getAnimatorMediaList.call(req, res);
 });
 
-router.put("/:animatorId/tags", (req, res) => {
+router.put("/:animatorId/tags", auth, (req, res) => {
     addAnimatorTags.call(req, res);
 });
-router.delete("/:animatorId/tags", (req, res) => {
+router.delete("/:animatorId/tags", auth, (req, res) => {
     removeAnimatorTags.call(req, res);
 });
 

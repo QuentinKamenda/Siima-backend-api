@@ -54,20 +54,20 @@ router.put("/:userId/password", (req, res) => {
 router.post("/", (req, res) => {
     createUser.call(req, res);
 });
-router.delete("/:userId", (req, res) => {
+router.delete("/:userId", auth, (req, res) => {
     deleteUser.call(req, res);
 });
 router.get("/:userId", (req, res) => {
     getUser.call(req, res);
 });
-router.patch("/:userId", (req, res) => {
+router.patch("/:userId", auth, (req, res) => {
     modifyUser.call(req, res);
 });
 router.get("/", (req,res) => {
     queryUser.call(req, res);
 })
 
-router.put("/:userId/profilePicture",(req,res) => {
+router.put("/:userId/profilePicture", auth,(req,res) => {
   setUserProfilePicture.call(req,res);
 });
 router.get("/:userId/profilePicture", (req, res) => {
@@ -77,10 +77,10 @@ router.get("/:mediaId/media", (req, res) => {
     getMedia.call(req, res);
 });
 
-router.post("/:userId/friends", (req, res) => {
+router.post("/:userId/friends", auth, (req, res) => {
     addUserFriend.call(req, res);
 });
-router.delete("/:userId/friends", (req, res) => {
+router.delete("/:userId/friends", auth, (req, res) => {
     removeUserFriend.call(req, res);
 });
 

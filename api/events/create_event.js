@@ -7,9 +7,11 @@ const User = require("../../models/user/user");
 const Animator = require("../../models/animator/animator");
 const Host = require("../../models/host/host");
 
-module.exports.call = function (req, res) {
+module.exports.call = async function (req, res) {
 
     let functionName = "create-event";
+
+    await firebase.handleUnauthorizedError(req,res);
 
     paramCheck.checkParameters(req, functionName)
       .then(() => {
@@ -20,7 +22,7 @@ module.exports.call = function (req, res) {
           let eventInformation = new Event({
             name: req.body.name,
             // Default admin is the Creator
-            admins: [req.body.creator],
+            admins: [req.payload._id],
             animators: [req.body.animator],
             hosts: [req.body.host],
             lieu: loc,
@@ -30,7 +32,7 @@ module.exports.call = function (req, res) {
       })
       .then(eventInfo => {
           eventInfo.save().then(async (eventInfo) => {
-            let result = await User.findOne({_id: req.body.creator})
+            let result = await User.findOne({_id: req.payload_id})
             if (result === null) {
                 result = {
                   status: "fail",
