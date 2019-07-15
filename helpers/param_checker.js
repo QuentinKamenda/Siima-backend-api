@@ -192,7 +192,7 @@ module.exports.checkParameters = function (req, apiType) {
                             throw response;
                         }
                     }
-                    // Verifies the host id
+                    // Verifies the event id
                     if (checkItem === "eventId_param"){
                         if (req.params.eventId === undefined || req.params.eventId === "") {
                             let response = {
@@ -202,6 +202,23 @@ module.exports.checkParameters = function (req, apiType) {
                             throw response;
                         }
                         else if (!verifyObjectIdFormat(req.params.eventId)){
+                            let response = {
+                                isInternal: false,
+                                message: "invalid event id: invalid format"
+                            };
+                            throw response;
+                        }
+                    }
+                    // Verifies the offer id
+                    if (checkItem === "offerId_param"){
+                        if (req.params.offerId === undefined || req.params.offerId === "") {
+                            let response = {
+                                isInternal: false,
+                                message: "missing offerId"
+                            };
+                            throw response;
+                        }
+                        else if (!verifyObjectIdFormat(req.params.offerId)){
                             let response = {
                                 isInternal: false,
                                 message: "invalid event id: invalid format"
@@ -558,12 +575,28 @@ function decideChecklistItems(apiType) {
   if (apiType === "modify-host"){
       return ["hostId_param"];
   }
+  // Offer basic CRUD
+  if (apiType === "create-offer"){
+    return ["name", "animator", "host", "location", "date"]
+  }
+  if (apiType === "delete-offer"){
+      return ["offerId_param"];
+  }
+  if (apiType === "get-offer"){
+      return ["offerId_param"];
+  }
+  if (apiType === "modify-offer"){
+      return ["offerId_param"];
+  }
+  if (apiType === "query-offer"){
+      return ["offerQuery_param"];
+  }
   // Event basic CRUD
   if (apiType === "create-event"){
-    return ["name", "creator", "animator", "host", "location"]
+    return ["name", "animator", "host", "location"]
   }
   if (apiType === "delete-event"){
-      return ["eventId_param", "admin"];
+      return ["eventId_param"];
   }
   if (apiType === "get-event"){
       return ["eventId_param"];

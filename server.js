@@ -15,6 +15,7 @@ const users_routes = require("./routes/users");
 const animators_routes = require("./routes/animators");
 const hosts_routes = require("./routes/hosts");
 const events_routes = require("./routes/events");
+const offers_routes = require("./routes/offers");
 
 const PORT = process.env.PORT;
 const API_URL = process.env.API_ROUTE;
@@ -70,6 +71,7 @@ app.use(API_URL + "/users", users_routes);
 app.use(API_URL + "/hosts", hosts_routes);
 app.use(API_URL + "/animators", animators_routes);
 app.use(API_URL + "/events", events_routes);
+app.use(API_URL + "/offers", offers_routes);
 
 app.all("*", (req, res) => {
     res.status(404).send();

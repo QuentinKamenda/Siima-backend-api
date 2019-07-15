@@ -2,11 +2,13 @@
 const paramCheck = require("../../helpers/param_checker");
 const errorHandler = require("../../helpers/error_handler");
 
-const Event = require("../../models/event/event");
+const Offer = require("../../models/event/offer");
 
-module.exports.call = function (req, res) {
+module.exports.call = async function (req, res) {
 
-    let functionName = "query-event";
+    let functionName = "query-offer";
+
+    await firebase.handleUnauthorizedError(req,res);
 
     paramCheck.checkParameters(req, functionName)
       .then(() => {
@@ -31,7 +33,7 @@ module.exports.call = function (req, res) {
           ]}
         }
         console.log("Attempting query: ", query)
-        Event.find(query)
+        Offer.find(query)
           .sort({updatedAt: -1})
           .skip(page * limit)
           .limit(limit)
@@ -39,13 +41,13 @@ module.exports.call = function (req, res) {
             if (rslt === null || rslt.length < 1) {
               let result = {
                 status: "fail",
-                message: "No event found with these parameters"
+                message: "No offer found with these parameters"
               };
             }
             else {
               let result = {
                 status: "success",
-                message: "Events retieved",
+                message: "Offers retieved",
                 events: rslt
               }
             }
