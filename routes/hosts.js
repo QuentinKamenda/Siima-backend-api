@@ -56,7 +56,7 @@ const removeAllHostComment = require("../api/hosts/remove_all_host_comment");
 // The current hierarchy is at /hosts
 
 // The routing
-router.post("/", (req, res) => {
+router.post("/", auth, (req, res) => {
     createHost.call(req, res);
 });
 router.delete("/:hostId", auth, (req, res) => {

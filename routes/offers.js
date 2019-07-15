@@ -1,5 +1,11 @@
 "use strict";
 
+var jwt = require('express-jwt');
+var auth = jwt({
+  secret: 'SIIMA',
+  userProperty: 'payload'
+});
+
 const express = require("express");
 const router = express.Router();
 
@@ -16,13 +22,13 @@ const queryOffer = require("../api/offers/query_offer");
 router.post("/", (req, res) => {
     createOffer.call(req, res);
 });
-router.delete("/:offerId", (req, res) => {
+router.delete("/:offerId", auth, (req, res) => {
     deleteOffer.call(req, res);
 });
 router.get("/:offerId", (req, res) => {
     getOffer.call(req, res);
 });
-router.patch("/:offerId", (req, res) => {
+router.patch("/:offerId", auth, (req, res) => {
     modifyOffer.call(req, res);
 });
 router.get("/", (req, res) => {
