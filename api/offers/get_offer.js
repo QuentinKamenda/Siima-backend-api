@@ -8,8 +8,6 @@ module.exports.call = async function (req, res) {
 
     let functionName = "get-offer";
 
-    await firebase.handleUnauthorizedError(req,res);
-
     paramCheck.checkParameters(req, functionName)
       .then(() => {
           console.log(functionName + " - Parameters checked successfully.");

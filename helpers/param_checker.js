@@ -517,10 +517,10 @@ function decideChecklistItems(apiType) {
         return ["hostId_param"];
     }
     if (apiType === "delete-animator"){
-        return ["animatorId_param", "admin"];
+        return ["animatorId_param"];
     }
     if (apiType === "delete-host"){
-        return ["hostId_param", "admin"];
+        return ["hostId_param"];
     }
     if (apiType === "remove-host-media"){
         return ["hostId_param"];

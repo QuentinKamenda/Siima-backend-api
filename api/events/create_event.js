@@ -1,6 +1,7 @@
 // Import Helper methods
 const paramCheck = require("../../helpers/param_checker");
 const errorHandler = require("../../helpers/error_handler");
+const firebase = require("../../helpers/firebase");
 
 const Event = require("../../models/event/event");
 const User = require("../../models/user/user");
@@ -32,7 +33,7 @@ module.exports.call = async function (req, res) {
       })
       .then(eventInfo => {
           eventInfo.save().then(async (eventInfo) => {
-            let result = await User.findOne({_id: req.payload_id})
+            let result = await User.findOne({_id: req.payload._id})
             if (result === null) {
                 result = {
                   status: "fail",

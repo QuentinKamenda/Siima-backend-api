@@ -1,6 +1,7 @@
 // Import Helper methods
 const paramCheck = require("../../helpers/param_checker");
 const errorHandler = require("../../helpers/error_handler");
+const firebase = require("../../helpers/firebase");
 
 const Animator = require("../../models/animator/animator");
 const User = require("../../models/user/user");
