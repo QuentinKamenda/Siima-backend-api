@@ -21,27 +21,33 @@ module.exports.call = function (req,res ) {
     };
     //find the user wich you want to get the profile picture from
     User.findOne(userId).then((result)=>{
-      //find the image object wich containe the name of the file
-      Media.findOne({ _id : result.profile_picture }).then((image)=>{
-        //get the file with the correct name
-        gfs.files.find({filename: image.name }).toArray(function(err, files){
-            if(!files || files.length === 0){
-                return res.status(404).json({
-                    responseCode: 1,
-                    responseMessage: "error"
-                });
-            }
-            // create read stream
-            var readstream = gfs.createReadStream({
-                filename: files[0].filename,
-                root: "uploads"
-            });
-            // set the proper content type
-            res.set('Content-Type', files[0].contentType)
-            // Return response
-            return readstream.pipe(res);
-        });
-      })
+      if(result.profile_picture!=null){
+        //find the image object wich containe the name of the file
+        Media.findOne({ _id : result.profile_picture }).then((image)=>{
+          //get the file with the correct name
+          gfs.files.find({filename: image.name }).toArray(function(err, files){
+              if(!files || files.length === 0){
+                  return res.status(404).json({
+                      responseCode: 1,
+                      responseMessage: "error"
+                  });
+              }
+              // create read stream
+              var readstream = gfs.createReadStream({
+                  filename: files[0].filename,
+                  root: "uploads"
+              });
+              // set the proper content type
+              res.set('Content-Type', files[0].contentType)
+              // Return response
+              return readstream.pipe(res);
+          });
+        })
+      }else{
+        console.log("no profile picture for this user");
+        res.json({"error":"this user does not have a profile picture"});
+      }
+
     }).catch(error => {
       console.log(`Error caught in ` + functionName + ` - ${error.message}`);
       errorHandler.handleError(req, res, error);
