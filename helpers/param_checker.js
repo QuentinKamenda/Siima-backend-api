@@ -577,7 +577,7 @@ function decideChecklistItems(apiType) {
   }
   // Offer basic CRUD
   if (apiType === "create-offer"){
-    return ["name", "animator", "host", "location", "date"]
+    return ["name", "animator", "host", "location"]
   }
   if (apiType === "delete-offer"){
       return ["offerId_param"];
@@ -618,6 +618,18 @@ function decideChecklistItems(apiType) {
   }
   if (apiType === "get-event-profile-picture"){
       return ["eventId_param"];
+  }
+  if (apiType === "remove-offer-media"){
+      return ["offerId_param"];
+  }
+  if (apiType === "add-offer-media"){
+      return ["offerId_param"];
+  }
+  if (apiType === "set-offer-profile-picture"){
+      return ["offerId_param"];
+  }
+  if (apiType === "get-offer-profile-picture"){
+      return ["offerId_param"];
   }
 }
 

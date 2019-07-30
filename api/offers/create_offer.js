@@ -84,6 +84,7 @@ module.exports.call = async function (req, res) {
               message: "Offer created successfully",
               offerInformation: offerInfo
             }
+            console.log(result);
             res.json(result)
 
           })

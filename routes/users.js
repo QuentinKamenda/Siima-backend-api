@@ -67,10 +67,10 @@ router.get("/", (req,res) => {
     queryUser.call(req, res);
 })
 
-router.put("/:userId/profilePicture", auth,(req,res) => {
+router.put("/:userId/profile_picture", auth,(req,res) => {
   setUserProfilePicture.call(req,res);
 });
-router.get("/:userId/profilePicture", (req, res) => {
+router.get("/:userId/profile_picture", (req, res) => {
     getUserPhoto.call(req, res);
 });
 router.get("/:mediaId/media", (req, res) => {
