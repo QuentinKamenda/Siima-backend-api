@@ -11,7 +11,7 @@ const Host = require("../../models/host/host");
 
 module.exports.call = async function (req, res) {
 
-    let functionName = "set-offer-status";
+    let functionName = "publish-offer";
 
     await firebase.handleUnauthorizedError(req,res);
 
