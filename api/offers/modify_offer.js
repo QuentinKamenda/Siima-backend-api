@@ -22,7 +22,7 @@ module.exports.call = async function (req, res) {
           return offerId;
       })
       .then(offerId => {
-         Offer.findOne(offerId).then(result => {
+         Offer.findOne(offerId).then(async (result) => {
             if (result === null) {
               result = {
                 status: "fail",
@@ -39,10 +39,10 @@ module.exports.call = async function (req, res) {
                 if(!(req.body.location == undefined)){ updatedResult.location = ''+req.body.location+''}
                 if(!(req.body.date == undefined)){ updatedResult.date = ''+req.body.date+''}
                 if(!(req.body.animator == undefined)){
-                  Animator.findOne({_id: req.body.animator}).then(result => {
+                  await Animator.findOne({_id: req.body.animator}).then(result => {
                     if (result != null) {updatedResult.animators = [req.body.animator]}
                   })
-                  .then(() => {Offer.findOneAndUpdate( {_id: req.params.offerId} , updatedResult ).then(
+                  .then(async () => { await Offer.findOneAndUpdate( {_id: req.params.offerId} , updatedResult ).then(
                     result = {
                       status: "success",
                       message: "Offer updated",
@@ -54,10 +54,10 @@ module.exports.call = async function (req, res) {
                   .catch(error => {console.log(functionName + ': no animator found with this id')})
                 }
                 if(!(req.body.host == undefined)){
-                  Host.findOne(req.body.host).then(result => {
-                    if (result === null) {updatedResult.hosts = ''+req.body.host }
+                  await Host.findOne({_id: req.body.host}).then(result => {
+                    if (result != null) {updatedResult.hosts = [req.body.host]}
                   })
-                  .then(() => {Offer.findOneAndUpdate( {_id: req.params.offerId} , updatedResult ).then(
+                  .then(async () => {await Offer.findOneAndUpdate( {_id: req.params.offerId} , updatedResult ).then(
                     result = {
                       status: "success",
                       message: "Offer updated",

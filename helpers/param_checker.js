@@ -583,8 +583,11 @@ function decideChecklistItems(apiType) {
   if (apiType === "query-offer"){
       return ["offerQuery_param"];
   }
-  if (apiType === "set-offer-status"){
-      return["status", "offerId_param"];
+  if (apiType === "publish-offer"){
+      return["offerId_param"];
+  }
+  if (apiType === "transform-offer-into-event"){
+      return["offerId_param"];
   }
   // Event basic CRUD
   if (apiType === "create-event"){
