@@ -605,6 +605,9 @@ function decideChecklistItems(apiType) {
   if (apiType === "query-event"){
       return ["eventQuery_param"];
   }
+  if (apiType === "publish-event"){
+      return["eventId_param"];
+  }
   if (apiType === "remove-event-media"){
       return ["eventId_param"];
   }
