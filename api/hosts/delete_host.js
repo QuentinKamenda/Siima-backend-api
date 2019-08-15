@@ -12,8 +12,7 @@ module.exports.call = async function (req, res) {
 
     await firebase.handleUnauthorizedError(req,res);
 
-    if (req.payload._id === req.body.admin){
-      paramCheck.checkParameters(req, functionName)
+    paramCheck.checkParameters(req, functionName)
         .then(() => {
             console.log(functionName + " - Parameters checked successfully.");
             let hostId ={
@@ -60,13 +59,4 @@ module.exports.call = async function (req, res) {
             console.log(`Error caught in ` + functionName + ` - ${error.message}`);
             errorHandler.handleError(req, res, error);
         })
-    }
-    else {
-      let errorMessage = {
-        status: "fail",
-        message: "User not allowed to delete Host: Token and Admin User don't match"
-      }
-      res.status(400);
-      res.json(errorMessage);
-    }
 };

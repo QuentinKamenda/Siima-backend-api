@@ -27,6 +27,7 @@ module.exports.call = async function (req, res) {
                 status: "fail",
                 message: "No animator found with this id"
               };
+              res.status(400);
             }
             else {
               if (result.admins.indexOf(req.payload._id) >= 0){

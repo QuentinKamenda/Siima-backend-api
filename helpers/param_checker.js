@@ -296,6 +296,16 @@ module.exports.checkParameters = function (req, apiType) {
                             throw response;
                         }
                     }
+                    // Verifies if there is at least one animator or host
+                    if (checkItem === "anim_or_host"){
+                        if ((req.body.host === undefined || req.body.host === "") && (req.body.animator === undefined || req.body.animator === "")) {
+                            let response = {
+                                isInternal: false,
+                                message: "missing animator or host (at least one should be provided)"
+                            };
+                            throw response;
+                        }
+                    }
                     // Verifies the description
                     if (checkItem === "description"){
                         if (req.body.description === undefined || req.body.description === "") {
@@ -577,7 +587,7 @@ function decideChecklistItems(apiType) {
   }
   // Offer basic CRUD
   if (apiType === "create-offer"){
-    return ["name", "animator", "host", "location"]
+    return ["name"]
   }
   if (apiType === "delete-offer"){
       return ["offerId_param"];

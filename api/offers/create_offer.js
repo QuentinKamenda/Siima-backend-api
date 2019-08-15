@@ -17,21 +17,18 @@ module.exports.call = async function (req, res) {
     paramCheck.checkParameters(req, functionName)
       .then(() => {
           console.log(functionName + " - Parameters checked successfully.");
-          let [desc, loc] = ['null', 'null', 'null', 'null', 'null'];
+          let [desc, loc, date] = ['null', 'null', 'null'];
           if(!(req.body.description == undefined)){ desc = ''+req.body.description+''}
           if(!(req.body.location == undefined)){ loc = ''+req.body.location+''}
           if(!(req.body.date == undefined)){ date = ''+req.body.date+''}
-          if(!(req.body.animator == undefined)){ anim = ''+req.body.animator+''}
-          if(!(req.body.host == undefined)){ host = ''+req.body.host+''}
           let offerInformation = new Offer({
             name: req.body.name,
             // Default admin is the Creator
             admins: [req.payload._id],
-            animators: anim,
-            hosts: host,
             startingDate: date,
-            lieu: loc,
-            description: desc
+            location: loc,
+            description: desc,
+            date: date
           });
           return offerInformation;
       })
@@ -84,7 +81,6 @@ module.exports.call = async function (req, res) {
               message: "Offer created successfully",
               offerInformation: offerInfo
             }
-            console.log(result);
             res.json(result)
 
           })
