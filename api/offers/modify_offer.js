@@ -78,6 +78,7 @@ module.exports.call = async function (req, res) {
                     message: "User " + req.payload._id+ " not allowed to modify this offer."
                   };
                   res.status(200);
+                  res.json(result)
                 }
             }
           })

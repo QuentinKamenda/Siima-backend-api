@@ -322,7 +322,23 @@ module.exports.checkParameters = function (req, apiType) {
                             throw response;
                         }
                     }
-                    // Verifies the description
+                    // Verifies the status
+                    if (checkItem === "status"){
+                        if (req.body.status === undefined || req.body.status === "") {
+                            let response = {
+                                isInternal: false,
+                                message: "missing status"
+                            };
+                            throw response;
+                        }else if ((typeof req.body.status) !== "string"){
+                            let response = {
+                                isInternal: false,
+                                message: "invalid status: not a string"
+                            };
+                            throw response;
+                        }
+                    }
+                    // Verifies the location
                     if (checkItem === "location"){
                         if (req.body.location === undefined || req.body.location === "") {
                             let response = {
@@ -337,40 +353,6 @@ module.exports.checkParameters = function (req, apiType) {
                             };
                             throw response;
                         }
-                    }
-                    // Verifies the phone number
-                    if (checkItem === "phone"){
-                        if (req.body.phone === undefined || req.body.phone === "") {
-                            let response = {
-                                isInternal: false,
-                                message: "missing phone number"
-                            };
-                            throw response;
-                        }else if ((typeof req.body.phone) !== "string"){
-                            let response = {
-                                isInternal: false,
-                                message: "invalid phone number: not a string"
-                            };
-                            throw response;
-                        }
-                        //TODO: Verify the format (care of the international/simplified format !!)
-                    }
-                    // Verifies the phone number
-                    if (checkItem === "location"){
-                        if (req.body.location === undefined || req.body.location === "") {
-                            let response = {
-                                isInternal: false,
-                                message: "missing location"
-                            };
-                            throw response;
-                        }else if ((typeof req.body.location) !== "string"){
-                            let response = {
-                                isInternal: false,
-                                message: "invalid location: not a string"
-                            };
-                            throw response;
-                        }
-                        //TODO: Verify the format (care of the address/country format !!)
                     }
                     // Verifies the friend mail
                     if (checkItem === "friend"){
@@ -600,6 +582,9 @@ function decideChecklistItems(apiType) {
   }
   if (apiType === "query-offer"){
       return ["offerQuery_param"];
+  }
+  if (apiType === "set-offer-status"){
+      return["status", "offerId_param"];
   }
   // Event basic CRUD
   if (apiType === "create-event"){
