@@ -23,6 +23,7 @@ const offerSchema = new Schema({
   profile_picture:{type: Schema.Types.ObjectId, ref: 'Media'},
 
   // Unimplemented
+  /*
   participants: [{ type : Schema.Types.ObjectId, ref: 'User' }],
   price: Number,
   links: [ {type:Schema.Types.ObjectId, ref:'Link'}],
@@ -30,6 +31,7 @@ const offerSchema = new Schema({
   remainingPlaces: Number,
   startingDate : String,
   endingDate : String
+  */
 },{timestamps : true});
 
 const offer = mongoose.model('Offer', offerSchema);

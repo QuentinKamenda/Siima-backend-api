@@ -26,11 +26,13 @@ const eventSchema = new Schema({
   profile_picture:{type: Schema.Types.ObjectId, ref: 'Media'},
 
   // Unimplemented
+  /*
   links: [ {type:Schema.Types.ObjectId, ref:'Link'}],
   facilities: [{type: String}],
   access: [{type: String}],
   startingDate : String,
   endingDate : String
+  */
 },{timestamps : true});
 
 const event = mongoose.model('Event', eventSchema);
