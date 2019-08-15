@@ -1,15 +1,12 @@
 // Import Helper methods
 const paramCheck = require("../../helpers/param_checker");
 const errorHandler = require("../../helpers/error_handler");
-const firebase = require("../../helpers/firebase");
 
 const Offer = require("../../models/event/offer");
 
-module.exports.call = async function (req, res) {
+module.exports.call = function (req, res) {
 
     let functionName = "query-offer";
-
-    await firebase.handleUnauthorizedError(req,res);
 
     paramCheck.checkParameters(req, functionName)
       .then(() => {
@@ -39,14 +36,15 @@ module.exports.call = async function (req, res) {
           .skip(page * limit)
           .limit(limit)
           .then(rslt => {
+            let result;
             if (rslt === null || rslt.length < 1) {
-              let result = {
+              result = {
                 status: "fail",
                 message: "No offer found with these parameters"
               };
             }
             else {
-              let result = {
+              result = {
                 status: "success",
                 message: "Offers retieved",
                 events: rslt

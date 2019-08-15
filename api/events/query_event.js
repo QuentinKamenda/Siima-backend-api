@@ -36,14 +36,15 @@ module.exports.call = function (req, res) {
           .skip(page * limit)
           .limit(limit)
           .then(rslt => {
+            let result;
             if (rslt === null || rslt.length < 1) {
-              let result = {
+              result = {
                 status: "fail",
                 message: "No event found with these parameters"
               };
             }
             else {
-              let result = {
+              result = {
                 status: "success",
                 message: "Events retieved",
                 events: rslt

@@ -6,7 +6,6 @@ var auth = jwt({
   userProperty: 'payload'
 });
 
-
 const express = require("express");
 const router = express.Router();
 
@@ -26,13 +25,13 @@ const addOfferMedia = require("../api/offers/add_offer_media");
 router.post("/", auth,(req, res)  => {
     createOffer.call(req, res);
 });
-router.delete("/:offerId",auth, (req, res) => {
+router.delete("/:offerId", auth, (req, res) => {
     deleteOffer.call(req, res);
 });
 router.get("/:offerId",auth, (req, res) => {
     getOffer.call(req, res);
 });
-router.patch("/:offerId", auth,(req, res) => {
+router.patch("/:offerId", auth, (req, res) => {
     modifyOffer.call(req, res);
 });
 router.get("/", auth, (req, res) => {
