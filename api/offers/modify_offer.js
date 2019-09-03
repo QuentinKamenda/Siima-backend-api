@@ -30,6 +30,14 @@ module.exports.call = async function (req, res) {
               }
               res.json(result)
             }
+            else if (result.status != "created") {
+              result = {
+                status: "fail",
+                message: "Error: Impossible to modify a " + result.status + " offer.",
+                data: result
+              }
+              res.json(result)
+            }
             else {
               if (result.admins.indexOf(req.payload._id) >= 0){
                 let previous = result;
