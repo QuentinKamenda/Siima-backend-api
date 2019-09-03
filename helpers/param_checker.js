@@ -583,6 +583,9 @@ function decideChecklistItems(apiType) {
   if (apiType === "query-offer"){
       return ["offerQuery_param"];
   }
+  if (apiType === "unpublish-offer"){
+      return["offerId_param"];
+  }
   if (apiType === "publish-offer"){
       return["offerId_param"];
   }
@@ -604,6 +607,9 @@ function decideChecklistItems(apiType) {
   }
   if (apiType === "query-event"){
       return ["eventQuery_param"];
+  }
+  if (apiType === "unpublish-event"){
+      return["eventId_param"];
   }
   if (apiType === "publish-event"){
       return["eventId_param"];

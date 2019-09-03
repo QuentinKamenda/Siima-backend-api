@@ -17,6 +17,7 @@ const modifyOffer = require("../api/offers/modify_offer");
 const queryOffer = require("../api/offers/query_offer");
 
 const publishOffer = require("../api/offers/publish_offer");
+const unpublishOffer = require("../api/offers/unpublish_offer");
 const transformOffer = require("../api/offers/transform_offer_into_event");
 
 const setOfferProfilePicture = require("../api/offers/set_offer_profile_picture")
@@ -44,6 +45,9 @@ router.get("/", auth, (req, res) => {
 
 router.post("/:offerId/publish", auth, (req, res) => {
     publishOffer.call(req, res);
+});
+router.post("/:offerId/unpublish", auth, (req, res) => {
+    unpublishOffer.call(req, res);
 });
 router.post("/:offerId/transform", auth, (req, res) => {
     transformOffer.call(req, res);

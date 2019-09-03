@@ -55,6 +55,66 @@ module.exports.checkOfferPublishability = async function (offer){
   return response;
 }
 
+module.exports.checkOfferUnpublishability = async function (offer){
+  let response;
+  switch (offer.status){
+    case "created":
+      response = {
+        status: "fail",
+        message: "Offer not yet published"
+      }
+      break;
+    case "published":
+      response = {
+        status: "success",
+        message: "Offer published, ready to unpublish"
+      }
+      break;
+    case "archived":
+      response = {
+        status: "fail",
+        message: "Offer already archived"
+      }
+      break;
+    default:
+      response = {
+        status: "fail",
+        message: "Unknown offer status, investigate or delete the offer"
+      }
+  }
+  return response;
+}
+
+module.exports.checkEventUnpublishability = async function (event){
+  let response;
+  switch (event.status){
+    case "created":
+      response = {
+        status: "fail",
+        message: "Event not yet published"
+      }
+      break;
+    case "published":
+      response = {
+        status: "sucess",
+        message: "Event published, ready to unpublish"
+      }
+      break;
+    case "archived":
+      response = {
+        status: "fail",
+        message: "Event already archived"
+      }
+      break;
+    default:
+      response = {
+        status: "fail",
+        message: "Unknown event status, investigate or delete the event"
+      }
+  }
+  return response;
+}
+
 
 module.exports.checkEventCreation = async function (offer){
   let response;

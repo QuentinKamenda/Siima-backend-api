@@ -17,6 +17,7 @@ const modifyEvent = require("../api/events/modify_event");
 const queryEvent = require("../api/events/query_event");
 
 const publishEvent = require("../api/events/publish_event");
+const unpublishEvent = require("../api/events/unpublish_event");
 
 const setEventProfilePicture = require("../api/events/set_event_profile_picture");
 const getEventProfilePicture = require("../api/events/get_event_profile_picture");
@@ -91,6 +92,9 @@ router.get("/", (req, res) => {
 
 router.post("/:eventId/publish", auth, (req,res) => {
   publishEvent.call(req,res);
+});
+router.post("/:eventId/unpublish", auth, (req,res) => {
+  unpublishEvent.call(req,res);
 });
 
 router.put("/:eventId/profile_picture", auth, (req,res) => {
